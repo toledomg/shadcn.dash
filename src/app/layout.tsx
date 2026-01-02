@@ -1,15 +1,19 @@
 import type { Metadata } from "next"
 
-import "./globals.css"
-
-import { SidebarConfigProvider } from "@/contexts/sidebar-context"
+import "@/app/globals.css"
 
 import { inter } from "@/lib/fonts"
-import { ThemeProvider } from "@/components/theme-provider"
+import { Providers } from "@/components/providers"
 
 export const metadata: Metadata = {
-  title: "Shadcn Dashboard",
-  description: "A dashboard built with Next.js and shadcn/ui",
+  title: {
+    default: "Shadcn Dashboard",
+    template: "%s | Shadcn Dashboard",
+  },
+  description: "A professional dashboard built with Next.js 15 and Shadcn UI",
+  keywords: ["dashboard", "next.js", "react", "shadcn", "ui", "typescript"],
+  authors: [{ name: "Financial Dash Team" }],
+  creator: "Financial Dash",
 }
 
 export default function RootLayout({
@@ -18,11 +22,13 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${inter.variable} antialiased`}>
+    <html
+      lang="en"
+      className={`${inter.variable} antialiased`}
+      suppressHydrationWarning
+    >
       <body className={inter.className}>
-        <ThemeProvider defaultTheme="system" storageKey="nextjs-ui-theme">
-          <SidebarConfigProvider>{children}</SidebarConfigProvider>
-        </ThemeProvider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   )
