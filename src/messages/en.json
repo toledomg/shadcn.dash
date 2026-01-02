@@ -252,7 +252,30 @@
     "unmuteConversation": "Unmute conversation",
     "searchMessages": "Search messages",
     "manageMembers": "Manage members",
-    "deleteConversation": "Delete conversation"
+    "deleteConversation": "Delete conversation",
+    "Ui": {
+      "messages": "Messages",
+      "searchConversations": "Search conversations...",
+      "newChat": "New Chat",
+      "filterMessages": "Filter Messages",
+      "chatSettings": "Chat Settings",
+      "attachFile": "Attach file",
+      "photoOrVideo": "Photo or video",
+      "document": "Document",
+      "typeMessage": "Type a message...",
+      "addEmoji": "Add emoji",
+      "moreOptions": "More options",
+      "sendMessage": "Send message",
+      "voiceMessage": "Voice message",
+      "typing": "You are typing...",
+      "yesterday": "Yesterday",
+      "today": "Today",
+      "reply": "Reply",
+      "copy": "Copy",
+      "delete": "Delete",
+      "edited": "(edited)",
+      "you": "You"
+    }
   },
   "Pricing": {
     "title": "Pricing",
@@ -440,6 +463,16 @@
       "bug": "Bug",
       "feature": "Feature",
       "documentation": "Documentation"
+    },
+    "Table": {
+      "filterTitle": "Filter tasks...",
+      "status": "Status",
+      "priority": "Priority",
+      "title": "Title",
+      "selectRow": "Select row",
+      "selectAll": "Select all",
+      "toggleColumns": "Toggle columns",
+      "view": "View"
     }
   },
   "Settings": {

@@ -1,8 +1,7 @@
-"use client"
-
 import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu"
-import type { Table } from "@tanstack/react-table"
+import { type Table } from "@tanstack/react-table"
 import { Settings2 } from "lucide-react"
+import { useTranslations } from "next-intl"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -20,6 +19,9 @@ interface DataTableViewOptionsProps<TData> {
 export function DataTableViewOptions<TData>({
   table,
 }: DataTableViewOptionsProps<TData>) {
+  const tTable = useTranslations("Tasks.Table")
+  const tColumns = useTranslations("Tasks.columns")
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -29,11 +31,11 @@ export function DataTableViewOptions<TData>({
           className="mr-2 ml-auto hidden h-8 cursor-pointer lg:flex"
         >
           <Settings2 />
-          View
+          {tTable("view")}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[150px]">
-        <DropdownMenuLabel>Toggle columns</DropdownMenuLabel>
+        <DropdownMenuLabel>{tTable("toggleColumns")}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         {table
           .getAllColumns()
@@ -42,6 +44,18 @@ export function DataTableViewOptions<TData>({
               typeof column.accessorFn !== "undefined" && column.getCanHide()
           )
           .map((column) => {
+            // Try to get translation, fallback to column.id
+            let columnLabel = column.id
+            try {
+              const translatedLabel = tColumns(column.id)
+              // Only use translation if it's different from the key (meaning it exists)
+              if (translatedLabel && translatedLabel !== column.id) {
+                columnLabel = translatedLabel
+              }
+            } catch {
+              // Translation doesn't exist, use column.id
+            }
+
             return (
               <DropdownMenuCheckboxItem
                 key={column.id}
@@ -49,7 +63,7 @@ export function DataTableViewOptions<TData>({
                 checked={column.getIsVisible()}
                 onCheckedChange={(value) => column.toggleVisibility(!!value)}
               >
-                {column.id}
+                {columnLabel}
               </DropdownMenuCheckboxItem>
             )
           })}

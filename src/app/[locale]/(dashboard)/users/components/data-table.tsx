@@ -538,7 +538,7 @@ export function DataTable({
           {table.getFilteredRowModel().rows.length} {t("Table.user")}s selected.
         </div>
         <div className="flex items-center space-x-6 lg:space-x-8">
-          <div className="flex hidden items-center space-x-2 sm:block">
+          <div className="hidden items-center space-x-2 sm:flex">
             <p className="text-sm font-medium">{tCommon("page") || "Page"}</p>
             <strong className="text-sm">
               {table.getState().pagination.pageIndex + 1} {tCommon("of")}{" "}

@@ -233,7 +233,14 @@
     "coverPage": "Capa",
     "statusDone": "Concluído",
     "statusInProgress": "Em Progresso",
-    "statusNotStarted": "Não Iniciado"
+    "statusNotStarted": "Não Iniciado",
+    "selected": "selecionado(s)",
+    "clearFilters": "Limpar filtros",
+    "noResults": "Nenhum resultado encontrado.",
+    "goToFirstPage": "Ir para a primeira página",
+    "goToPreviousPage": "Ir para a página anterior",
+    "goToNextPage": "Ir para a próxima página",
+    "goToLastPage": "Ir para a última página"
   },
   "Calendar": {
     "today": "Hoje",
@@ -259,7 +266,30 @@
     "unmuteConversation": "Ativar som da conversa",
     "searchMessages": "Buscar mensagens",
     "manageMembers": "Gerenciar membros",
-    "deleteConversation": "Excluir conversa"
+    "deleteConversation": "Excluir conversa",
+    "Ui": {
+      "messages": "Mensagens",
+      "searchConversations": "Buscar conversas...",
+      "newChat": "Nova Conversa",
+      "filterMessages": "Filtrar Mensagens",
+      "chatSettings": "Configurações do Chat",
+      "attachFile": "Anexar arquivo",
+      "photoOrVideo": "Foto ou vídeo",
+      "document": "Documento",
+      "typeMessage": "Digite uma mensagem...",
+      "addEmoji": "Adicionar emoji",
+      "moreOptions": "Mais opções",
+      "sendMessage": "Enviar mensagem",
+      "voiceMessage": "Mensagem de voz",
+      "typing": "Você está digitando...",
+      "yesterday": "Ontem",
+      "today": "Hoje",
+      "reply": "Responder",
+      "copy": "Copiar",
+      "delete": "Excluir",
+      "edited": "(editado)",
+      "you": "Você"
+    }
   },
   "Pricing": {
     "title": "Preços",
@@ -401,7 +431,7 @@
     "status": "Status",
     "priority": "Prioridade",
     "reset": "Redefinir",
-    "add": "Adicionar Tarefa",
+    "add": "Add Tarefa",
     "edit": "Editar",
     "copy": "Criar cópia",
     "favorite": "Favoritar",
@@ -447,6 +477,16 @@
       "bug": "Erro",
       "feature": "Recurso",
       "documentation": "Documentação"
+    },
+    "Table": {
+      "filterTitle": "Filtrar tarefas...",
+      "status": "Status",
+      "priority": "Prioridade",
+      "title": "Título",
+      "selectRow": "Selecionar linha",
+      "selectAll": "Selecionar tudo",
+      "toggleColumns": "Alternar colunas",
+      "view": "Visualizar"
     }
   },
   "Settings": {

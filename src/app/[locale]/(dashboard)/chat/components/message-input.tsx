@@ -1,5 +1,3 @@
-"use client"
-
 import { useRef, useState } from "react"
 import {
   FileText,
@@ -10,6 +8,7 @@ import {
   Send,
   Smile,
 } from "lucide-react"
+import { useTranslations } from "next-intl"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -36,8 +35,10 @@ interface MessageInputProps {
 export function MessageInput({
   onSendMessage,
   disabled = false,
-  placeholder = "Type a message...",
+  placeholder,
 }: MessageInputProps) {
+  const t = useTranslations("Chat.Ui")
+  const inputPlaceholder = placeholder || t("typeMessage")
   const [message, setMessage] = useState("")
   const [isTyping, setIsTyping] = useState(false)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
@@ -106,7 +107,7 @@ export function MessageInput({
                 </DropdownMenuTrigger>
               </TooltipTrigger>
               <TooltipContent>
-                <p>Attach file</p>
+                <p>{t("attachFile")}</p>
               </TooltipContent>
             </Tooltip>
             <DropdownMenuContent side="top" align="start">
@@ -115,14 +116,14 @@ export function MessageInput({
                 className="cursor-pointer"
               >
                 <ImageIcon className="mr-2 h-4 w-4" />
-                Photo or video
+                {t("photoOrVideo")}
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => handleFileUpload("file")}
                 className="cursor-pointer"
               >
                 <FileText className="mr-2 h-4 w-4" />
-                Document
+                {t("document")}
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -132,7 +133,7 @@ export function MessageInput({
         <div className="relative flex-1">
           <Textarea
             ref={textareaRef}
-            placeholder={placeholder}
+            placeholder={inputPlaceholder}
             value={message}
             onChange={handleTextareaChange}
             onKeyDown={handleKeyPress}
@@ -159,7 +160,7 @@ export function MessageInput({
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>Add emoji</p>
+                  <p>{t("addEmoji")}</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
@@ -177,7 +178,7 @@ export function MessageInput({
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>More options</p>
+                  <p>{t("moreOptions")}</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
@@ -208,7 +209,7 @@ export function MessageInput({
               )}
             </TooltipTrigger>
             <TooltipContent>
-              <p>{message.trim() ? "Send message" : "Voice message"}</p>
+              <p>{message.trim() ? t("sendMessage") : t("voiceMessage")}</p>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
@@ -216,9 +217,7 @@ export function MessageInput({
 
       {/* Typing indicator */}
       {isTyping && (
-        <div className="text-muted-foreground mt-2 text-xs">
-          You are typing...
-        </div>
+        <div className="text-muted-foreground mt-2 text-xs">{t("typing")}</div>
       )}
     </div>
   )

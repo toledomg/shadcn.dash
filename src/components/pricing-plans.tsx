@@ -128,7 +128,7 @@ export function PricingPlans({
           {tier.popular && (
             <div className="absolute start-0 -top-3 w-full">
               <Badge className="mx-auto flex w-fit gap-1.5 rounded-full font-medium">
-                <Sparkles className="!size-4" />
+                <Sparkles className="size-4!" />
                 {mode === "pricing" && <span>{t("mostPopular")}</span>}
                 {currentPlanId === tier.id && mode === "billing" && (
                   <span>{t("currentPlan")}</span>

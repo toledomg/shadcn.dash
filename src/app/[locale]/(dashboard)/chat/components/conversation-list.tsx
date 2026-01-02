@@ -12,6 +12,7 @@ import {
   Users,
   VolumeX,
 } from "lucide-react"
+import { useTranslations } from "next-intl"
 
 import { cn } from "@/lib/utils"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -36,13 +37,16 @@ interface ConversationListProps {
 }
 
 // Enhanced time formatting function
-function formatMessageTime(timestamp: string): string {
+function formatMessageTime(
+  timestamp: string,
+  t: (key: string) => string
+): string {
   const date = new Date(timestamp)
 
   if (isToday(date)) {
     return format(date, "h:mm a") // 3:30 PM
   } else if (isYesterday(date)) {
-    return "Yesterday"
+    return t("yesterday")
   } else if (isThisWeek(date)) {
     return format(date, "EEEE") // Day name
   } else if (isThisYear(date)) {
@@ -58,6 +62,7 @@ export function ConversationList({
   onSelectConversation,
 }: ConversationListProps) {
   const { searchQuery, setSearchQuery } = useChat()
+  const t = useTranslations("Chat.Ui")
 
   const filteredConversations = conversations.filter((conversation) =>
     conversation.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -89,8 +94,8 @@ export function ConversationList({
   return (
     <div className="flex h-full flex-col overflow-hidden">
       {/* Header - Hidden on mobile (handled by parent) */}
-      <div className="hidden h-16 flex-shrink-0 items-center justify-between border-b px-4 lg:flex">
-        <h2 className="text-lg font-semibold">Messages</h2>
+      <div className="hidden h-16 shrink-0 items-center justify-between border-b px-4 lg:flex">
+        <h2 className="text-lg font-semibold">{t("messages")}</h2>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
@@ -104,28 +109,28 @@ export function ConversationList({
           <DropdownMenuContent align="end">
             <DropdownMenuItem className="cursor-pointer">
               <UserPlus className="mr-2 h-4 w-4" />
-              New Chat
+              {t("newChat")}
             </DropdownMenuItem>
             <DropdownMenuItem className="cursor-pointer">
               <Filter className="mr-2 h-4 w-4" />
-              Filter Messages
+              {t("filterMessages")}
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem className="cursor-pointer">
               <Settings className="mr-2 h-4 w-4" />
-              Chat Settings
+              {t("chatSettings")}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
 
       {/* Search */}
-      <div className="flex-shrink-0 border-b px-4 py-3">
+      <div className="shrink-0 border-b px-4 py-3">
         <div className="relative">
           <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 transform" />
           <Input
             type="text"
-            placeholder="Search conversations..."
+            placeholder={t("searchConversations")}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="cursor-text pl-9"
@@ -148,7 +153,7 @@ export function ConversationList({
               onClick={() => onSelectConversation(conversation.id)}
             >
               {/* Avatar with online indicator */}
-              <div className="relative flex-shrink-0">
+              <div className="relative shrink-0">
                 <Avatar
                   className={cn(
                     "h-12 w-12",
@@ -195,14 +200,14 @@ export function ConversationList({
                       {conversation.name}
                     </h3>
                     {conversation.isPinned && (
-                      <Pin className="text-muted-foreground h-3 w-3 flex-shrink-0" />
+                      <Pin className="text-muted-foreground h-3 w-3 shrink-0" />
                     )}
                     {conversation.isMuted && (
-                      <VolumeX className="text-muted-foreground h-3 w-3 flex-shrink-0" />
+                      <VolumeX className="text-muted-foreground h-3 w-3 shrink-0" />
                     )}
                   </div>
-                  <span className="text-muted-foreground flex-shrink-0 text-xs whitespace-nowrap">
-                    {formatMessageTime(conversation.lastMessage.timestamp)}
+                  <span className="text-muted-foreground shrink-0 text-xs whitespace-nowrap">
+                    {formatMessageTime(conversation.lastMessage.timestamp, t)}
                   </span>
                 </div>
 
@@ -215,7 +220,7 @@ export function ConversationList({
                   {conversation.unreadCount > 0 && (
                     <Badge
                       variant="default"
-                      className="h-5 min-w-[20px] flex-shrink-0 cursor-pointer text-xs"
+                      className="h-5 min-w-[20px] shrink-0 cursor-pointer text-xs"
                     >
                       {conversation.unreadCount > 99
                         ? "99+"

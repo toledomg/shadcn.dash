@@ -183,7 +183,7 @@ export function ChartAreaInteractive() {
             value={timeRange}
             onValueChange={setTimeRange}
             variant="outline"
-            className="hidden *:data-[slot=toggle-group-item]:!px-4 @[767px]/card:flex"
+            className="hidden *:data-[slot=toggle-group-item]:px-4! @[767px]/card:flex"
           >
             <ToggleGroupItem value="90d">{t("last3Months")}</ToggleGroupItem>
             <ToggleGroupItem value="30d">{t("last30Days")}</ToggleGroupItem>

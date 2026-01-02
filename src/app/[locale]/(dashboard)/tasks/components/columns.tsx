@@ -10,7 +10,7 @@ import type { Task } from "../data/schema"
 import { DataTableColumnHeader } from "./data-table-column-header"
 import { DataTableRowActions } from "./data-table-row-actions"
 
-export const getColumns = (t: any): ColumnDef<Task>[] => [
+export const getColumns = (t: (key: string) => string): ColumnDef<Task>[] => [
   {
     id: "select",
     header: ({ table }) => (
