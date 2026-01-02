@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Bell, Mail, MessageSquare } from "lucide-react"
+import { useTranslations } from "next-intl"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
@@ -71,6 +72,7 @@ const notificationsFormSchema = z.object({
 type NotificationsFormValues = z.infer<typeof notificationsFormSchema>
 
 export default function NotificationSettings() {
+  const t = useTranslations("Settings.notifications")
   const form = useForm<NotificationsFormValues>({
     resolver: zodResolver(notificationsFormSchema),
     defaultValues: {
@@ -111,10 +113,8 @@ export default function NotificationSettings() {
   return (
     <div className="space-y-6 px-4 lg:px-6">
       <div>
-        <h1 className="text-3xl font-bold">Notifications</h1>
-        <p className="text-muted-foreground">
-          Configure how you receive notifications.
-        </p>
+        <h1 className="text-3xl font-bold">{t("title")}</h1>
+        <p className="text-muted-foreground">{t("description")}</p>
       </div>
 
       <Form {...form}>
@@ -122,10 +122,8 @@ export default function NotificationSettings() {
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             <Card>
               <CardHeader>
-                <CardTitle>Email Notifications</CardTitle>
-                <CardDescription>
-                  Choose what email notifications you want to receive.
-                </CardDescription>
+                <CardTitle>{t("emailNotifications")}</CardTitle>
+                <CardDescription>{t("emailNotificationsDesc")}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="space-y-4">
@@ -141,10 +139,9 @@ export default function NotificationSettings() {
                           />
                         </FormControl>
                         <div className="space-y-1">
-                          <FormLabel>Security alerts</FormLabel>
+                          <FormLabel>{t("securityAlerts")}</FormLabel>
                           <p className="text-muted-foreground text-sm">
-                            Get notified when there are security events on your
-                            account.
+                            {t("securityAlertsDesc")}
                           </p>
                         </div>
                       </FormItem>
@@ -162,9 +159,9 @@ export default function NotificationSettings() {
                           />
                         </FormControl>
                         <div className="space-y-1">
-                          <FormLabel>Product updates</FormLabel>
+                          <FormLabel>{t("productUpdates")}</FormLabel>
                           <p className="text-muted-foreground text-sm">
-                            Receive updates about new features and improvements.
+                            {t("productUpdatesDesc")}
                           </p>
                         </div>
                       </FormItem>
@@ -182,10 +179,9 @@ export default function NotificationSettings() {
                           />
                         </FormControl>
                         <div className="space-y-1">
-                          <FormLabel>Marketing emails</FormLabel>
+                          <FormLabel>{t("marketingEmails")}</FormLabel>
                           <p className="text-muted-foreground text-sm">
-                            Receive emails about our latest offers and
-                            promotions.
+                            {t("marketingEmailsDesc")}
                           </p>
                         </div>
                       </FormItem>
@@ -197,10 +193,8 @@ export default function NotificationSettings() {
 
             <Card>
               <CardHeader>
-                <CardTitle>Push Notifications</CardTitle>
-                <CardDescription>
-                  Configure browser and mobile push notifications.
-                </CardDescription>
+                <CardTitle>{t("pushNotifications")}</CardTitle>
+                <CardDescription>{t("pushNotificationsDesc")}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="space-y-4">
@@ -216,9 +210,9 @@ export default function NotificationSettings() {
                           />
                         </FormControl>
                         <div className="space-y-1">
-                          <FormLabel>New messages</FormLabel>
+                          <FormLabel>{t("newMessages")}</FormLabel>
                           <p className="text-muted-foreground text-sm">
-                            Get notified when you receive new messages.
+                            {t("newMessagesDesc")}
                           </p>
                         </div>
                       </FormItem>
@@ -236,9 +230,9 @@ export default function NotificationSettings() {
                           />
                         </FormControl>
                         <div className="space-y-1">
-                          <FormLabel>Mentions</FormLabel>
+                          <FormLabel>{t("mentions")}</FormLabel>
                           <p className="text-muted-foreground text-sm">
-                            Get notified when someone mentions you.
+                            {t("mentionsDesc")}
                           </p>
                         </div>
                       </FormItem>
@@ -256,9 +250,9 @@ export default function NotificationSettings() {
                           />
                         </FormControl>
                         <div className="space-y-1">
-                          <FormLabel>Task updates</FormLabel>
+                          <FormLabel>{t("taskUpdates")}</FormLabel>
                           <p className="text-muted-foreground text-sm">
-                            Get notified about task assignments and updates.
+                            {t("taskUpdatesDesc")}
                           </p>
                         </div>
                       </FormItem>
@@ -270,10 +264,8 @@ export default function NotificationSettings() {
           </div>
           <Card>
             <CardHeader>
-              <CardTitle>Notification Frequency</CardTitle>
-              <CardDescription>
-                Control how often you receive notifications.
-              </CardDescription>
+              <CardTitle>{t("frequency")}</CardTitle>
+              <CardDescription>{t("frequencyDesc")}</CardDescription>
             </CardHeader>
             <CardContent className="grid grid-cols-1 gap-6 md:grid-cols-2">
               <FormField
@@ -281,22 +273,22 @@ export default function NotificationSettings() {
                 name="emailFrequency"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email Frequency</FormLabel>
+                    <FormLabel>{t("emailFrequency")}</FormLabel>
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
                     >
                       <FormControl>
                         <SelectTrigger className="w-full">
-                          <SelectValue placeholder="Select frequency" />
+                          <SelectValue placeholder={t("selectFrequency")} />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="instant">Instant</SelectItem>
-                        <SelectItem value="hourly">Hourly digest</SelectItem>
-                        <SelectItem value="daily">Daily digest</SelectItem>
-                        <SelectItem value="weekly">Weekly digest</SelectItem>
-                        <SelectItem value="never">Never</SelectItem>
+                        <SelectItem value="instant">{t("instant")}</SelectItem>
+                        <SelectItem value="hourly">{t("hourly")}</SelectItem>
+                        <SelectItem value="daily">{t("daily")}</SelectItem>
+                        <SelectItem value="weekly">{t("weekly")}</SelectItem>
+                        <SelectItem value="never">{t("never")}</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -304,7 +296,7 @@ export default function NotificationSettings() {
                 )}
               />
               <FormItem>
-                <FormLabel>Quiet Hours</FormLabel>
+                <FormLabel>{t("quietHours")}</FormLabel>
                 <div className="flex space-x-2">
                   <FormField
                     control={form.control}
@@ -316,7 +308,7 @@ export default function NotificationSettings() {
                       >
                         <FormControl>
                           <SelectTrigger className="w-50">
-                            <SelectValue placeholder="Start" />
+                            <SelectValue placeholder={t("start")} />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
@@ -338,7 +330,7 @@ export default function NotificationSettings() {
                       >
                         <FormControl>
                           <SelectTrigger className="w-50">
-                            <SelectValue placeholder="End" />
+                            <SelectValue placeholder={t("end")} />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
@@ -356,11 +348,11 @@ export default function NotificationSettings() {
 
           <Card>
             <CardHeader>
-              <CardTitle>Notification Preferences</CardTitle>
+              <CardTitle>{t("preferences")}</CardTitle>
               <CardDescription>
-                We need permission from your browser to show notifications.{" "}
+                {t("preferencesDesc")}{" "}
                 <Button variant="link" className="text-primary h-auto p-0">
-                  Request Permission
+                  {t("requestPermission")}
                 </Button>
               </CardDescription>
             </CardHeader>
@@ -369,16 +361,20 @@ export default function NotificationSettings() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead className="w-[200px]">TYPE</TableHead>
-                      <TableHead className="text-center">EMAIL</TableHead>
-                      <TableHead className="text-center">BROWSER</TableHead>
-                      <TableHead className="text-center">APP</TableHead>
+                      <TableHead className="w-[200px]">{t("type")}</TableHead>
+                      <TableHead className="text-center">
+                        {t("email")}
+                      </TableHead>
+                      <TableHead className="text-center">
+                        {t("browser")}
+                      </TableHead>
+                      <TableHead className="text-center">{t("app")}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     <TableRow>
                       <TableCell className="font-medium">
-                        Order updates
+                        {t("orderUpdates")}
                       </TableCell>
                       <TableCell className="text-center">
                         <FormField
@@ -431,7 +427,7 @@ export default function NotificationSettings() {
                     </TableRow>
                     <TableRow>
                       <TableCell className="font-medium">
-                        Invoice reminders
+                        {t("invoiceReminders")}
                       </TableCell>
                       <TableCell className="text-center">
                         <FormField
@@ -484,7 +480,7 @@ export default function NotificationSettings() {
                     </TableRow>
                     <TableRow>
                       <TableCell className="font-medium">
-                        Promotional offers
+                        {t("promotionalOffers")}
                       </TableCell>
                       <TableCell className="text-center">
                         <FormField
@@ -537,7 +533,7 @@ export default function NotificationSettings() {
                     </TableRow>
                     <TableRow>
                       <TableCell className="font-medium">
-                        System maintenance
+                        {t("systemMaintenance")}
                       </TableCell>
                       <TableCell className="text-center">
                         <FormField
@@ -597,24 +593,24 @@ export default function NotificationSettings() {
                     name="notificationTiming"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>
-                          When should we send you notifications?
-                        </FormLabel>
+                        <FormLabel>{t("timingLabel")}</FormLabel>
                         <Select
                           onValueChange={field.onChange}
                           defaultValue={field.value}
                         >
                           <FormControl>
                             <SelectTrigger className="w-full max-w-sm">
-                              <SelectValue placeholder="Select timing" />
+                              <SelectValue placeholder={t("selectFrequency")} />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
                             <SelectItem value="online">
-                              Only When I&apos;m online
+                              {t("onlineOnly")}
                             </SelectItem>
-                            <SelectItem value="always">Always</SelectItem>
-                            <SelectItem value="never">Never</SelectItem>
+                            <SelectItem value="always">
+                              {t("always")}
+                            </SelectItem>
+                            <SelectItem value="never">{t("never")}</SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage />
@@ -628,11 +624,8 @@ export default function NotificationSettings() {
 
           <Card>
             <CardHeader>
-              <CardTitle>Notification Channels</CardTitle>
-              <CardDescription>
-                Choose your preferred notification channels for different types
-                of alerts.
-              </CardDescription>
+              <CardTitle>{t("channels")}</CardTitle>
+              <CardDescription>{t("channelsDesc")}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
@@ -645,10 +638,10 @@ export default function NotificationSettings() {
                         <Mail className="text-muted-foreground h-5 w-5" />
                         <div>
                           <FormLabel className="mb-1 font-medium">
-                            Email
+                            {t("email")}
                           </FormLabel>
                           <div className="text-muted-foreground text-sm">
-                            Receive notifications via email
+                            {t("emailDesc")}
                           </div>
                         </div>
                       </div>
@@ -671,10 +664,10 @@ export default function NotificationSettings() {
                         <Bell className="text-muted-foreground h-5 w-5" />
                         <div>
                           <FormLabel className="mb-1 font-medium">
-                            Push Notifications
+                            {t("pushNotifications")}
                           </FormLabel>
                           <div className="text-muted-foreground text-sm">
-                            Receive browser push notifications
+                            {t("pushDesc")}
                           </div>
                         </div>
                       </div>
@@ -697,10 +690,10 @@ export default function NotificationSettings() {
                         <MessageSquare className="text-muted-foreground h-5 w-5" />
                         <div>
                           <FormLabel className="mb-1 font-medium">
-                            SMS
+                            {t("sms")}
                           </FormLabel>
                           <div className="text-muted-foreground text-sm">
-                            Receive notifications via SMS
+                            {t("smsDesc")}
                           </div>
                         </div>
                       </div>
@@ -719,10 +712,10 @@ export default function NotificationSettings() {
 
           <div className="flex space-x-2">
             <Button type="submit" className="cursor-pointer">
-              Save Preferences
+              {t("save")}
             </Button>
             <Button variant="outline" type="reset" className="cursor-pointer">
-              Cancel
+              {t("cancel")}
             </Button>
           </div>
         </form>

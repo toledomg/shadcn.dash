@@ -104,39 +104,39 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             icon: Shield,
             items: [
               {
-                title: "Sign In 1",
+                title: tSidebar("signIn") + " 1",
                 url: "/sign-in",
               },
               {
-                title: "Sign In 2",
+                title: tSidebar("signIn") + " 2",
                 url: "/sign-in-2",
               },
               {
-                title: "Sign In 3",
+                title: tSidebar("signIn") + " 3",
                 url: "/sign-in-3",
               },
               {
-                title: "Sign Up 1",
+                title: tSidebar("signUp") + " 1",
                 url: "/sign-up",
               },
               {
-                title: "Sign Up 2",
+                title: tSidebar("signUp") + " 2",
                 url: "/sign-up-2",
               },
               {
-                title: "Sign Up 3",
+                title: tSidebar("signUp") + " 3",
                 url: "/sign-up-3",
               },
               {
-                title: "Forgot Password 1",
+                title: tSidebar("forgotPassword") + " 1",
                 url: "/forgot-password",
               },
               {
-                title: "Forgot Password 2",
+                title: tSidebar("forgotPassword") + " 2",
                 url: "/forgot-password-2",
               },
               {
-                title: "Forgot Password 3",
+                title: tSidebar("forgotPassword") + " 3",
                 url: "/forgot-password-3",
               },
             ],
@@ -147,23 +147,23 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             icon: AlertTriangle,
             items: [
               {
-                title: "Unauthorized",
+                title: tSidebar("unauthorized"),
                 url: "/errors/unauthorized",
               },
               {
-                title: "Forbidden",
+                title: tSidebar("forbidden"),
                 url: "/errors/forbidden",
               },
               {
-                title: "Not Found",
+                title: tSidebar("notFound"),
                 url: "/errors/not-found",
               },
               {
-                title: "Internal Server Error",
+                title: tSidebar("internalServerError"),
                 url: "/errors/internal-server-error",
               },
               {
-                title: "Under Maintenance",
+                title: tSidebar("underMaintenance"),
                 url: "/errors/under-maintenance",
               },
             ],
@@ -225,7 +225,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium">ShadcnStore</span>
-                  <span className="truncate text-xs">Admin Dashboard</span>
+                  <span className="truncate text-xs">
+                    {tSidebar("adminDashboard")}
+                  </span>
                 </div>
               </Link>
             </SidebarMenuButton>

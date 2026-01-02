@@ -1,6 +1,7 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useTranslations } from "next-intl"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
@@ -36,6 +37,7 @@ const accountFormSchema = z.object({
 type AccountFormValues = z.infer<typeof accountFormSchema>
 
 export default function AccountSettings() {
+  const t = useTranslations("Settings.account")
   const form = useForm<AccountFormValues>({
     resolver: zodResolver(accountFormSchema),
     defaultValues: {
@@ -57,21 +59,16 @@ export default function AccountSettings() {
   return (
     <div className="space-y-6 px-4 lg:px-6">
       <div>
-        <h1 className="text-3xl font-bold">Account Settings</h1>
-        <p className="text-muted-foreground">
-          Manage your account settings and preferences.
-        </p>
+        <h1 className="text-3xl font-bold">{t("title")}</h1>
+        <p className="text-muted-foreground">{t("description")}</p>
       </div>
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle>Personal Information</CardTitle>
-              <CardDescription>
-                Update your personal information that will be displayed on your
-                profile.
-              </CardDescription>
+              <CardTitle>{t("personalInfo")}</CardTitle>
+              <CardDescription>{t("personalInfoDesc")}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
@@ -80,9 +77,12 @@ export default function AccountSettings() {
                   name="firstName"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>First Name</FormLabel>
+                      <FormLabel>{t("firstName")}</FormLabel>
                       <FormControl>
-                        <Input placeholder="Enter your first name" {...field} />
+                        <Input
+                          placeholder={t("firstNamePlaceholder")}
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -93,9 +93,12 @@ export default function AccountSettings() {
                   name="lastName"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Last Name</FormLabel>
+                      <FormLabel>{t("lastName")}</FormLabel>
                       <FormControl>
-                        <Input placeholder="Enter your last name" {...field} />
+                        <Input
+                          placeholder={t("lastNamePlaceholder")}
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -107,11 +110,11 @@ export default function AccountSettings() {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email Address</FormLabel>
+                    <FormLabel>{t("email")}</FormLabel>
                     <FormControl>
                       <Input
                         type="email"
-                        placeholder="Enter your email"
+                        placeholder={t("emailPlaceholder")}
                         {...field}
                       />
                     </FormControl>
@@ -124,9 +127,12 @@ export default function AccountSettings() {
                 name="username"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Username</FormLabel>
+                    <FormLabel>{t("username")}</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter your username" {...field} />
+                      <Input
+                        placeholder={t("usernamePlaceholder")}
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -137,10 +143,8 @@ export default function AccountSettings() {
 
           <Card>
             <CardHeader>
-              <CardTitle>Change Password</CardTitle>
-              <CardDescription>
-                Update your password to keep your account secure.
-              </CardDescription>
+              <CardTitle>{t("changePassword")}</CardTitle>
+              <CardDescription>{t("changePasswordDesc")}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <FormField
@@ -148,11 +152,11 @@ export default function AccountSettings() {
                 name="currentPassword"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Current Password</FormLabel>
+                    <FormLabel>{t("currentPassword")}</FormLabel>
                     <FormControl>
                       <Input
                         type="password"
-                        placeholder="Enter current password"
+                        placeholder={t("currentPasswordPlaceholder")}
                         {...field}
                       />
                     </FormControl>
@@ -165,11 +169,11 @@ export default function AccountSettings() {
                 name="newPassword"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>New Password</FormLabel>
+                    <FormLabel>{t("newPassword")}</FormLabel>
                     <FormControl>
                       <Input
                         type="password"
-                        placeholder="Enter new password"
+                        placeholder={t("newPasswordPlaceholder")}
                         {...field}
                       />
                     </FormControl>
@@ -182,11 +186,11 @@ export default function AccountSettings() {
                 name="confirmPassword"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Confirm New Password</FormLabel>
+                    <FormLabel>{t("confirmPassword")}</FormLabel>
                     <FormControl>
                       <Input
                         type="password"
-                        placeholder="Confirm new password"
+                        placeholder={t("confirmPasswordPlaceholder")}
                         {...field}
                       />
                     </FormControl>
@@ -199,18 +203,16 @@ export default function AccountSettings() {
 
           <Card>
             <CardHeader>
-              <CardTitle>Danger Zone</CardTitle>
-              <CardDescription>
-                Irreversible and destructive actions.
-              </CardDescription>
+              <CardTitle>{t("dangerZone")}</CardTitle>
+              <CardDescription>{t("dangerZoneDesc")}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <Separator />
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <div>
-                  <h4 className="font-semibold">Delete Account</h4>
+                  <h4 className="font-semibold">{t("deleteAccount")}</h4>
                   <p className="text-muted-foreground text-sm">
-                    Permanently delete your account and all associated data.
+                    {t("deleteAccountDesc")}
                   </p>
                 </div>
                 <Button
@@ -218,7 +220,7 @@ export default function AccountSettings() {
                   type="button"
                   className="cursor-pointer"
                 >
-                  Delete Account
+                  {t("deleteAccount")}
                 </Button>
               </div>
             </CardContent>
@@ -226,10 +228,10 @@ export default function AccountSettings() {
 
           <div className="flex space-x-2">
             <Button type="submit" className="cursor-pointer">
-              Save Changes
+              {t("save")}
             </Button>
             <Button variant="outline" type="reset" className="cursor-pointer">
-              Cancel
+              {t("cancel")}
             </Button>
           </div>
         </form>

@@ -14,6 +14,7 @@ import {
   Trash2,
   Users2,
 } from "lucide-react"
+import { useTranslations } from "next-intl"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -55,6 +56,8 @@ export function Mail({
 }: MailProps) {
   const [isCollapsed, setIsCollapsed] = React.useState(defaultCollapsed)
   const [mail] = useMail()
+  const t = useTranslations("Mail")
+  const tCommon = useTranslations("Common")
 
   return (
     <TooltipProvider delayDuration={0}>
@@ -103,37 +106,37 @@ export function Mail({
             isCollapsed={isCollapsed}
             links={[
               {
-                title: "Inbox",
+                title: t("inbox"),
                 label: "128",
                 icon: Inbox,
                 variant: "default",
               },
               {
-                title: "Drafts",
+                title: t("drafts"),
                 label: "9",
                 icon: File,
                 variant: "ghost",
               },
               {
-                title: "Sent",
+                title: t("sent"),
                 label: "",
                 icon: Send,
                 variant: "ghost",
               },
               {
-                title: "Junk",
+                title: t("junk"),
                 label: "23",
                 icon: ArchiveX,
                 variant: "ghost",
               },
               {
-                title: "Trash",
+                title: t("trash"),
                 label: "",
                 icon: Trash2,
                 variant: "ghost",
               },
               {
-                title: "Archive",
+                title: t("archive"),
                 label: "",
                 icon: Archive,
                 variant: "ghost",
@@ -145,31 +148,31 @@ export function Mail({
             isCollapsed={isCollapsed}
             links={[
               {
-                title: "Social",
+                title: t("social"),
                 label: "972",
                 icon: Users2,
                 variant: "ghost",
               },
               {
-                title: "Updates",
+                title: t("updates"),
                 label: "342",
                 icon: AlertCircle,
                 variant: "ghost",
               },
               {
-                title: "Forums",
+                title: t("forums"),
                 label: "128",
                 icon: MessagesSquare,
                 variant: "ghost",
               },
               {
-                title: "Shopping",
+                title: t("shopping"),
                 label: "8",
                 icon: ShoppingCart,
                 variant: "ghost",
               },
               {
-                title: "Promotions",
+                title: t("promotions"),
                 label: "21",
                 icon: Archive,
                 variant: "ghost",
@@ -181,22 +184,27 @@ export function Mail({
         <ResizablePanel defaultSize={defaultLayout[1]} minSize={30}>
           <Tabs defaultValue="all" className="gap-1">
             <div className="flex items-center px-4 py-1.5">
-              <h1 className="text-foreground text-xl font-bold">Inbox</h1>
+              <h1 className="text-foreground text-xl font-bold">
+                {t("inbox")}
+              </h1>
               <TabsList className="ml-auto">
                 <TabsTrigger value="all" className="cursor-pointer">
-                  All mail
+                  {tCommon("all")}
                 </TabsTrigger>
                 <TabsTrigger value="unread" className="cursor-pointer">
-                  Unread
+                  {t("markAsUnread")}
                 </TabsTrigger>
               </TabsList>
             </div>
             <Separator />
-            <div className="bg-background/95 supports-[backdrop-filter]:bg-background/60 p-4 backdrop-blur">
+            <div className="bg-background/95 supports-backdrop-filter:bg-background/60 p-4 backdrop-blur">
               <form>
                 <div className="relative">
                   <Search className="text-muted-foreground absolute top-2.5 left-2 size-4 cursor-pointer" />
-                  <Input placeholder="Search" className="cursor-text pl-8" />
+                  <Input
+                    placeholder={t("search")}
+                    className="cursor-text pl-8"
+                  />
                 </div>
               </form>
             </div>

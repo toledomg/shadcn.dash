@@ -2,6 +2,8 @@
 
 import type { ComponentProps } from "react"
 import { formatDistanceToNow } from "date-fns"
+import { enUS, ptBR } from "date-fns/locale"
+import { useLocale, useTranslations } from "next-intl"
 
 import { cn } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
@@ -16,6 +18,9 @@ interface MailListProps {
 
 export function MailList({ items }: MailListProps) {
   const [mail, setMail] = useMail()
+  const t = useTranslations("Mail")
+  const locale = useLocale()
+  const dateLocale = locale === "pt" ? ptBR : enUS
 
   return (
     <ScrollArea className="h-[calc(100vh-12rem)]">
@@ -52,6 +57,7 @@ export function MailList({ items }: MailListProps) {
                 >
                   {formatDistanceToNow(new Date(item.date), {
                     addSuffix: true,
+                    locale: dateLocale,
                   })}
                 </div>
               </div>
@@ -68,7 +74,7 @@ export function MailList({ items }: MailListProps) {
                     variant={getBadgeVariantFromLabel(label)}
                     className="cursor-pointer"
                   >
-                    {label}
+                    {t(label.toLowerCase())}
                   </Badge>
                 ))}
               </div>

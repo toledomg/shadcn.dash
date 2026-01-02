@@ -2,6 +2,7 @@
 
 import type { Row } from "@tanstack/react-table"
 import { MoreHorizontal } from "lucide-react"
+import { useTranslations } from "next-intl"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -29,6 +30,7 @@ export function DataTableRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
   const task = taskSchema.parse(row.original)
+  const t = useTranslations("Tasks")
 
   return (
     <DropdownMenu>
@@ -38,19 +40,24 @@ export function DataTableRowActions<TData>({
           className="data-[state=open]:bg-muted flex h-8 w-8 cursor-pointer p-0"
         >
           <MoreHorizontal />
-          <span className="sr-only">Open menu</span>
+          <MoreHorizontal />
+          <span className="sr-only">{t("openMenu")}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
-        <DropdownMenuItem className="cursor-pointer">Edit</DropdownMenuItem>
         <DropdownMenuItem className="cursor-pointer">
-          Make a copy
+          {t("edit")}
         </DropdownMenuItem>
-        <DropdownMenuItem className="cursor-pointer">Favorite</DropdownMenuItem>
+        <DropdownMenuItem className="cursor-pointer">
+          {t("copy")}
+        </DropdownMenuItem>
+        <DropdownMenuItem className="cursor-pointer">
+          {t("favorite")}
+        </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuSub>
           <DropdownMenuSubTrigger className="cursor-pointer">
-            Labels
+            {t("labels")}
           </DropdownMenuSubTrigger>
           <DropdownMenuSubContent>
             <DropdownMenuRadioGroup value={task.label}>
@@ -60,7 +67,7 @@ export function DataTableRowActions<TData>({
                   value={label.value}
                   className="cursor-pointer"
                 >
-                  {label.label}
+                  {t(`taskLabels.${label.value}`)}
                 </DropdownMenuRadioItem>
               ))}
             </DropdownMenuRadioGroup>
@@ -68,7 +75,7 @@ export function DataTableRowActions<TData>({
         </DropdownMenuSub>
         <DropdownMenuSeparator />
         <DropdownMenuItem className="cursor-pointer">
-          Delete
+          {t("delete")}
           <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
         </DropdownMenuItem>
       </DropdownMenuContent>

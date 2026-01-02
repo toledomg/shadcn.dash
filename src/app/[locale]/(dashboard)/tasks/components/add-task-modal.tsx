@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { Plus } from "lucide-react"
+import { useTranslations } from "next-intl"
 import { z } from "zod"
 
 import { Badge } from "@/components/ui/badge"
@@ -46,6 +47,7 @@ interface AddTaskModalProps {
 }
 
 export function AddTaskModal({ onAddTask, trigger }: AddTaskModalProps) {
+  const t = useTranslations("Tasks")
   const [open, setOpen] = useState(false)
   const [formData, setFormData] = useState<TaskFormData>({
     id: "",
@@ -128,26 +130,23 @@ export function AddTaskModal({ onAddTask, trigger }: AddTaskModalProps) {
         {trigger || (
           <Button variant="default" size="sm" className="cursor-pointer">
             <Plus className="mr-2 h-4 w-4" />
-            Add Task
+            {t("add")}
           </Button>
         )}
       </DialogTrigger>
       <DialogContent className="sm:max-w-[525px]">
         <DialogHeader>
-          <DialogTitle>Add New Task</DialogTitle>
-          <DialogDescription>
-            Create a new task to track work and progress. Fill in the details
-            below.
-          </DialogDescription>
+          <DialogTitle>{t("form.title")}</DialogTitle>
+          <DialogDescription>{t("form.subtitle")}</DialogDescription>
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Task Title */}
           <div className="space-y-2">
-            <Label htmlFor="title">Task Title *</Label>
+            <Label htmlFor="title">{t("form.taskTitle")} *</Label>
             <Input
               id="title"
-              placeholder="Enter task title..."
+              placeholder={t("form.taskTitlePlaceholder")}
               value={formData.title}
               onChange={(e) =>
                 setFormData((prev) => ({ ...prev, title: e.target.value }))
@@ -161,10 +160,10 @@ export function AddTaskModal({ onAddTask, trigger }: AddTaskModalProps) {
 
           {/* Task Description */}
           <div className="space-y-2">
-            <Label htmlFor="description">Description</Label>
+            <Label htmlFor="description">{t("form.description")}</Label>
             <Textarea
               id="description"
-              placeholder="Provide additional details about the task..."
+              placeholder={t("form.descriptionPlaceholder")}
               value={formData.description}
               onChange={(e) =>
                 setFormData((prev) => ({
@@ -178,7 +177,7 @@ export function AddTaskModal({ onAddTask, trigger }: AddTaskModalProps) {
 
           {/* Task Status */}
           <div className="space-y-2">
-            <Label htmlFor="status">Status</Label>
+            <Label htmlFor="status">{t("form.status")}</Label>
             <Select
               value={formData.status}
               onValueChange={(value) =>
@@ -205,7 +204,7 @@ export function AddTaskModal({ onAddTask, trigger }: AddTaskModalProps) {
 
           {/* Task Label */}
           <div className="space-y-2">
-            <Label htmlFor="label">Label</Label>
+            <Label htmlFor="label">{t("form.label")}</Label>
             <Select
               value={formData.label}
               onValueChange={(value) =>
@@ -229,7 +228,7 @@ export function AddTaskModal({ onAddTask, trigger }: AddTaskModalProps) {
 
           {/* Task Priority */}
           <div className="space-y-2">
-            <Label htmlFor="priority">Priority</Label>
+            <Label htmlFor="priority">{t("form.priority")}</Label>
             <Select
               value={formData.priority}
               onValueChange={(value) =>
@@ -262,11 +261,11 @@ export function AddTaskModal({ onAddTask, trigger }: AddTaskModalProps) {
               onClick={handleCancel}
               className="cursor-pointer"
             >
-              Cancel
+              {t("cancel")}
             </Button>
             <Button type="submit" className="cursor-pointer">
               <Plus className="mr-2 h-4 w-4" />
-              Create Task
+              {t("create")}
             </Button>
           </div>
         </form>

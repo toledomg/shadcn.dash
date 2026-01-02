@@ -10,7 +10,7 @@ import type { Task } from "../data/schema"
 import { DataTableColumnHeader } from "./data-table-column-header"
 import { DataTableRowActions } from "./data-table-row-actions"
 
-export const columns: ColumnDef<Task>[] = [
+export const getColumns = (t: any): ColumnDef<Task>[] => [
   {
     id: "select",
     header: ({ table }) => (
@@ -38,7 +38,7 @@ export const columns: ColumnDef<Task>[] = [
   {
     accessorKey: "id",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Task" />
+      <DataTableColumnHeader column={column} title={t("columns.task")} />
     ),
     cell: ({ row }) => <div className="w-[80px]">{row.getValue("id")}</div>,
     enableSorting: false,
@@ -47,7 +47,7 @@ export const columns: ColumnDef<Task>[] = [
   {
     accessorKey: "title",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Title" />
+      <DataTableColumnHeader column={column} title={t("columns.title")} />
     ),
     cell: ({ row }) => {
       const label = labels.find((label) => label.value === row.original.label)
@@ -56,7 +56,7 @@ export const columns: ColumnDef<Task>[] = [
         <div className="flex space-x-2">
           {label && (
             <Badge variant="outline" className="cursor-pointer">
-              {label.label}
+              {t(`taskLabels.${label.value}`)}
             </Badge>
           )}
           <span className="max-w-[500px] truncate font-medium">
@@ -69,7 +69,7 @@ export const columns: ColumnDef<Task>[] = [
   {
     accessorKey: "status",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Status" />
+      <DataTableColumnHeader column={column} title={t("columns.status")} />
     ),
     cell: ({ row }) => {
       const status = statuses.find(
@@ -85,7 +85,7 @@ export const columns: ColumnDef<Task>[] = [
           {status.icon && (
             <status.icon className="text-muted-foreground mr-2 h-4 w-4" />
           )}
-          <span>{status.label}</span>
+          <span>{t(`statuses.${status.value}`)}</span>
         </div>
       )
     },
@@ -96,7 +96,7 @@ export const columns: ColumnDef<Task>[] = [
   {
     accessorKey: "priority",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Priority" />
+      <DataTableColumnHeader column={column} title={t("columns.priority")} />
     ),
     cell: ({ row }) => {
       const priority = priorities.find(
@@ -112,7 +112,7 @@ export const columns: ColumnDef<Task>[] = [
           {priority.icon && (
             <priority.icon className="text-muted-foreground mr-2 h-4 w-4" />
           )}
-          <span>{priority.label}</span>
+          <span>{t(`priorities.${priority.value}`)}</span>
         </div>
       )
     },

@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { addDays, addHours, format, nextSaturday } from "date-fns"
+import { enUS, ptBR } from "date-fns/locale"
 import {
   Archive,
   ArchiveX,
@@ -12,6 +13,7 @@ import {
   ReplyAll,
   Trash2,
 } from "lucide-react"
+import { useLocale, useTranslations } from "next-intl"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
@@ -40,6 +42,9 @@ interface MailDisplayProps {
 
 export function MailDisplay({ mail }: MailDisplayProps) {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date())
+  const t = useTranslations("Mail")
+  const locale = useLocale()
+  const dateLocale = locale === "pt" ? ptBR : enUS
 
   return (
     <div className="flex h-full flex-col">
@@ -49,31 +54,31 @@ export function MailDisplay({ mail }: MailDisplayProps) {
             variant="ghost"
             size="icon"
             disabled={!mail}
-            title="Archive"
+            title={t("archive")}
             className="cursor-pointer disabled:cursor-not-allowed"
           >
             <Archive className="size-4" />
-            <span className="sr-only">Archive</span>
+            <span className="sr-only">{t("archive")}</span>
           </Button>
           <Button
             variant="ghost"
             size="icon"
             disabled={!mail}
-            title="Move to junk"
+            title={t("junk")}
             className="cursor-pointer disabled:cursor-not-allowed"
           >
             <ArchiveX className="size-4" />
-            <span className="sr-only">Move to junk</span>
+            <span className="sr-only">{t("junk")}</span>
           </Button>
           <Button
             variant="ghost"
             size="icon"
             disabled={!mail}
-            title="Move to trash"
+            title={t("moveToTrash")}
             className="cursor-pointer disabled:cursor-not-allowed"
           >
             <Trash2 className="size-4" />
-            <span className="sr-only">Move to trash</span>
+            <span className="sr-only">{t("moveToTrash")}</span>
           </Button>
           <Separator orientation="vertical" className="mx-1 h-6" />
           <Popover>
@@ -153,31 +158,31 @@ export function MailDisplay({ mail }: MailDisplayProps) {
             variant="ghost"
             size="icon"
             disabled={!mail}
-            title="Reply"
+            title={t("reply")}
             className="cursor-pointer disabled:cursor-not-allowed"
           >
             <Reply className="size-4" />
-            <span className="sr-only">Reply</span>
+            <span className="sr-only">{t("reply")}</span>
           </Button>
           <Button
             variant="ghost"
             size="icon"
             disabled={!mail}
-            title="Reply all"
+            title={t("replyAll")}
             className="cursor-pointer disabled:cursor-not-allowed"
           >
             <ReplyAll className="size-4" />
-            <span className="sr-only">Reply all</span>
+            <span className="sr-only">{t("replyAll")}</span>
           </Button>
           <Button
             variant="ghost"
             size="icon"
             disabled={!mail}
-            title="Forward"
+            title={t("forward")}
             className="cursor-pointer disabled:cursor-not-allowed"
           >
             <Forward className="size-4" />
-            <span className="sr-only">Forward</span>
+            <span className="sr-only">{t("forward")}</span>
           </Button>
         </div>
         <Separator orientation="vertical" className="mx-2 h-6" />
@@ -195,16 +200,13 @@ export function MailDisplay({ mail }: MailDisplayProps) {
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem className="cursor-pointer">
-              Mark as unread
+              {t("markAsUnread")}
             </DropdownMenuItem>
             <DropdownMenuItem className="cursor-pointer">
-              Star thread
+              {t("addLabel")}
             </DropdownMenuItem>
             <DropdownMenuItem className="cursor-pointer">
-              Add label
-            </DropdownMenuItem>
-            <DropdownMenuItem className="cursor-pointer">
-              Mute thread
+              {t("muteThread")}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -233,7 +235,7 @@ export function MailDisplay({ mail }: MailDisplayProps) {
             </div>
             {mail.date && (
               <div className="text-muted-foreground ml-auto text-xs">
-                {format(new Date(mail.date), "PPpp")}
+                {format(new Date(mail.date), "PPpp", { locale: dateLocale })}
               </div>
             )}
           </div>
@@ -247,15 +249,15 @@ export function MailDisplay({ mail }: MailDisplayProps) {
               <div className="grid gap-4">
                 <Textarea
                   className="cursor-text p-4"
-                  placeholder={`Reply ${mail.name}...`}
+                  placeholder={`${t("reply")} ${mail.name}...`}
                 />
                 <div className="flex items-center">
                   <Label
                     htmlFor="mute"
                     className="flex cursor-pointer items-center gap-2 text-xs font-normal"
                   >
-                    <Switch id="mute" aria-label="Mute thread" /> Mute this
-                    thread
+                    <Switch id="mute" aria-label={t("muteThread")} />{" "}
+                    {t("muteThread")}
                   </Label>
                   <Button
                     onClick={(e) => e.preventDefault()}
@@ -271,7 +273,7 @@ export function MailDisplay({ mail }: MailDisplayProps) {
         </div>
       ) : (
         <div className="text-muted-foreground p-8 text-center">
-          No message selected
+          {t("noMailSelected")}
         </div>
       )}
     </div>

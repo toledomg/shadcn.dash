@@ -1,9 +1,10 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { useTranslations } from "next-intl"
 import { z } from "zod"
 
-import { columns } from "./components/columns"
+import { getColumns } from "./components/columns"
 import { DataTable } from "./components/data-table"
 import { taskSchema, type Task } from "./data/schema"
 import tasksData from "./data/tasks.json"
@@ -16,6 +17,9 @@ async function getTasks() {
 export default function TaskPage() {
   const [tasks, setTasks] = useState<z.infer<typeof taskSchema>[]>([])
   const [loading, setLoading] = useState(true)
+  const t = useTranslations("Tasks")
+
+  const columns = getColumns(t)
 
   useEffect(() => {
     const loadTasks = async () => {
@@ -39,7 +43,7 @@ export default function TaskPage() {
   if (loading) {
     return (
       <div className="flex h-96 items-center justify-center">
-        <div className="text-muted-foreground">Loading tasks...</div>
+        <div className="text-muted-foreground">{t("loading")}</div>
       </div>
     )
   }
@@ -50,10 +54,8 @@ export default function TaskPage() {
       <div className="md:hidden">
         <div className="bg-muted/20 flex h-96 items-center justify-center rounded-lg border">
           <div className="p-8 text-center">
-            <h3 className="mb-2 text-lg font-semibold">Tasks Dashboard</h3>
-            <p className="text-muted-foreground">
-              Please use a larger screen to view the full tasks interface.
-            </p>
+            <h3 className="mb-2 text-lg font-semibold">{t("heading")}</h3>
+            <p className="text-muted-foreground">{t("mobilePlaceholder")}</p>
           </div>
         </div>
       </div>

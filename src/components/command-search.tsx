@@ -22,6 +22,7 @@ import {
   User,
   type LucideIcon,
 } from "lucide-react"
+import { useTranslations } from "next-intl"
 
 import { cn } from "@/lib/utils"
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog"
@@ -90,7 +91,7 @@ const CommandGroup = React.forwardRef<
   <CommandPrimitive.Group
     ref={ref}
     className={cn(
-      "overflow-hidden px-2 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-2 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-zinc-500 dark:[&_[cmdk-group-heading]]:text-zinc-400 [&:not(:first-child)]:mt-2",
+      "overflow-hidden px-2 not-first:mt-2 **:[[cmdk-group-heading]]:px-2 **:[[cmdk-group-heading]]:py-2 **:[[cmdk-group-heading]]:text-xs **:[[cmdk-group-heading]]:font-medium **:[[cmdk-group-heading]]:text-zinc-500 dark:**:[[cmdk-group-heading]]:text-zinc-400",
       className
     )}
     {...props}
@@ -128,139 +129,172 @@ interface CommandSearchProps {
 export function CommandSearch({ open, onOpenChange }: CommandSearchProps) {
   const router = useRouter()
   const commandRef = React.useRef<HTMLDivElement>(null)
+  const t = useTranslations("Command")
+  const tSidebar = useTranslations("Sidebar")
+  const tCommon = useTranslations("Common")
 
   const searchItems: SearchItem[] = [
     // Dashboards
     {
-      title: "Dashboard 1",
+      title: `${tCommon("dashboard")} 1`,
       url: "/dashboard",
-      group: "Dashboards",
+      group: tSidebar("dashboards"),
       icon: LayoutDashboard,
     },
     {
-      title: "Dashboard 2",
+      title: `${tCommon("dashboard")} 2`,
       url: "/dashboard-2",
-      group: "Dashboards",
+      group: tSidebar("dashboards"),
       icon: LayoutPanelLeft,
     },
 
     // Apps
-    { title: "Mail", url: "/mail", group: "Apps", icon: Mail },
-    { title: "Tasks", url: "/tasks", group: "Apps", icon: CheckSquare },
-    { title: "Chat", url: "/chat", group: "Apps", icon: MessageCircle },
-    { title: "Calendar", url: "/calendar", group: "Apps", icon: Calendar },
+    {
+      title: tSidebar("mail"),
+      url: "/mail",
+      group: tSidebar("apps"),
+      icon: Mail,
+    },
+    {
+      title: tSidebar("tasks"),
+      url: "/tasks",
+      group: tSidebar("apps"),
+      icon: CheckSquare,
+    },
+    {
+      title: tSidebar("chat"),
+      url: "/chat",
+      group: tSidebar("apps"),
+      icon: MessageCircle,
+    },
+    {
+      title: tSidebar("calendar"),
+      url: "/calendar",
+      group: tSidebar("apps"),
+      icon: Calendar,
+    },
 
     // Auth Pages
     {
-      title: "Sign In 1",
+      title: `${tSidebar("signIn")} 1`,
       url: "/auth/sign-in",
-      group: "Auth Pages",
+      group: tSidebar("authPages"),
       icon: Shield,
     },
     {
-      title: "Sign In 2",
+      title: `${tSidebar("signIn")} 2`,
       url: "/auth/sign-in-2",
-      group: "Auth Pages",
+      group: tSidebar("authPages"),
       icon: Shield,
     },
     {
-      title: "Sign Up 1",
+      title: `${tSidebar("signUp")} 1`,
       url: "/auth/sign-up",
-      group: "Auth Pages",
+      group: tSidebar("authPages"),
       icon: Shield,
     },
     {
-      title: "Sign Up 2",
+      title: `${tSidebar("signUp")} 2`,
       url: "/auth/sign-up-2",
-      group: "Auth Pages",
+      group: tSidebar("authPages"),
       icon: Shield,
     },
     {
-      title: "Forgot Password 1",
+      title: `${tSidebar("forgotPassword")} 1`,
       url: "/auth/forgot-password",
-      group: "Auth Pages",
+      group: tSidebar("authPages"),
       icon: Shield,
     },
     {
-      title: "Forgot Password 2",
+      title: `${tSidebar("forgotPassword")} 2`,
       url: "/auth/forgot-password-2",
-      group: "Auth Pages",
+      group: tSidebar("authPages"),
       icon: Shield,
     },
 
     // Errors
     {
-      title: "Unauthorized",
+      title: tSidebar("unauthorized"),
       url: "/errors/unauthorized",
-      group: "Errors",
+      group: tSidebar("errors"),
       icon: AlertTriangle,
     },
     {
-      title: "Forbidden",
+      title: tSidebar("forbidden"),
       url: "/errors/forbidden",
-      group: "Errors",
+      group: tSidebar("errors"),
       icon: AlertTriangle,
     },
     {
-      title: "Not Found",
+      title: tSidebar("notFound"),
       url: "/errors/not-found",
-      group: "Errors",
+      group: tSidebar("errors"),
       icon: AlertTriangle,
     },
     {
-      title: "Internal Server Error",
+      title: tSidebar("internalServerError"),
       url: "/errors/internal-server-error",
-      group: "Errors",
+      group: tSidebar("errors"),
       icon: AlertTriangle,
     },
     {
-      title: "Under Maintenance",
+      title: tSidebar("underMaintenance"),
       url: "/errors/under-maintenance",
-      group: "Errors",
+      group: tSidebar("errors"),
       icon: AlertTriangle,
     },
 
     // Settings
     {
-      title: "User Settings",
+      title: tSidebar("userSettings"),
       url: "/settings/user",
-      group: "Settings",
+      group: tSidebar("settings"),
       icon: User,
     },
     {
-      title: "Account Settings",
+      title: tSidebar("accountSettings"),
       url: "/settings/account",
-      group: "Settings",
+      group: tSidebar("settings"),
       icon: Settings,
     },
     {
-      title: "Plans & Billing",
+      title: tSidebar("plansBilling"),
       url: "/settings/billing",
-      group: "Settings",
+      group: tSidebar("settings"),
       icon: CreditCard,
     },
     {
-      title: "Appearance",
+      title: tSidebar("appearance"),
       url: "/settings/appearance",
-      group: "Settings",
+      group: tSidebar("settings"),
       icon: Palette,
     },
     {
-      title: "Notifications",
+      title: tSidebar("notifications"),
       url: "/settings/notifications",
-      group: "Settings",
+      group: tSidebar("settings"),
       icon: Bell,
     },
     {
-      title: "Connections",
+      title: tSidebar("connections"),
       url: "/settings/connections",
-      group: "Settings",
+      group: tSidebar("settings"),
       icon: Link2,
     },
 
     // Pages
-    { title: "FAQs", url: "/faqs", group: "Pages", icon: HelpCircle },
-    { title: "Pricing", url: "/pricing", group: "Pages", icon: CreditCard },
+    {
+      title: tSidebar("faqs"),
+      url: "/faqs",
+      group: tSidebar("pages"),
+      icon: HelpCircle,
+    },
+    {
+      title: tSidebar("pricing"),
+      url: "/pricing",
+      group: tSidebar("pages"),
+      icon: CreditCard,
+    },
   ]
 
   const groupedItems = searchItems.reduce(
@@ -296,9 +330,9 @@ export function CommandSearch({ open, onOpenChange }: CommandSearchProps) {
           ref={commandRef}
           className="transition-transform duration-100 ease-out"
         >
-          <CommandInput placeholder="What do you need?" autoFocus />
+          <CommandInput placeholder={t("placeholder")} autoFocus />
           <CommandList>
-            <CommandEmpty>No results found.</CommandEmpty>
+            <CommandEmpty>{t("noResults")}</CommandEmpty>
             {Object.entries(groupedItems).map(([group, items]) => (
               <CommandGroup key={group} heading={group}>
                 {items.map((item) => {
@@ -306,7 +340,7 @@ export function CommandSearch({ open, onOpenChange }: CommandSearchProps) {
                   return (
                     <CommandItem
                       key={item.url}
-                      value={item.title}
+                      value={`${item.title} ${item.group}`}
                       onSelect={() => handleSelect(item.url)}
                     >
                       {Icon && <Icon className="mr-2 h-4 w-4" />}
@@ -324,14 +358,15 @@ export function CommandSearch({ open, onOpenChange }: CommandSearchProps) {
 }
 
 export function SearchTrigger({ onClick }: { onClick: () => void }) {
+  const t = useTranslations("Command")
   return (
     <button
       onClick={onClick}
       className="focus-visible:ring-ring border-input bg-background hover:bg-accent hover:text-accent-foreground text-muted-foreground relative inline-flex h-8 w-full items-center justify-start gap-2 rounded-md border px-3 py-1 text-sm font-medium whitespace-nowrap shadow-sm transition-colors focus-visible:ring-1 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 sm:pr-12 md:w-36 lg:w-56"
     >
       <Search className="mr-2 h-3.5 w-3.5" />
-      <span className="hidden lg:inline-flex">Search...</span>
-      <span className="inline-flex lg:hidden">Search...</span>
+      <span className="hidden lg:inline-flex">{t("searchPlaceholder")}</span>
+      <span className="inline-flex lg:hidden">{t("searchTooltip")}</span>
       <kbd className="bg-muted pointer-events-none absolute top-1.5 right-1.5 hidden h-4 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none sm:flex">
         <span className="text-xs">⌘</span>K
       </kbd>

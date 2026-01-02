@@ -14,6 +14,7 @@ import {
   Twitter,
   Zap,
 } from "lucide-react"
+import { useTranslations } from "next-intl"
 
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -28,6 +29,7 @@ import { Separator } from "@/components/ui/separator"
 import { Switch } from "@/components/ui/switch"
 
 export default function ConnectionSettings() {
+  const t = useTranslations("Settings.connections")
   // Controlled state for switches
   const [appleConnected, setAppleConnected] = useState(true)
   const [googleConnected, setGoogleConnected] = useState(false)
@@ -40,19 +42,15 @@ export default function ConnectionSettings() {
   return (
     <div className="space-y-6 px-4 lg:px-6">
       <div>
-        <h1 className="text-3xl font-bold">Connections</h1>
-        <p className="text-muted-foreground">
-          Connect your account with third-party services and integrations.
-        </p>
+        <h1 className="text-3xl font-bold">{t("title")}</h1>
+        <p className="text-muted-foreground">{t("description")}</p>
       </div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <Card>
           <CardHeader>
-            <CardTitle>Connected Accounts</CardTitle>
-            <CardDescription>
-              Display content from your connected accounts on your site
-            </CardDescription>
+            <CardTitle>{t("connectedAccounts")}</CardTitle>
+            <CardDescription>{t("connectedAccountsDesc")}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-6">
@@ -62,7 +60,7 @@ export default function ConnectionSettings() {
                   <div>
                     <div className="font-medium">Apple</div>
                     <div className="text-muted-foreground text-sm">
-                      Calendar and contacts
+                      {t("appleDesc")}
                     </div>
                   </div>
                 </div>
@@ -79,7 +77,7 @@ export default function ConnectionSettings() {
                   <div>
                     <div className="font-medium">Google</div>
                     <div className="text-muted-foreground text-sm">
-                      Calendar and contacts
+                      {t("googleDesc")}
                     </div>
                   </div>
                 </div>
@@ -96,7 +94,7 @@ export default function ConnectionSettings() {
                   <div>
                     <div className="font-medium">Github</div>
                     <div className="text-muted-foreground text-sm">
-                      Manage your Git repositories
+                      {t("githubDesc")}
                     </div>
                   </div>
                 </div>
@@ -113,7 +111,7 @@ export default function ConnectionSettings() {
                   <div>
                     <div className="font-medium">Slack</div>
                     <div className="text-muted-foreground text-sm">
-                      Communication
+                      {t("slackDesc")}
                     </div>
                   </div>
                 </div>
@@ -129,10 +127,8 @@ export default function ConnectionSettings() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Social Accounts</CardTitle>
-            <CardDescription>
-              Display content from your connected accounts on your site
-            </CardDescription>
+            <CardTitle>{t("socialAccounts")}</CardTitle>
+            <CardDescription>{t("connectedAccountsDesc")}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-6">
@@ -143,11 +139,11 @@ export default function ConnectionSettings() {
                     <div className="font-medium">
                       Facebook
                       <Badge variant="outline" className="ml-2">
-                        Not Connected
+                        {t("notConnected")}
                       </Badge>
                     </div>
                     <div className="text-muted-foreground text-sm">
-                      Share updates on Facebook
+                      {t("facebookDesc")}
                     </div>
                   </div>
                 </div>
@@ -167,11 +163,11 @@ export default function ConnectionSettings() {
                     <div className="font-medium">
                       Twitter
                       <Badge variant="secondary" className="ml-2">
-                        connected
+                        {t("connected")}
                       </Badge>
                     </div>
                     <div className="text-muted-foreground text-sm">
-                      Share updates on Twitter
+                      {t("twitterDesc")}
                     </div>
                   </div>
                 </div>
@@ -191,11 +187,11 @@ export default function ConnectionSettings() {
                     <div className="font-medium">
                       Instagram
                       <Badge variant="secondary" className="ml-2">
-                        connected
+                        {t("connected")}
                       </Badge>
                     </div>
                     <div className="text-muted-foreground text-sm">
-                      Stay connected at Instagram
+                      {t("instagramDesc")}
                     </div>
                   </div>
                 </div>
@@ -215,11 +211,11 @@ export default function ConnectionSettings() {
                     <div className="font-medium">
                       Dribbble
                       <Badge variant="outline" className="ml-2">
-                        Not Connected
+                        {t("notConnected")}
                       </Badge>
                     </div>
                     <div className="text-muted-foreground text-sm">
-                      Stay connected at Dribbble
+                      {t("dribbbleDesc")}
                     </div>
                   </div>
                 </div>
@@ -238,10 +234,8 @@ export default function ConnectionSettings() {
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <Card>
           <CardHeader>
-            <CardTitle>API Integrations</CardTitle>
-            <CardDescription>
-              Configure API connections and webhooks.
-            </CardDescription>
+            <CardTitle>{t("apiIntegrations")}</CardTitle>
+            <CardDescription>{t("apiIntegrationsDesc")}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-6">
@@ -251,7 +245,7 @@ export default function ConnectionSettings() {
                   <div>
                     <div className="font-medium">Zapier</div>
                     <div className="text-muted-foreground text-sm">
-                      Automate workflows with Zapier
+                      {t("zapierDesc")}
                     </div>
                   </div>
                 </div>
@@ -268,7 +262,7 @@ export default function ConnectionSettings() {
                   <div>
                     <div className="font-medium">Webhooks</div>
                     <div className="text-muted-foreground text-sm">
-                      Configure custom webhook endpoints
+                      {t("webhooksDesc")}
                     </div>
                   </div>
                 </div>
@@ -285,7 +279,7 @@ export default function ConnectionSettings() {
                   <div>
                     <div className="font-medium">Database Sync</div>
                     <div className="text-muted-foreground text-sm">
-                      Sync data with external databases
+                      {t("dbSyncDesc")}
                     </div>
                   </div>
                 </div>
@@ -301,16 +295,14 @@ export default function ConnectionSettings() {
 
         <Card>
           <CardHeader>
-            <CardTitle>API Keys</CardTitle>
-            <CardDescription>
-              Manage your API keys and access tokens.
-            </CardDescription>
+            <CardTitle>{t("apiKeys")}</CardTitle>
+            <CardDescription>{t("apiKeysDesc")}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                  <div className="font-medium">Production API Key</div>
+                  <div className="font-medium">{t("productionKey")}</div>
                   <div className="text-muted-foreground font-mono text-sm">
                     sk_live_••••••••••••••••••••••••4234
                   </div>
@@ -321,21 +313,21 @@ export default function ConnectionSettings() {
                     size="sm"
                     className="cursor-pointer"
                   >
-                    Regenerate
+                    {t("regenerate")}
                   </Button>
                   <Button
                     variant="outline"
                     size="sm"
                     className="cursor-pointer"
                   >
-                    Copy
+                    {t("copy")}
                   </Button>
                 </div>
               </div>
               <Separator />
               <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                  <div className="font-medium">Development API Key</div>
+                  <div className="font-medium">{t("developmentKey")}</div>
                   <div className="text-muted-foreground font-mono text-sm">
                     sk_test_••••••••••••••••••••••••5678
                   </div>
@@ -346,21 +338,21 @@ export default function ConnectionSettings() {
                     size="sm"
                     className="cursor-pointer"
                   >
-                    Regenerate
+                    {t("regenerate")}
                   </Button>
                   <Button
                     variant="outline"
                     size="sm"
                     className="cursor-pointer"
                   >
-                    Copy
+                    {t("copy")}
                   </Button>
                 </div>
               </div>
               <Separator />
               <div className="pt-4">
                 <Button variant="outline" className="cursor-pointer">
-                  Add New API Key
+                  {t("addNewKey")}
                 </Button>
               </div>
             </div>

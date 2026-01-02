@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { Search } from "lucide-react"
+import { useTranslations } from "next-intl"
 
 import { cn } from "@/lib/utils"
 import {
@@ -33,6 +34,8 @@ interface FAQListProps {
 }
 
 export function FAQList({ faqs, categories }: FAQListProps) {
+  const t = useTranslations("Faq.Ui")
+  const tCat = useTranslations("Faq.Categories")
   const [selectedCategory, setSelectedCategory] = useState("All")
   const [searchQuery, setSearchQuery] = useState("")
 
@@ -52,11 +55,11 @@ export function FAQList({ faqs, categories }: FAQListProps) {
       {/* Categories Sidebar */}
       <Card className="lg:col-span-2 xl:col-span-1">
         <CardHeader>
-          <CardTitle className="text-lg">Categories</CardTitle>
+          <CardTitle className="text-lg">{t("categories")}</CardTitle>
           <div className="relative">
             <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 transform" />
             <Input
-              placeholder="Search FAQs..."
+              placeholder={t("searchPlaceholder")}
               className="cursor-pointer pl-10"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -73,7 +76,9 @@ export function FAQList({ faqs, categories }: FAQListProps) {
               )}
               onClick={() => setSelectedCategory(category.name)}
             >
-              <span className="font-medium">{category.name}</span>
+              <span className="font-medium">
+                {tCat(category.name as Parameters<typeof tCat>[0])}
+              </span>
               <Badge
                 variant="secondary"
                 className={cn(
@@ -94,11 +99,11 @@ export function FAQList({ faqs, categories }: FAQListProps) {
           <CardHeader>
             <CardTitle className="text-lg">
               {selectedCategory === "All"
-                ? "All FAQs"
-                : `${selectedCategory} FAQs`}
+                ? t("allFaqs")
+                : `${tCat(selectedCategory as Parameters<typeof tCat>[0])} ${t("faqsSuffix")}`}
               <span className="text-muted-foreground ml-2 text-sm font-normal">
                 ({filteredFaqs.length}{" "}
-                {filteredFaqs.length === 1 ? "question" : "questions"})
+                {filteredFaqs.length === 1 ? t("question") : t("questions")})
               </span>
             </CardTitle>
           </CardHeader>
@@ -106,7 +111,7 @@ export function FAQList({ faqs, categories }: FAQListProps) {
             <ScrollArea className="h-[570px] pr-4">
               {filteredFaqs.length === 0 ? (
                 <div className="text-muted-foreground py-8 text-center">
-                  <p>No FAQs found matching your search criteria.</p>
+                  <p>{t("noResults")}</p>
                 </div>
               ) : (
                 <Accordion
@@ -118,7 +123,7 @@ export function FAQList({ faqs, categories }: FAQListProps) {
                     <AccordionItem
                       key={item.id}
                       value={`item-${item.id}`}
-                      className="rounded-md !border"
+                      className="rounded-md border!"
                     >
                       <AccordionTrigger className="cursor-pointer px-4 hover:no-underline">
                         <div className="flex items-start text-left">
@@ -127,7 +132,7 @@ export function FAQList({ faqs, categories }: FAQListProps) {
                             variant="outline"
                             className="ms-3 mt-0.5 shrink-0 text-xs"
                           >
-                            {item.category}
+                            {tCat(item.category as Parameters<typeof tCat>[0])}
                           </Badge>
                         </div>
                       </AccordionTrigger>

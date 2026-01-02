@@ -1,5 +1,7 @@
 "use client"
 
+import { useTranslations } from "next-intl"
+
 import {
   Card,
   CardContent,
@@ -16,6 +18,7 @@ import billingHistoryData from "./data/billing-history.json"
 import currentPlanData from "./data/current-plan.json"
 
 export default function BillingSettings() {
+  const t = useTranslations("Settings.billing")
   const handlePlanSelect = (planId: string) => {
     console.log("Plan selected:", planId)
     // Handle plan selection logic here
@@ -24,10 +27,8 @@ export default function BillingSettings() {
   return (
     <div className="space-y-6 px-4 lg:px-6">
       <div>
-        <h1 className="text-3xl font-bold">Plans & Billing</h1>
-        <p className="text-muted-foreground">
-          Manage your subscription and billing information.
-        </p>
+        <h1 className="text-3xl font-bold">{t("title")}</h1>
+        <p className="text-muted-foreground">{t("description")}</p>
       </div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
@@ -38,10 +39,8 @@ export default function BillingSettings() {
       <div className="grid gap-6">
         <Card>
           <CardHeader>
-            <CardTitle>Available Plans</CardTitle>
-            <CardDescription>
-              Choose a plan that works best for you.
-            </CardDescription>
+            <CardTitle>{t("availablePlans")}</CardTitle>
+            <CardDescription>{t("availablePlansDesc")}</CardDescription>
           </CardHeader>
           <CardContent>
             <PricingPlans

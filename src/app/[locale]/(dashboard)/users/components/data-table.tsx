@@ -23,6 +23,7 @@ import {
   Search,
   Trash2,
 } from "lucide-react"
+import { useTranslations } from "next-intl"
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
@@ -91,6 +92,8 @@ export function DataTable({
   onEditUser,
   onAddUser,
 }: DataTableProps) {
+  const t = useTranslations("Users")
+  const tCommon = useTranslations("Common")
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
@@ -165,7 +168,7 @@ export function DataTable({
     },
     {
       accessorKey: "name",
-      header: "User",
+      header: t("Table.user"),
       cell: ({ row }) => {
         const user = row.original
         return (
@@ -187,12 +190,12 @@ export function DataTable({
     },
     {
       accessorKey: "role",
-      header: "Role",
+      header: t("Table.role"),
       cell: ({ row }) => {
         const role = row.getValue("role") as string
         return (
           <Badge variant="secondary" className={getRoleColor(role)}>
-            {role}
+            {t(`Roles.${role}` as Parameters<typeof t>[0])}
           </Badge>
         )
       },
@@ -200,16 +203,20 @@ export function DataTable({
     },
     {
       accessorKey: "plan",
-      header: "Plan",
+      header: t("Table.plan"),
       cell: ({ row }) => {
         const plan = row.getValue("plan") as string
-        return <span className="font-medium">{plan}</span>
+        return (
+          <span className="font-medium">
+            {t(`Plans.${plan}` as Parameters<typeof t>[0])}
+          </span>
+        )
       },
       filterFn: exactFilter,
     },
     {
       accessorKey: "billing",
-      header: "Billing",
+      header: t("Table.billing"),
       cell: ({ row }) => {
         const billing = row.getValue("billing") as string
         return <span className="text-sm">{billing}</span>
@@ -217,12 +224,12 @@ export function DataTable({
     },
     {
       accessorKey: "status",
-      header: "Status",
+      header: t("Table.status"),
       cell: ({ row }) => {
         const status = row.getValue("status") as string
         return (
           <Badge variant="secondary" className={getStatusColor(status)}>
-            {status}
+            {t(`Status.${status}` as Parameters<typeof t>[0])}
           </Badge>
         )
       },
@@ -230,7 +237,7 @@ export function DataTable({
     },
     {
       id: "actions",
-      header: "Actions",
+      header: t("Table.actions"),
       cell: ({ row }) => {
         const user = row.original
         return (
@@ -241,7 +248,7 @@ export function DataTable({
               className="h-8 w-8 cursor-pointer"
             >
               <Eye className="size-4" />
-              <span className="sr-only">View user</span>
+              <span className="sr-only">{t("Actions.view")}</span>
             </Button>
             <Button
               variant="ghost"
@@ -250,7 +257,7 @@ export function DataTable({
               onClick={() => onEditUser(user)}
             >
               <Pencil className="size-4" />
-              <span className="sr-only">Edit user</span>
+              <span className="sr-only">{t("Actions.edit")}</span>
             </Button>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -260,18 +267,18 @@ export function DataTable({
                   className="h-8 w-8 cursor-pointer"
                 >
                   <EllipsisVertical className="size-4" />
-                  <span className="sr-only">More actions</span>
+                  <span className="sr-only">{t("Actions.more")}</span>
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem className="cursor-pointer">
-                  View Details
+                  {t("Actions.details")}
                 </DropdownMenuItem>
                 <DropdownMenuItem className="cursor-pointer">
-                  Send Email
+                  {t("Actions.email")}
                 </DropdownMenuItem>
                 <DropdownMenuItem className="cursor-pointer">
-                  Reset Password
+                  {t("Actions.resetPassword")}
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
@@ -280,7 +287,7 @@ export function DataTable({
                   onClick={() => onDeleteUser(user.id)}
                 >
                   <Trash2 className="mr-2 size-4" />
-                  Delete User
+                  {t("Actions.delete")}
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -322,7 +329,7 @@ export function DataTable({
           <div className="relative max-w-sm flex-1">
             <Search className="text-muted-foreground absolute top-1/2 left-3 size-4 -translate-y-1/2" />
             <Input
-              placeholder="Search users..."
+              placeholder={t("Table.searchPlaceholder")}
               value={globalFilter ?? ""}
               onChange={(event) => setGlobalFilter(String(event.target.value))}
               className="pl-9"
@@ -332,7 +339,7 @@ export function DataTable({
         <div className="flex items-center space-x-2">
           <Button variant="outline" className="cursor-pointer">
             <Download className="mr-2 size-4" />
-            Export
+            {t("Table.export")}
           </Button>
           <UserFormDialog onAddUser={onAddUser} />
         </div>
@@ -341,7 +348,7 @@ export function DataTable({
       <div className="grid gap-2 sm:grid-cols-4 sm:gap-4">
         <div className="space-y-2">
           <Label htmlFor="role-filter" className="text-sm font-medium">
-            Role
+            {t("Filters.role")}
           </Label>
           <Select
             value={roleFilter || ""}
@@ -352,21 +359,25 @@ export function DataTable({
             }
           >
             <SelectTrigger className="w-full cursor-pointer" id="role-filter">
-              <SelectValue placeholder="Select Role" />
+              <SelectValue placeholder={t("Filters.selectRole")} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All Roles</SelectItem>
-              <SelectItem value="Admin">Admin</SelectItem>
-              <SelectItem value="Author">Author</SelectItem>
-              <SelectItem value="Editor">Editor</SelectItem>
-              <SelectItem value="Maintainer">Maintainer</SelectItem>
-              <SelectItem value="Subscriber">Subscriber</SelectItem>
+              <SelectItem value="all">{t("Filters.allRoles")}</SelectItem>
+              <SelectItem value="Admin">{t("Roles.Admin")}</SelectItem>
+              <SelectItem value="Author">{t("Roles.Author")}</SelectItem>
+              <SelectItem value="Editor">{t("Roles.Editor")}</SelectItem>
+              <SelectItem value="Maintainer">
+                {t("Roles.Maintainer")}
+              </SelectItem>
+              <SelectItem value="Subscriber">
+                {t("Roles.Subscriber")}
+              </SelectItem>
             </SelectContent>
           </Select>
         </div>
         <div className="space-y-2">
           <Label htmlFor="plan-filter" className="text-sm font-medium">
-            Plan
+            {t("Filters.plan")}
           </Label>
           <Select
             value={planFilter || ""}
@@ -377,19 +388,23 @@ export function DataTable({
             }
           >
             <SelectTrigger className="w-full cursor-pointer" id="plan-filter">
-              <SelectValue placeholder="Select Plan" />
+              <SelectValue placeholder={t("Filters.selectPlan")} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All Plans</SelectItem>
-              <SelectItem value="Basic">Basic</SelectItem>
-              <SelectItem value="Professional">Professional</SelectItem>
-              <SelectItem value="Enterprise">Enterprise</SelectItem>
+              <SelectItem value="all">{t("Filters.allPlans")}</SelectItem>
+              <SelectItem value="Basic">{t("Plans.Basic")}</SelectItem>
+              <SelectItem value="Professional">
+                {t("Plans.Professional")}
+              </SelectItem>
+              <SelectItem value="Enterprise">
+                {t("Plans.Enterprise")}
+              </SelectItem>
             </SelectContent>
           </Select>
         </div>
         <div className="space-y-2">
           <Label htmlFor="status-filter" className="text-sm font-medium">
-            Status
+            {t("Filters.status")}
           </Label>
           <Select
             value={statusFilter || ""}
@@ -400,25 +415,25 @@ export function DataTable({
             }
           >
             <SelectTrigger className="w-full cursor-pointer" id="status-filter">
-              <SelectValue placeholder="Select Status" />
+              <SelectValue placeholder={t("Filters.selectStatus")} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All Status</SelectItem>
-              <SelectItem value="Active">Active</SelectItem>
-              <SelectItem value="Pending">Pending</SelectItem>
-              <SelectItem value="Error">Error</SelectItem>
-              <SelectItem value="Inactive">Inactive</SelectItem>
+              <SelectItem value="all">{t("Filters.allStatus")}</SelectItem>
+              <SelectItem value="Active">{t("Status.Active")}</SelectItem>
+              <SelectItem value="Pending">{t("Status.Pending")}</SelectItem>
+              <SelectItem value="Error">{t("Status.Error")}</SelectItem>
+              <SelectItem value="Inactive">{t("Status.Inactive")}</SelectItem>
             </SelectContent>
           </Select>
         </div>
         <div className="space-y-2">
           <Label htmlFor="column-visibility" className="text-sm font-medium">
-            Column Visibility
+            {t("Filters.columnVisibility")}
           </Label>
           <DropdownMenu>
             <DropdownMenuTrigger asChild id="column-visibility">
               <Button variant="outline" className="w-full cursor-pointer">
-                Columns <ChevronDown className="ml-2 size-4" />
+                {t("Filters.columns")} <ChevronDown className="ml-2 size-4" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
@@ -487,7 +502,7 @@ export function DataTable({
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  No results.
+                  {t("Ui.noResults") || "No results."}
                 </TableCell>
               </TableRow>
             )}
@@ -498,7 +513,7 @@ export function DataTable({
       <div className="flex items-center justify-between space-x-2 py-4">
         <div className="flex items-center space-x-2">
           <Label htmlFor="page-size" className="text-sm font-medium">
-            Show
+            {t("Stats.totalUsers") ? "Show" : "Show"}
           </Label>
           <Select
             value={`${table.getState().pagination.pageSize}`}
@@ -519,14 +534,14 @@ export function DataTable({
           </Select>
         </div>
         <div className="text-muted-foreground hidden flex-1 text-sm sm:block">
-          {table.getFilteredSelectedRowModel().rows.length} of{" "}
-          {table.getFilteredRowModel().rows.length} row(s) selected.
+          {table.getFilteredSelectedRowModel().rows.length} {tCommon("of")}{" "}
+          {table.getFilteredRowModel().rows.length} {t("Table.user")}s selected.
         </div>
         <div className="flex items-center space-x-6 lg:space-x-8">
           <div className="flex hidden items-center space-x-2 sm:block">
-            <p className="text-sm font-medium">Page</p>
+            <p className="text-sm font-medium">{tCommon("page") || "Page"}</p>
             <strong className="text-sm">
-              {table.getState().pagination.pageIndex + 1} of{" "}
+              {table.getState().pagination.pageIndex + 1} {tCommon("of")}{" "}
               {table.getPageCount()}
             </strong>
           </div>
@@ -538,7 +553,7 @@ export function DataTable({
               disabled={!table.getCanPreviousPage()}
               className="cursor-pointer"
             >
-              Previous
+              {tCommon("previous")}
             </Button>
             <Button
               variant="outline"
@@ -547,7 +562,7 @@ export function DataTable({
               disabled={!table.getCanNextPage()}
               className="cursor-pointer"
             >
-              Next
+              {tCommon("next")}
             </Button>
           </div>
         </div>

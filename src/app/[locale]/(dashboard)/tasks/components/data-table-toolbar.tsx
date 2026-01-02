@@ -2,6 +2,7 @@
 
 import type { Table } from "@tanstack/react-table"
 import { X } from "lucide-react"
+import { useTranslations } from "next-intl"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -22,12 +23,13 @@ export function DataTableToolbar<TData>({
   onAddTask,
 }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0
+  const t = useTranslations("Tasks")
 
   return (
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
         <Input
-          placeholder="Filter tasks..."
+          placeholder={t("filterPlaceholder")}
           value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn("title")?.setFilterValue(event.target.value)
@@ -37,15 +39,21 @@ export function DataTableToolbar<TData>({
         {table.getColumn("status") && (
           <DataTableFacetedFilter
             column={table.getColumn("status")}
-            title="Status"
-            options={statuses}
+            title={t("status")}
+            options={statuses.map((s) => ({
+              ...s,
+              label: t(`statuses.${s.value}`),
+            }))}
           />
         )}
         {table.getColumn("priority") && (
           <DataTableFacetedFilter
             column={table.getColumn("priority")}
-            title="Priority"
-            options={priorities}
+            title={t("priority")}
+            options={priorities.map((p) => ({
+              ...p,
+              label: t(`priorities.${p.value}`),
+            }))}
           />
         )}
         {isFiltered && (
@@ -54,7 +62,7 @@ export function DataTableToolbar<TData>({
             onClick={() => table.resetColumnFilters()}
             className="h-8 cursor-pointer px-2 lg:px-3"
           >
-            Reset
+            {t("reset")}
             <X />
           </Button>
         )}

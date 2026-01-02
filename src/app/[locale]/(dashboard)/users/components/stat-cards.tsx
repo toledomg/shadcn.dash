@@ -7,6 +7,7 @@ import {
   UserCheck,
   Users,
 } from "lucide-react"
+import { useTranslations } from "next-intl"
 
 import { cn } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
@@ -14,28 +15,28 @@ import { Card, CardContent } from "@/components/ui/card"
 
 const performanceMetrics = [
   {
-    title: "Total Users",
+    title: "totalUsers",
     current: "$2.4M",
     previous: "$1.8M",
     growth: 33.3,
     icon: Users,
   },
   {
-    title: "Paid Users",
+    title: "paidUsers",
     current: "12.5K",
     previous: "9.2K",
     growth: 35.9,
     icon: CreditCard,
   },
   {
-    title: "Active Users",
+    title: "activeUsers",
     current: "8.9k",
     previous: "6.7k",
     growth: 32.8,
     icon: UserCheck,
   },
   {
-    title: "Pending Users",
+    title: "pendingUsers",
     current: "17%",
     previous: "24%",
     growth: -8.0,
@@ -44,6 +45,8 @@ const performanceMetrics = [
 ]
 
 export function StatCards() {
+  const t = useTranslations("Users.Stats")
+
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
       {performanceMetrics.map((metric, index) => (
@@ -76,11 +79,13 @@ export function StatCards() {
 
             <div className="space-y-2">
               <p className="text-muted-foreground text-sm font-medium">
-                {metric.title}
+                {t(metric.title as Parameters<typeof t>[0])}
               </p>
               <div className="text-2xl font-bold">{metric.current}</div>
               <div className="text-muted-foreground flex items-center gap-2 text-sm">
-                <span>from {metric.previous}</span>
+                <span>
+                  {t("from")} {metric.previous}
+                </span>
                 <ArrowUpRight className="size-3" />
               </div>
             </div>
