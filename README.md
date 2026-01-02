@@ -1,4 +1,4 @@
-# Shadcn Dashboard Next.js
+# ShadCN Dashboard + Landing Page Template Next.js
 
 Este projeto é um dashboard moderno e robusto construído com a stack mais recente do ecossistema React. Ele serve como um template inicial de alta qualidade, focado em performance, acessibilidade e experiência de desenvolvimento.
 
@@ -188,3 +188,40 @@ O dashboard já vem equipado com uma suíte completa de componentes UI prontos p
 ---
 
 _Análise baseada na versão do template de 02/01/2026._
+
+## 🙏 Créditos e Reconhecimentos
+
+Este projeto é baseado no excelente template open-source criado por [ShadcnStore](https://shadcnstore.com):
+
+**Template Original:**
+
+- 📦 [shadcn-dashboard-landing-template](https://github.com/silicondeck/shadcn-dashboard-landing-template)
+- 🏢 Desenvolvido e mantido por [ShadcnStore](https://shadcnstore.com)
+- 📄 Licença: MIT
+- 🌟 [Ver Demo Ao Vivo](https://shadcnstore.com/templates/dashboard/shadcn-dashboard-landing-template/dashboard)
+
+**Tecnologias e Bibliotecas:**
+
+Este template é construído sobre projetos open-source incríveis:
+
+- [shadcn/ui](https://ui.shadcn.com) - Componentes lindos e acessíveis
+- [Radix UI](https://www.radix-ui.com) - Primitivos acessíveis de baixo nível
+- [Tailwind CSS](https://tailwindcss.com) - Framework CSS utilitário
+- [Next.js](https://nextjs.org) - Framework React para produção
+- [Lucide Icons](https://lucide.dev) - Ícones bonitos e consistentes
+- [Recharts](https://recharts.org) - Biblioteca de gráficos componível
+- [TanStack Table](https://tanstack.com/table) - Tabelas de dados poderosas
+- [next-intl](https://next-intl-docs.vercel.app/) - Internacionalização para Next.js
+
+**Agradecimentos Especiais:**
+
+- À comunidade [shadcn/ui](https://ui.shadcn.com) pela incrível biblioteca de componentes
+- Ao time da [ShadcnStore](https://shadcnstore.com) por disponibilizar este template gratuitamente
+
+---
+
+**Modificações Neste Fork:**
+
+- ✅ Implementação completa de internacionalização (i18n) com suporte a Português e Inglês
+- ✅ Correções de lint e melhorias de qualidade de código
+- ✅ Customizações específicas para o contexto do projeto
