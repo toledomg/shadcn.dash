@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import Link from "next/link"
+import { Link } from "@/i18n/routing"
 import {
   AlertTriangle,
   Calendar,
@@ -117,6 +117,7 @@ const data = {
             {
               title: "Sign Up 2",
               url: "/sign-up-2",
+              url: "/sign-up-2",
             },
             {
               title: "Sign Up 3",
@@ -178,6 +179,7 @@ const data = {
             },
             {
               title: "Plans & Billing",
+              url: "/settings/billing",
               url: "/settings/billing",
             },
             {

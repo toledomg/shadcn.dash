@@ -1,0 +1,15 @@
+{
+  "Dashboard": {
+    "title": "Painel de Controle",
+    "welcome": "Bem-vindo de volta",
+    "overview": "Visão Geral"
+  },
+  "Auth": {
+    "login": "Entrar",
+    "register": "Registrar"
+  },
+  "Common": {
+    "loading": "Carregando...",
+    "error": "Algo deu errado"
+  }
+}

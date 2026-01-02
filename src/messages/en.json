@@ -1,0 +1,15 @@
+{
+  "Dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome back",
+    "overview": "Overview"
+  },
+  "Auth": {
+    "login": "Login",
+    "register": "Register"
+  },
+  "Common": {
+    "loading": "Loading...",
+    "error": "Something went wrong"
+  }
+}

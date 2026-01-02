@@ -2,6 +2,8 @@ import type { NextConfig } from "next"
 
 import "./src/env.mjs"
 
+import createNextIntlPlugin from "next-intl/plugin"
+
 const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ["lucide-react", "@radix-ui/react-icons"],
@@ -62,4 +64,6 @@ const nextConfig: NextConfig = {
   },
 }
 
-export default nextConfig
+const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts")
+
+export default withNextIntl(nextConfig)
