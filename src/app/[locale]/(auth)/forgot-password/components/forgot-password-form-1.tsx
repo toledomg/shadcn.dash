@@ -52,10 +52,7 @@ export function ForgotPasswordForm1({
               </div>
               <div className="text-center text-sm">
                 {tAuth("rememberPassword")}{" "}
-                <Link
-                  href="/auth/sign-in"
-                  className="underline underline-offset-4"
-                >
+                <Link href="/sign-in" className="underline underline-offset-4">
                   {tAction("backToSignIn")}
                 </Link>
               </div>

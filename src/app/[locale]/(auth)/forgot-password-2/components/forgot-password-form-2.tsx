@@ -31,7 +31,7 @@ export function ForgotPasswordForm2({
       </div>
       <div className="text-center text-sm">
         Remember your password?{" "}
-        <Link href="/auth/sign-in-2" className="underline underline-offset-4">
+        <Link href="/sign-in-2" className="underline underline-offset-4">
           Back to sign in
         </Link>
       </div>

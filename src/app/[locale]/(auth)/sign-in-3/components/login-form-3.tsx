@@ -48,7 +48,7 @@ export function LoginForm3({
                 <div className="flex items-center">
                   <Label htmlFor="password">Password</Label>
                   <Link
-                    href="/auth/forgot-password-3"
+                    href="/forgot-password-3"
                     className="ml-auto text-sm underline-offset-2 hover:underline"
                   >
                     Forgot your password?
@@ -113,7 +113,7 @@ export function LoginForm3({
               <div className="text-center text-sm">
                 Don&apos;t have an account?{" "}
                 <Link
-                  href="/auth/sign-up-3"
+                  href="/sign-up-3"
                   className="underline underline-offset-4"
                 >
                   Sign up

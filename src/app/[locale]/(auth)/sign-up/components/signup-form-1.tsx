@@ -192,7 +192,7 @@ export function SignupForm1({
                 <div className="text-center text-sm">
                   {tAuth("alreadyHaveAccount")}{" "}
                   <Link
-                    href="/auth/sign-in"
+                    href="/sign-in"
                     className="underline underline-offset-4"
                   >
                     {tAction("signin")}

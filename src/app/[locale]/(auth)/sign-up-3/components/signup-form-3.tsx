@@ -133,7 +133,7 @@ export function SignupForm3({
               <div className="text-center text-sm">
                 Already have an account?{" "}
                 <Link
-                  href="/auth/sign-in-3"
+                  href="/sign-in-3"
                   className="underline underline-offset-4"
                 >
                   Sign in

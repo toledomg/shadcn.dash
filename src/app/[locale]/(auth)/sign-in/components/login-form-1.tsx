@@ -84,7 +84,7 @@ export function LoginForm1({
                         <div className="flex items-center">
                           <FormLabel>{tAuth("passwordLabel")}</FormLabel>
                           <Link
-                            href="/auth/forgot-password"
+                            href="/forgot-password"
                             className="ml-auto text-sm underline-offset-4 hover:underline"
                           >
                             {tAuth("forgotPassword")}
@@ -118,7 +118,7 @@ export function LoginForm1({
                 <div className="text-center text-sm">
                   {tAuth("noAccount")}{" "}
                   <Link
-                    href="/auth/sign-up"
+                    href="/sign-up"
                     className="underline underline-offset-4"
                   >
                     {tAction("signup")}

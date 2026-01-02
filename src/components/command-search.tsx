@@ -177,37 +177,37 @@ export function CommandSearch({ open, onOpenChange }: CommandSearchProps) {
     // Auth Pages
     {
       title: `${tSidebar("signIn")} 1`,
-      url: "/auth/sign-in",
+      url: "/sign-in",
       group: tSidebar("authPages"),
       icon: Shield,
     },
     {
       title: `${tSidebar("signIn")} 2`,
-      url: "/auth/sign-in-2",
+      url: "/sign-in-2",
       group: tSidebar("authPages"),
       icon: Shield,
     },
     {
       title: `${tSidebar("signUp")} 1`,
-      url: "/auth/sign-up",
+      url: "/sign-up",
       group: tSidebar("authPages"),
       icon: Shield,
     },
     {
       title: `${tSidebar("signUp")} 2`,
-      url: "/auth/sign-up-2",
+      url: "/sign-up-2",
       group: tSidebar("authPages"),
       icon: Shield,
     },
     {
       title: `${tSidebar("forgotPassword")} 1`,
-      url: "/auth/forgot-password",
+      url: "/forgot-password",
       group: tSidebar("authPages"),
       icon: Shield,
     },
     {
       title: `${tSidebar("forgotPassword")} 2`,
-      url: "/auth/forgot-password-2",
+      url: "/forgot-password-2",
       group: tSidebar("authPages"),
       icon: Shield,
     },
