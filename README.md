@@ -12,6 +12,7 @@ O projeto utiliza uma combinação de ferramentas de ponta:
 - **Code Quality:** Prettier (Tailwind Class Sorting + Import Sorting)
 - **Segurança:** Validação de variáveis de ambiente com [T3 Env](https://env.t3.gg/) & Zod
 - **Componentes UI:** [shadcn/ui](https://ui.shadcn.com/) (Radix UI + Tailwind)
+- **Internacionalização:** [next-intl](https://next-intl-docs.vercel.app/) (Suporte a Português e Inglês)
 - **Gerenciamento de Estado:** [Zustand](https://github.com/pmndrs/zustand) (estados globais) & Context API
 - **Formulários:** React Hook Form + Zod (validação)
 - **Ícones:** Lucide React
@@ -38,6 +39,88 @@ src/
 ├── lib/                  # Utilitários (cn, utils)
 └── types/                # Definições de tipos TypeScript
 ```
+
+## � Internacionalização (i18n)
+
+O projeto possui suporte completo para múltiplos idiomas usando **next-intl**:
+
+### Idiomas Suportados
+
+- **Português (pt)** - Idioma padrão
+- **English (en)**
+
+### Estrutura de Tradução
+
+```text
+src/
+├── i18n/
+│   ├── routing.ts         # Configuração de rotas e locales
+│   └── request.ts         # Handler de requisições i18n
+├── messages/
+│   ├── en.json            # Traduções em Inglês
+│   └── pt.json            # Traduções em Português
+└── components/
+    └── language-switcher.tsx  # Componente para trocar idioma
+```
+
+### Como Usar Traduções
+
+**Em Componentes Client:**
+
+```tsx
+"use client"
+
+import { useTranslations } from "next-intl"
+
+export function MyComponent() {
+  const t = useTranslations("Dashboard")
+
+  return <h1>{t("title")}</h1>
+}
+```
+
+**Em Componentes Server:**
+
+```tsx
+import { getTranslations } from "next-intl/server"
+
+export default async function Page() {
+  const t = await getTranslations("Dashboard")
+
+  return <h1>{t("title")}</h1>
+}
+```
+
+### Adicionar Novas Traduções
+
+1. Abra os arquivos `src/messages/en.json` e `src/messages/pt.json`
+2. Adicione a chave e valor no namespace apropriado:
+
+```json
+{
+  "Dashboard": {
+    "title": "Dashboard",
+    "newKey": "Your new translation"
+  }
+}
+```
+
+3. Use no componente: `t('newKey')`
+
+### Language Switcher
+
+O componente `<LanguageSwitcher />` já está integrado no layout e permite alternar entre idiomas. A preferência é salva automaticamente.
+
+### Namespaces Disponíveis
+
+- `Common` - Traduções gerais (botões, labels, etc.)
+- `Dashboard` - Painel principal
+- `Tasks` - Módulo de tarefas
+- `Chat` - Sistema de chat
+- `Mail` - Sistema de email
+- `Users` - Gerenciamento de usuários
+- `Settings` - Configurações
+- E mais...
 
 ## 🎨 Sistema de Design e Temas
 
