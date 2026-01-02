@@ -4,6 +4,7 @@
 /.agents
 /.cursor
 /.docs
+/.agent
 
 # dependencies
 /node_modules
