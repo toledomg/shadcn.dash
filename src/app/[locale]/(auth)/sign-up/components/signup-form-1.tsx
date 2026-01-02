@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useTranslations } from "next-intl"
 import { useForm } from "react-hook-form"
@@ -190,12 +191,12 @@ export function SignupForm1({
                 </div>
                 <div className="text-center text-sm">
                   {tAuth("alreadyHaveAccount")}{" "}
-                  <a
+                  <Link
                     href="/auth/sign-in"
                     className="underline underline-offset-4"
                   >
                     {tAction("signin")}
-                  </a>
+                  </Link>
                 </div>
               </div>
             </form>

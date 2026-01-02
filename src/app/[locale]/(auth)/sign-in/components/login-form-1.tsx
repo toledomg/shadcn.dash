@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useTranslations } from "next-intl"
 import { useForm } from "react-hook-form"
@@ -82,12 +83,12 @@ export function LoginForm1({
                       <FormItem>
                         <div className="flex items-center">
                           <FormLabel>{tAuth("passwordLabel")}</FormLabel>
-                          <a
+                          <Link
                             href="/auth/forgot-password"
                             className="ml-auto text-sm underline-offset-4 hover:underline"
                           >
                             {tAuth("forgotPassword")}
-                          </a>
+                          </Link>
                         </div>
                         <FormControl>
                           <Input type="password" {...field} />
@@ -116,12 +117,12 @@ export function LoginForm1({
                 </div>
                 <div className="text-center text-sm">
                   {tAuth("noAccount")}{" "}
-                  <a
+                  <Link
                     href="/auth/sign-up"
                     className="underline underline-offset-4"
                   >
                     {tAction("signup")}
-                  </a>
+                  </Link>
                 </div>
               </div>
             </form>

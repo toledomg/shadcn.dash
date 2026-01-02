@@ -1,5 +1,7 @@
 "use client"
 
+import Link from "next/link"
+
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -80,9 +82,9 @@ export function SignupForm2({
       </div>
       <div className="text-center text-sm">
         Already have an account?{" "}
-        <a href="/auth/sign-in-2" className="underline underline-offset-4">
+        <Link href="/auth/sign-in-2" className="underline underline-offset-4">
           Sign in
-        </a>
+        </Link>
       </div>
     </form>
   )

@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { useTranslations } from "next-intl"
 
 import { cn } from "@/lib/utils"
@@ -51,12 +52,12 @@ export function ForgotPasswordForm1({
               </div>
               <div className="text-center text-sm">
                 {tAuth("rememberPassword")}{" "}
-                <a
+                <Link
                   href="/auth/sign-in"
                   className="underline underline-offset-4"
                 >
                   {tAction("backToSignIn")}
-                </a>
+                </Link>
               </div>
             </div>
           </form>

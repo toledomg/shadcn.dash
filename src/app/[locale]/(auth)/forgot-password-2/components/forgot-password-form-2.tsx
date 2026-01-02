@@ -1,5 +1,7 @@
 "use client"
 
+import Link from "next/link"
+
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -29,9 +31,9 @@ export function ForgotPasswordForm2({
       </div>
       <div className="text-center text-sm">
         Remember your password?{" "}
-        <a href="/auth/sign-in-2" className="underline underline-offset-4">
+        <Link href="/auth/sign-in-2" className="underline underline-offset-4">
           Back to sign in
-        </a>
+        </Link>
       </div>
     </form>
   )

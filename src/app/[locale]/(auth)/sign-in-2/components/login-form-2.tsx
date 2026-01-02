@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { useTranslations } from "next-intl"
 
 import { cn } from "@/lib/utils"
@@ -42,12 +43,12 @@ export function LoginForm2({
         <div className="grid gap-3">
           <div className="flex items-center">
             <Label htmlFor="password">{tAuth("passwordLabel")}</Label>
-            <a
+            <Link
               href="/auth/forgot-password-2"
               className="ml-auto text-sm underline-offset-4 hover:underline"
             >
               {tAuth("forgotPassword")}
-            </a>
+            </Link>
           </div>
           <Input
             id="password"
@@ -76,9 +77,9 @@ export function LoginForm2({
       </div>
       <div className="text-center text-sm">
         {tAuth("noAccount")}{" "}
-        <a href="/auth/sign-up-2" className="underline underline-offset-4">
+        <Link href="/auth/sign-up-2" className="underline underline-offset-4">
           {tAction("signup")}
-        </a>
+        </Link>
       </div>
     </form>
   )

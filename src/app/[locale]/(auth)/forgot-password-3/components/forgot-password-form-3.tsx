@@ -48,12 +48,12 @@ export function ForgotPasswordForm3({
               </Button>
               <div className="text-center text-sm">
                 Remember your password?{" "}
-                <a
+                <Link
                   href="/auth/sign-in-3"
                   className="underline underline-offset-4"
                 >
                   Back to sign in
-                </a>
+                </Link>
               </div>
             </div>
           </form>
