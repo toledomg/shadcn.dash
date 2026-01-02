@@ -105,7 +105,7 @@ export default async function Page() {
 }
 ```
 
-3. Use no componente: `t('newKey')`
+1. Use no componente: `t('newKey')`
 
 ### Language Switcher
 
@@ -149,7 +149,7 @@ A barra lateral é altamente configurável, suportando estados colapsados, varia
 git clone <url-do-repositorio>
 
 # Entre na pasta
-cd financial.dash
+cd shadcn.dash
 
 # Instale as dependências
 yarn install
