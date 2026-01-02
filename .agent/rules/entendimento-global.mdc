@@ -1,0 +1,57 @@
+---
+alwaysApply: true
+---
+
+# ⚡ Regras Fixas — Entendimento Global
+
+Estas regras devem ser aplicadas sempre em todo o projeto.  
+O objetivo é garantir que o Cursor compreenda a estrutura completa antes de qualquer implementação.
+
+---
+
+## Entendimento Global
+
+- Analise profundamente todo o projeto, incluindo todos os arquivos, pastas, arquitetura e funcionalidades.
+- Esteja sempre ciente de como o sistema funciona como um todo.
+
+## Restrições
+
+- Nunca sugerir mudanças sem entender o impacto global.
+- Nunca quebrar código existente.
+- Sempre respeitar Clean Code e a arquitetura definida.
+
+## Solicitações Futuras
+
+- Avaliar se a implementação é possível dentro da estrutura atual.
+- Verificar impactos em outras partes do sistema.
+- Se envolver múltiplos arquivos, listar cada um claramente.
+
+## Modo de Resposta
+
+- Responder sempre baseado no conhecimento global do projeto.
+- Manter compatibilidade e não reinventar o que já funciona.
+
+---
+
+```json
+{
+  "rules": [
+    {
+      "name": "Entendimento Global",
+      "description": "Analise profundamente todo o projeto, arquivos e arquitetura antes de qualquer sugestão."
+    },
+    {
+      "name": "Restrições",
+      "description": "Nunca sugerir mudanças sem entender impacto global. Nunca quebrar código existente. Sempre respeitar Clean Code e a arquitetura definida."
+    },
+    {
+      "name": "Solicitações Futuras",
+      "description": "Ao receber pedidos, avalie possibilidade, impactos e onde precisa alterar. Se envolver múltiplos arquivos, liste todos."
+    },
+    {
+      "name": "Modo de Resposta",
+      "description": "Todas as respostas devem se basear no conhecimento do projeto inteiro, mantendo compatibilidade e sem reinventar o que já funciona."
+    }
+  ]
+}
+```
