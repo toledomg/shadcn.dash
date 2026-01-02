@@ -54,7 +54,7 @@ const socialLinks = [
   { name: "Twitter", href: "#", icon: Twitter },
   {
     name: "GitHub",
-    href: "https://github.com/silicondeck/shadcn-dashboard-landing-template",
+    href: "https://github.com/toledomg",
     icon: Github,
   },
   { name: "LinkedIn", href: "#", icon: Linkedin },

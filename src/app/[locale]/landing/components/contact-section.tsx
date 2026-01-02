@@ -123,7 +123,7 @@ export function ContactSection() {
                   asChild
                 >
                   <a
-                    href="https://github.com/silicondeck/shadcn-dashboard-landing-template/issues"
+                    href="https://github.com/toledomg/issues"
                     target="_blank"
                     rel="noopener noreferrer"
                   >

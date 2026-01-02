@@ -7,7 +7,13 @@
     "landingPage": "Página Inicial",
     "github": "GitHub",
     "dashboard": "Painel",
-    "adminDashboard": "Painel Administrativo"
+    "adminDashboard": "Painel Administrativo",
+    "refresh": "Atualizar",
+    "filters": "Filtros",
+    "page": "Página",
+    "of": "de",
+    "previous": "Anterior",
+    "next": "Próximo"
   },
   "Dashboard": {
     "businessDashboard": "Painel de Negócios",
@@ -213,14 +219,16 @@
     "limit": "Limite",
     "reviewer": "Revisor",
     "assignReviewer": "Atribuir revisor",
-    "outline": "Esboço",
-    "pastPerformance": "Desempenho Passado",
-    "keyPersonnel": "Pessoal Chave",
-    "focusDocuments": "Documentos Focais",
     "rowsSelected": "{count} de {total} linha(s) selecionada(s).",
+    "rowsPerPage": "Linhas por página",
+    "pageOf": "Página {current} de {total}",
+    "goToFirstPage": "Ir para a primeira página",
+    "goToPreviousPage": "Ir para a página anterior",
+    "goToNextPage": "Ir para a próxima página",
+    "goToLastPage": "Ir para a última página",
     "visitorsStats": "Mostrando total de visitantes nos últimos 6 meses",
     "trendingUp": "Tendência de alta de {percent}% este mês",
-    "description": "Mostrando total de visitantes nos últimos 6 meses. Este é apenas um texto aleatório para testar o layout. Ele ocupa várias linhas e deve quebrar.",
+    "description": "Mostrando total de visitantes nos últimos 6 meses. Este é apenas um texto aleatório para testar o layout.",
     "typePlaceholder": "Selecione um tipo",
     "statusPlaceholder": "Selecione um status",
     "reviewerPlaceholder": "Selecione um revisor",
@@ -236,11 +244,7 @@
     "statusNotStarted": "Não Iniciado",
     "selected": "selecionado(s)",
     "clearFilters": "Limpar filtros",
-    "noResults": "Nenhum resultado encontrado.",
-    "goToFirstPage": "Ir para a primeira página",
-    "goToPreviousPage": "Ir para a página anterior",
-    "goToNextPage": "Ir para a próxima página",
-    "goToLastPage": "Ir para a última página"
+    "noResults": "Nenhum resultado encontrado."
   },
   "Calendar": {
     "today": "Hoje",
@@ -765,10 +769,17 @@
       "learnMore": "Saiba mais"
     }
   },
+  "NavUser": {
+    "account": "Conta",
+    "billing": "Cobrança",
+    "notifications": "Notificações",
+    "logout": "Sair"
+  },
   "Footer": {
     "madeWith": "Feito com",
+    "modified": "Modificado com",
     "by": "por",
-    "description": "Construindo blocos, modelos e painéis bonitos e acessíveis para aplicações web modernas."
+    "description": "Versão modificada com suporte completo a internacionalização (PT/EN) e melhorias de código."
   },
   "Command": {
     "placeholder": "O que você precisa?",

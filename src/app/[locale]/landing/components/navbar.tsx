@@ -145,7 +145,7 @@ export function LandingNavbar() {
             className="cursor-pointer"
           >
             <a
-              href="https://github.com/silicondeck/shadcn-dashboard-landing-template"
+              href="https://github.com/toledomg"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub Repository"
@@ -208,7 +208,7 @@ export function LandingNavbar() {
                       className="h-8 w-8 cursor-pointer"
                     >
                       <a
-                        href="https://github.com/silicondeck/shadcn-dashboard-landing-template"
+                        href="https://github.com/toledomg"
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="GitHub Repository"

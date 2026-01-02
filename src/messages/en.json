@@ -8,7 +8,11 @@
     "github": "GitHub",
     "dashboard": "Dashboard",
     "refresh": "Refresh",
-    "filters": "Filters"
+    "filters": "Filters",
+    "page": "Page",
+    "of": "of",
+    "previous": "Previous",
+    "next": "Next"
   },
   "Dashboard": {
     "businessDashboard": "Business Dashboard",
@@ -206,9 +210,16 @@
     "limit": "Limit",
     "reviewer": "Reviewer",
     "assignReviewer": "Assign reviewer",
+    "rowsSelected": "{count} of {total} row(s) selected.",
+    "rowsPerPage": "Rows per page",
+    "pageOf": "Page {current} of {total}",
+    "goToFirstPage": "Go to first page",
+    "goToPreviousPage": "Go to previous page",
+    "goToNextPage": "Go to next page",
+    "goToLastPage": "Go to last page",
     "visitorsStats": "Showing total visitors for the last 6 months",
     "trendingUp": "Trending up by {percent}% this month",
-    "description": "Showing total visitors for the last 6 months. This is just some random text to test the layout. It spans multiple lines and should wrap around.",
+    "description": "Showing total visitors for the last 6 months.",
     "typePlaceholder": "Select a type",
     "statusPlaceholder": "Select a status",
     "reviewerPlaceholder": "Select a reviewer",
@@ -225,8 +236,7 @@
     "outline": "Outline",
     "pastPerformance": "Past Performance",
     "keyPersonnel": "Key Personnel",
-    "focusDocuments": "Focus Documents",
-    "rowsSelected": "{count} of {total} row(s) selected."
+    "focusDocuments": "Focus Documents"
   },
   "Calendar": {
     "today": "Today",
@@ -751,10 +761,17 @@
       "learnMore": "Learn more"
     }
   },
+  "NavUser": {
+    "account": "Account",
+    "billing": "Billing",
+    "notifications": "Notifications",
+    "logout": "Log out"
+  },
   "Footer": {
     "madeWith": "Made with",
+    "modified": "Modified with",
     "by": "by",
-    "description": "Building beautiful, accessible blocks, templates and dashboards for modern web applications."
+    "description": "Modified version with full internationalization support (PT/EN) and code improvements."
   },
   "Command": {
     "placeholder": "What do you need?",

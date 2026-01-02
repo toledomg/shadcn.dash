@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { Link } from "@/i18n/routing"
 import { useTranslations } from "next-intl"
 
 import { Button } from "@/components/ui/button"
@@ -62,14 +63,9 @@ export function SiteHeader() {
               size="sm"
               className="hidden sm:flex"
             >
-              <a
-                href="/landing"
-                rel="noopener noreferrer"
-                target="_blank"
-                className="dark:text-foreground"
-              >
+              <Link href="/landing" className="dark:text-foreground">
                 {t("landingPage")}
-              </a>
+              </Link>
             </Button>
             <Button
               variant="ghost"
@@ -78,7 +74,7 @@ export function SiteHeader() {
               className="hidden sm:flex"
             >
               <a
-                href="https://github.com/silicondeck/shadcn-dashboard-landing-template"
+                href="https://github.com/toledomg"
                 rel="noopener noreferrer"
                 target="_blank"
                 className="dark:text-foreground"

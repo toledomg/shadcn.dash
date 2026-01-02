@@ -11,7 +11,6 @@ import {
   ThemeCustomizer,
   ThemeCustomizerTrigger,
 } from "@/components/theme-customizer"
-import { UpgradeToProButton } from "@/components/upgrade-to-pro-button"
 
 export default function DashboardLayout({
   children,
@@ -78,7 +77,6 @@ export default function DashboardLayout({
         open={themeCustomizerOpen}
         onOpenChange={setThemeCustomizerOpen}
       />
-      <UpgradeToProButton />
     </SidebarProvider>
   )
 }
