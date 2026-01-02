@@ -1,3 +1,5 @@
+import { useTranslations } from "next-intl"
+
 import {
   Accordion,
   AccordionContent,
@@ -23,13 +25,14 @@ interface FAQSectionProps {
 }
 
 export function FAQSection({ faqs }: FAQSectionProps) {
+  const t = useTranslations("Pricing")
   return (
     <Card className="mt-6 sm:mt-8 lg:mt-12">
       <CardHeader className="text-center">
-        <CardTitle className="text-2xl">Frequently Asked Questions</CardTitle>
-        <CardDescription>
-          Get answers to the most common questions about our pricing and plans
-        </CardDescription>
+        <CardTitle className="text-2xl">
+          {t("frequentlyAskedQuestions")}
+        </CardTitle>
+        <CardDescription>{t("faqDesc")}</CardDescription>
       </CardHeader>
       <CardContent className="mt-6 sm:mt-8">
         <div className="grid grid-cols-1 gap-x-6 lg:grid-cols-2">
@@ -40,7 +43,7 @@ export function FAQSection({ faqs }: FAQSectionProps) {
                 <AccordionItem
                   key={item.id}
                   value={`item-${item.id}`}
-                  className="my-3 rounded-md !border"
+                  className="my-3 rounded-md border!"
                 >
                   <AccordionTrigger className="cursor-pointer px-4">
                     {item.question}
@@ -60,7 +63,7 @@ export function FAQSection({ faqs }: FAQSectionProps) {
                 <AccordionItem
                   key={item.id}
                   value={`item-${item.id}`}
-                  className="my-3 rounded-md !border"
+                  className="my-3 rounded-md border!"
                 >
                   <AccordionTrigger className="cursor-pointer px-4">
                     {item.question}

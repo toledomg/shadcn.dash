@@ -1,6 +1,7 @@
 "use client"
 
-import { useState } from "react"
+import React, { useState } from "react"
+import { useLocale, useTranslations } from "next-intl"
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts"
 
 import { Button } from "@/components/ui/button"
@@ -24,41 +25,48 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-const salesData = [
-  { month: "Jan", sales: 12500, target: 15000 },
-  { month: "Feb", sales: 18200, target: 15000 },
-  { month: "Mar", sales: 16800, target: 15000 },
-  { month: "Apr", sales: 22400, target: 20000 },
-  { month: "May", sales: 24600, target: 20000 },
-  { month: "Jun", sales: 28200, target: 25000 },
-  { month: "Jul", sales: 31500, target: 25000 },
-  { month: "Aug", sales: 29800, target: 25000 },
-  { month: "Sep", sales: 33200, target: 30000 },
-  { month: "Oct", sales: 35100, target: 30000 },
-  { month: "Nov", sales: 38900, target: 35000 },
-  { month: "Dec", sales: 42300, target: 35000 },
-]
-
-const chartConfig = {
-  sales: {
-    label: "Sales",
-    color: "var(--primary)",
-  },
-  target: {
-    label: "Target",
-    color: "var(--primary)",
-  },
-}
-
 export function SalesChart() {
+  const tDashboard = useTranslations("Dashboard")
+  const locale = useLocale()
   const [timeRange, setTimeRange] = useState("12m")
+
+  const salesData = React.useMemo(() => {
+    return Array.from({ length: 12 }, (_, i) => {
+      const date = new Date(new Date().getFullYear(), i, 1)
+      const monthName = new Intl.DateTimeFormat(locale, {
+        month: "short",
+      }).format(date)
+      return {
+        month: monthName,
+        sales: [
+          12500, 18200, 16800, 22400, 24600, 28200, 31500, 29800, 33200, 35100,
+          38900, 42300,
+        ][i],
+        target: [
+          15000, 15000, 15000, 20000, 20000, 25000, 25000, 25000, 30000, 30000,
+          35000, 35000,
+        ][i],
+      }
+    })
+  }, [locale])
+
+  const chartConfig = {
+    sales: {
+      label: tDashboard("sales"),
+      color: "var(--primary)",
+    },
+    target: {
+      label: tDashboard("target"),
+      color: "var(--primary)",
+    },
+  }
 
   return (
     <Card className="cursor-pointer">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <div>
-          <CardTitle>Sales Performance</CardTitle>
-          <CardDescription>Monthly sales vs targets</CardDescription>
+          <CardTitle>{tDashboard("salesPerformance")}</CardTitle>
+          <CardDescription>{tDashboard("monthlySalesTarget")}</CardDescription>
         </div>
         <div className="flex items-center space-x-2">
           <Select value={timeRange} onValueChange={setTimeRange}>
@@ -67,18 +75,18 @@ export function SalesChart() {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="3m" className="cursor-pointer">
-                Last 3 months
+                {tDashboard("last3Months")}
               </SelectItem>
               <SelectItem value="6m" className="cursor-pointer">
-                Last 6 months
+                {tDashboard("last6Months")}
               </SelectItem>
               <SelectItem value="12m" className="cursor-pointer">
-                Last 12 months
+                {tDashboard("last12Months")}
               </SelectItem>
             </SelectContent>
           </Select>
           <Button variant="outline" className="cursor-pointer">
-            Export
+            {tDashboard("export")}
           </Button>
         </div>
       </CardHeader>

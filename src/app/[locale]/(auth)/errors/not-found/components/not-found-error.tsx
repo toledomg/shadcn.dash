@@ -2,11 +2,14 @@
 
 import Image from "next/image"
 import { useRouter } from "next/navigation"
+import { useTranslations } from "next-intl"
 
 import { Button } from "@/components/ui/button"
 
 export function NotFoundError() {
   const router = useRouter()
+  const tError = useTranslations("Error")
+  const tAction = useTranslations("Action")
 
   return (
     <div className="mx-auto flex min-h-dvh flex-col items-center justify-center gap-8 p-8 md:gap-12 md:p-16">
@@ -19,24 +22,23 @@ export function NotFoundError() {
       />
       <div className="text-center">
         <h1 className="mb-4 text-3xl font-bold">404</h1>
-        <h2 className="mb-3 text-2xl font-semibold">Page Not Found</h2>
-        <p>
-          The page you are looking for doesn&apos;t exist or has been moved to
-          another location.
-        </p>
+        <h2 className="mb-3 text-2xl font-semibold">
+          {tError("pageNotFound")}
+        </h2>
+        <p>{tError("pageNotFoundDesc")}</p>
         <div className="mt-6 flex items-center justify-center gap-4 md:mt-8">
           <Button
             className="cursor-pointer"
             onClick={() => router.push("/dashboard")}
           >
-            Go Back Home
+            {tAction("goBackHome")}
           </Button>
           <Button
             variant="outline"
             className="flex cursor-pointer items-center gap-1"
             onClick={() => router.push("#")}
           >
-            Contact Us
+            {tAction("contactUs")}
           </Button>
         </div>
       </div>

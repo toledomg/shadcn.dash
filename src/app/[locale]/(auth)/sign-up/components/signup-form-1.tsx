@@ -1,6 +1,7 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useTranslations } from "next-intl"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
@@ -42,10 +43,15 @@ const signupFormSchema = z
 
 type SignupFormValues = z.infer<typeof signupFormSchema>
 
+// ... imports
+
 export function SignupForm1({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const tAuth = useTranslations("Auth")
+  const tAction = useTranslations("Action")
+
   const form = useForm<SignupFormValues>({
     resolver: zodResolver(signupFormSchema),
     defaultValues: {
@@ -67,10 +73,8 @@ export function SignupForm1({
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader className="text-center">
-          <CardTitle className="text-xl">Create Account</CardTitle>
-          <CardDescription>
-            Enter your information to create a new account
-          </CardDescription>
+          <CardTitle className="text-xl">{tAction("createAccount")}</CardTitle>
+          <CardDescription>{tAuth("createAccountSubtitle")}</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -83,7 +87,7 @@ export function SignupForm1({
                       name="firstName"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>First Name</FormLabel>
+                          <FormLabel>{tAuth("firstName")}</FormLabel>
                           <FormControl>
                             <Input placeholder="John" {...field} />
                           </FormControl>
@@ -96,7 +100,7 @@ export function SignupForm1({
                       name="lastName"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Last Name</FormLabel>
+                          <FormLabel>{tAuth("lastName")}</FormLabel>
                           <FormControl>
                             <Input placeholder="Doe" {...field} />
                           </FormControl>
@@ -110,7 +114,7 @@ export function SignupForm1({
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Email</FormLabel>
+                        <FormLabel>{tAuth("emailLabel")}</FormLabel>
                         <FormControl>
                           <Input
                             type="email"
@@ -127,7 +131,7 @@ export function SignupForm1({
                     name="password"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Password</FormLabel>
+                        <FormLabel>{tAuth("passwordLabel")}</FormLabel>
                         <FormControl>
                           <Input type="password" {...field} />
                         </FormControl>
@@ -140,7 +144,7 @@ export function SignupForm1({
                     name="confirmPassword"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Confirm Password</FormLabel>
+                        <FormLabel>{tAuth("confirmPassword")}</FormLabel>
                         <FormControl>
                           <Input type="password" {...field} />
                         </FormControl>
@@ -161,13 +165,13 @@ export function SignupForm1({
                           />
                         </FormControl>
                         <FormLabel className="text-sm">
-                          I agree to the terms of service and privacy policy
+                          {tAuth("agreeTerms")}
                         </FormLabel>
                       </FormItem>
                     )}
                   />
                   <Button type="submit" className="w-full cursor-pointer">
-                    Create Account
+                    {tAction("createAccount")}
                   </Button>
 
                   <Button
@@ -181,16 +185,16 @@ export function SignupForm1({
                         fill="currentColor"
                       />
                     </svg>
-                    Sign up with Google
+                    {tAuth("signupWithGoogle")}
                   </Button>
                 </div>
                 <div className="text-center text-sm">
-                  Already have an account?{" "}
+                  {tAuth("alreadyHaveAccount")}{" "}
                   <a
                     href="/auth/sign-in"
                     className="underline underline-offset-4"
                   >
-                    Sign in
+                    {tAction("signin")}
                   </a>
                 </div>
               </div>
@@ -199,8 +203,10 @@ export function SignupForm1({
         </CardContent>
       </Card>
       <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
-        By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
-        and <a href="#">Privacy Policy</a>.
+        {tAuth.rich("termsPrivacy", {
+          terms: (children: React.ReactNode) => <a href="#">{children}</a>,
+          privacy: (children: React.ReactNode) => <a href="#">{children}</a>,
+        })}
       </div>
     </div>
   )

@@ -12,6 +12,8 @@ import {
   startOfMonth,
   subMonths,
 } from "date-fns"
+// ... imports
+import { enUS, ptBR } from "date-fns/locale"
 import {
   Calendar as CalendarIcon,
   ChevronDown,
@@ -26,6 +28,7 @@ import {
   Search,
   Users,
 } from "lucide-react"
+import { useLocale, useTranslations } from "next-intl"
 
 import { cn } from "@/lib/utils"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
@@ -59,6 +62,8 @@ interface CalendarMainProps {
   onEventClick?: (event: CalendarEvent) => void
 }
 
+// ... imports
+
 export function CalendarMain({
   selectedDate,
   onDateSelect,
@@ -66,7 +71,11 @@ export function CalendarMain({
   events,
   onEventClick,
 }: CalendarMainProps) {
-  // Convert JSON events to CalendarEvent objects with proper Date objects, fallback to imported data
+  const tCalendar = useTranslations("Calendar")
+  const tAction = useTranslations("Action")
+  const locale = useLocale()
+  const dateFnsLocale = locale === "pt" ? ptBR : enUS
+
   const sampleEvents: CalendarEvent[] =
     events ||
     eventsData.map((event) => ({
@@ -128,7 +137,11 @@ export function CalendarMain({
   }
 
   const renderCalendarGrid = () => {
-    const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+    const weekDays = [0, 1, 2, 3, 4, 5, 6].map((day) => {
+      const d = new Date()
+      d.setDate(d.getDate() - d.getDay() + day)
+      return format(d, "EEE", { locale: dateFnsLocale })
+    })
 
     return (
       <div className="bg-background flex-1">
@@ -173,7 +186,7 @@ export function CalendarMain({
                         "bg-primary text-primary-foreground flex h-6 w-6 items-center justify-center rounded-md text-xs"
                     )}
                   >
-                    {format(day, "d")}
+                    {format(day, "d", { locale: dateFnsLocale })}
                   </span>
                   {dayEvents.length > 2 && (
                     <span className="text-muted-foreground text-xs">
@@ -235,7 +248,9 @@ export function CalendarMain({
                       <div className="text-muted-foreground mt-2 flex items-center gap-4 text-sm">
                         <div className="flex flex-wrap items-center gap-1">
                           <CalendarIcon className="h-4 w-4" />
-                          {format(event.date, "MMM d, yyyy")}
+                          {format(event.date, "MMM d, yyyy", {
+                            locale: dateFnsLocale,
+                          })}
                         </div>
                         <div className="flex flex-wrap items-center gap-1">
                           <Clock className="h-4 w-4" />
@@ -316,12 +331,12 @@ export function CalendarMain({
               onClick={goToToday}
               className="cursor-pointer"
             >
-              Today
+              {tCalendar("today")}
             </Button>
           </div>
 
           <h1 className="text-2xl font-semibold">
-            {format(currentDate, "MMMM yyyy")}
+            {format(currentDate, "MMMM yyyy", { locale: dateFnsLocale })}
           </h1>
         </div>
 
@@ -329,7 +344,10 @@ export function CalendarMain({
           {/* Search */}
           <div className="relative">
             <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 transform" />
-            <Input placeholder="Search events..." className="w-64 pl-10" />
+            <Input
+              placeholder={tCalendar("searchEvents")}
+              className="w-64 pl-10"
+            />
           </div>
 
           {/* View Mode Toggle */}
@@ -338,7 +356,11 @@ export function CalendarMain({
               <Button variant="outline" className="cursor-pointer">
                 {viewMode === "month" && <Grid3X3 className="mr-2 h-4 w-4" />}
                 {viewMode === "list" && <List className="mr-2 h-4 w-4" />}
-                {viewMode.charAt(0).toUpperCase() + viewMode.slice(1)}
+                {viewMode === "month"
+                  ? tCalendar("month")
+                  : viewMode === "list"
+                    ? tCalendar("list")
+                    : viewMode.charAt(0).toUpperCase() + viewMode.slice(1)}
                 <ChevronDown className="ml-2 h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
@@ -348,14 +370,14 @@ export function CalendarMain({
                 className="cursor-pointer"
               >
                 <Grid3X3 className="mr-2 h-4 w-4" />
-                Month
+                {tCalendar("month")}
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => setViewMode("list")}
                 className="cursor-pointer"
               >
                 <List className="mr-2 h-4 w-4" />
-                List
+                {tCalendar("list")}
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -369,16 +391,20 @@ export function CalendarMain({
       <Dialog open={showEventDialog} onOpenChange={setShowEventDialog}>
         <DialogContent className="max-w-md">
           <DialogHeader>
-            <DialogTitle>{selectedEvent?.title || "Event Details"}</DialogTitle>
-            <DialogDescription>
-              View and manage this calendar event
-            </DialogDescription>
+            <DialogTitle>
+              {selectedEvent?.title || tCalendar("eventDetails")}
+            </DialogTitle>
+            <DialogDescription>{tCalendar("manageEvent")}</DialogDescription>
           </DialogHeader>
           {selectedEvent && (
             <div className="space-y-4">
               <div className="flex items-center gap-2">
                 <CalendarIcon className="text-muted-foreground h-4 w-4" />
-                <span>{format(selectedEvent.date, "EEEE, MMMM d, yyyy")}</span>
+                <span>
+                  {format(selectedEvent.date, "EEEE, MMMM d, yyyy", {
+                    locale: dateFnsLocale,
+                  })}
+                </span>
               </div>
               <div className="flex items-center gap-2">
                 <Clock className="text-muted-foreground h-4 w-4" />
@@ -393,7 +419,7 @@ export function CalendarMain({
               <div className="flex items-center gap-2">
                 <Users className="text-muted-foreground h-4 w-4" />
                 <div className="flex items-center gap-2">
-                  <span>Attendees:</span>
+                  <span>{tCalendar("attendees")}</span>
                   <div className="flex -space-x-2">
                     {selectedEvent.attendees.map(
                       (attendee: string, index: number) => (
@@ -426,7 +452,7 @@ export function CalendarMain({
                     setShowEventDialog(false)
                   }}
                 >
-                  Edit
+                  {tAction("edit")}
                 </Button>
                 <Button
                   variant="destructive"
@@ -435,7 +461,7 @@ export function CalendarMain({
                     setShowEventDialog(false)
                   }}
                 >
-                  Delete
+                  {tAction("delete")}
                 </Button>
               </div>
             </div>

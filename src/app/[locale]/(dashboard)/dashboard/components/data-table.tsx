@@ -49,6 +49,8 @@ import {
   Plus,
   TrendingUp,
 } from "lucide-react"
+// ... imports
+import { useLocale, useTranslations } from "next-intl"
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
 import { toast } from "sonner"
 import { z } from "zod"
@@ -103,11 +105,14 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 import { schema } from "../schemas/task-schema"
 
+// ... imports
+
 // Create a separate component for the drag handle
 function DragHandle({ id }: { id: number }) {
   const { attributes, listeners } = useSortable({
     id,
   })
+  const tAction = useTranslations("Action")
 
   return (
     <Button
@@ -118,185 +123,39 @@ function DragHandle({ id }: { id: number }) {
       className="text-muted-foreground size-7 cursor-move hover:bg-transparent"
     >
       <GripVertical className="text-muted-foreground size-3" />
-      <span className="sr-only">Drag to reorder</span>
+      <span className="sr-only">{tAction("dragToReorder")}</span>
     </Button>
   )
 }
 
-const columns: ColumnDef<z.infer<typeof schema>>[] = [
-  {
-    id: "drag",
-    header: () => null,
-    cell: ({ row }) => <DragHandle id={row.original.id} />,
-  },
-  {
-    id: "select",
-    header: ({ table }) => (
-      <div className="flex items-center justify-center">
-        <Checkbox
-          checked={
-            table.getIsAllPageRowsSelected() ||
-            (table.getIsSomePageRowsSelected() && "indeterminate")
-          }
-          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-          aria-label="Select all"
-        />
-      </div>
-    ),
-    cell: ({ row }) => (
-      <div className="flex items-center justify-center">
-        <Checkbox
-          checked={row.getIsSelected()}
-          onCheckedChange={(value) => row.toggleSelected(!!value)}
-          aria-label="Select row"
-        />
-      </div>
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
-  {
-    accessorKey: "header",
-    header: "Header",
-    cell: ({ row }) => {
-      return <TableCellViewer item={row.original} />
-    },
-    enableHiding: false,
-  },
-  {
-    accessorKey: "type",
-    header: "Section Type",
-    cell: ({ row }) => (
-      <div className="w-32">
-        <Badge variant="outline" className="text-muted-foreground px-1.5">
-          {row.original.type}
-        </Badge>
-      </div>
-    ),
-  },
-  {
-    accessorKey: "status",
-    header: "Status",
-    cell: ({ row }) => (
-      <Badge variant="outline" className="text-muted-foreground px-1.5">
-        {row.original.status === "Done" ? (
-          <CircleCheckBig className="text-green-500 dark:text-green-400" />
-        ) : (
-          <Loader />
-        )}
-        {row.original.status}
-      </Badge>
-    ),
-  },
-  {
-    accessorKey: "target",
-    header: () => <div className="w-full">Target</div>,
-    cell: ({ row }) => (
-      <form
-        onSubmit={(e) => {
-          e.preventDefault()
-          toast.promise(new Promise((resolve) => setTimeout(resolve, 1000)), {
-            loading: `Saving ${row.original.header}`,
-            success: "Done",
-            error: "Error",
-          })
-        }}
-      >
-        <Label htmlFor={`${row.original.id}-target`} className="sr-only">
-          Target
-        </Label>
-        <Input
-          className="hover:bg-input/30 focus-visible:bg-background dark:hover:bg-input/30 dark:focus-visible:bg-input/30 h-8 w-16 border-transparent bg-transparent shadow-none focus-visible:border dark:bg-transparent"
-          defaultValue={row.original.target}
-          id={`${row.original.id}-target`}
-        />
-      </form>
-    ),
-  },
-  {
-    accessorKey: "limit",
-    header: () => <div className="w-full">Limit</div>,
-    cell: ({ row }) => (
-      <form
-        onSubmit={(e) => {
-          e.preventDefault()
-          toast.promise(new Promise((resolve) => setTimeout(resolve, 1000)), {
-            loading: `Saving ${row.original.header}`,
-            success: "Done",
-            error: "Error",
-          })
-        }}
-      >
-        <Label htmlFor={`${row.original.id}-limit`} className="sr-only">
-          Limit
-        </Label>
-        <Input
-          className="hover:bg-input/30 focus-visible:bg-background dark:hover:bg-input/30 dark:focus-visible:bg-input/30 h-8 w-16 border-transparent bg-transparent shadow-none focus-visible:border dark:bg-transparent"
-          defaultValue={row.original.limit}
-          id={`${row.original.id}-limit`}
-        />
-      </form>
-    ),
-  },
-  {
-    accessorKey: "reviewer",
-    header: "Reviewer",
-    cell: ({ row }) => {
-      const isAssigned = row.original.reviewer !== "Assign reviewer"
+function ActionsCell() {
+  const tAction = useTranslations("Action")
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button
+          variant="ghost"
+          className="data-[state=open]:bg-muted text-muted-foreground flex size-8 cursor-pointer"
+          size="icon"
+        >
+          <EllipsisVertical />
+          <span className="sr-only">{tAction("openMenu")}</span>
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="w-32">
+        <DropdownMenuItem>{tAction("edit")}</DropdownMenuItem>
+        <DropdownMenuItem>{tAction("copy")}</DropdownMenuItem>
+        <DropdownMenuItem>{tAction("favorite")}</DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem variant="destructive">
+          {tAction("delete")}
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  )
+}
 
-      if (isAssigned) {
-        return row.original.reviewer
-      }
-
-      return (
-        <>
-          <Label htmlFor={`${row.original.id}-reviewer`} className="sr-only">
-            Reviewer
-          </Label>
-          <Select>
-            <SelectTrigger
-              className="w-38 cursor-pointer **:data-[slot=select-value]:block **:data-[slot=select-value]:truncate"
-              size="sm"
-              id={`${row.original.id}-reviewer`}
-            >
-              <SelectValue placeholder="Assign reviewer" />
-            </SelectTrigger>
-            <SelectContent align="end">
-              <SelectItem value="Eddie Lake">Eddie Lake</SelectItem>
-              <SelectItem value="Jamik Tashpulatov">
-                Jamik Tashpulatov
-              </SelectItem>
-            </SelectContent>
-          </Select>
-        </>
-      )
-    },
-  },
-  {
-    id: "actions",
-    cell: () => (
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button
-            variant="ghost"
-            className="data-[state=open]:bg-muted text-muted-foreground flex size-8 cursor-pointer"
-            size="icon"
-          >
-            <EllipsisVertical />
-            <span className="sr-only">Open menu</span>
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-32">
-          <DropdownMenuItem>Edit</DropdownMenuItem>
-          <DropdownMenuItem>Make a copy</DropdownMenuItem>
-          <DropdownMenuItem>Favorite</DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem variant="destructive">Delete</DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    ),
-  },
-]
+// Column definitions are now memoized inside DataTable component
 
 function DraggableRow({ row }: { row: Row<z.infer<typeof schema>> }) {
   const { transform, transition, setNodeRef, isDragging } = useSortable({
@@ -334,6 +193,8 @@ export function DataTable({
   keyPersonnelData?: z.infer<typeof schema>[]
   focusDocumentsData?: z.infer<typeof schema>[]
 }) {
+  const tAction = useTranslations("Action")
+  const tTable = useTranslations("DataTable")
   const [data, setData] = React.useState(() => initialData)
   const [pastPerformance, setPastPerformance] = React.useState(
     () => pastPerformanceData
@@ -358,6 +219,175 @@ export function DataTable({
     useSensor(MouseSensor, {}),
     useSensor(TouchSensor, {}),
     useSensor(KeyboardSensor, {})
+  )
+
+  const columns = React.useMemo<ColumnDef<z.infer<typeof schema>>[]>(
+    () => [
+      {
+        id: "drag",
+        header: () => null,
+        cell: ({ row }) => <DragHandle id={row.original.id} />,
+      },
+      {
+        id: "select",
+        header: ({ table }) => (
+          <div className="flex items-center justify-center">
+            <Checkbox
+              checked={
+                table.getIsAllPageRowsSelected() ||
+                (table.getIsSomePageRowsSelected() && "indeterminate")
+              }
+              onCheckedChange={(value) =>
+                table.toggleAllPageRowsSelected(!!value)
+              }
+              aria-label={tAction("selectAll")}
+            />
+          </div>
+        ),
+        cell: ({ row }) => (
+          <div className="flex items-center justify-center">
+            <Checkbox
+              checked={row.getIsSelected()}
+              onCheckedChange={(value) => row.toggleSelected(!!value)}
+              aria-label={tAction("selectRow")}
+            />
+          </div>
+        ),
+        enableSorting: false,
+        enableHiding: false,
+      },
+      {
+        accessorKey: "header",
+        header: tTable("header"),
+        cell: ({ row }) => {
+          return <TableCellViewer item={row.original} />
+        },
+        enableHiding: false,
+      },
+      {
+        accessorKey: "type",
+        header: tTable("sectionType"),
+        cell: ({ row }) => (
+          <div className="w-32">
+            <Badge variant="outline" className="text-muted-foreground px-1.5">
+              {row.original.type}
+            </Badge>
+          </div>
+        ),
+      },
+      {
+        accessorKey: "status",
+        header: tTable("status"),
+        cell: ({ row }) => (
+          <Badge variant="outline" className="text-muted-foreground px-1.5">
+            {row.original.status === "Done" ? (
+              <CircleCheckBig className="text-green-500 dark:text-green-400" />
+            ) : (
+              <Loader />
+            )}
+            {row.original.status}
+          </Badge>
+        ),
+      },
+      {
+        accessorKey: "target",
+        header: () => <div className="w-full">{tTable("target")}</div>,
+        cell: ({ row }) => (
+          <form
+            onSubmit={(e) => {
+              e.preventDefault()
+              toast.promise(
+                new Promise((resolve) => setTimeout(resolve, 1000)),
+                {
+                  loading: `${tAction("saving")} ${row.original.header}`,
+                  success: tAction("done"),
+                  error: tAction("error"),
+                }
+              )
+            }}
+          >
+            <Label htmlFor={`${row.original.id}-target`} className="sr-only">
+              {tTable("target")}
+            </Label>
+            <Input
+              className="hover:bg-input/30 focus-visible:bg-background dark:hover:bg-input/30 dark:focus-visible:bg-input/30 h-8 w-16 border-transparent bg-transparent shadow-none focus-visible:border dark:bg-transparent"
+              defaultValue={row.original.target}
+              id={`${row.original.id}-target`}
+            />
+          </form>
+        ),
+      },
+      {
+        accessorKey: "limit",
+        header: () => <div className="w-full">{tTable("limit")}</div>,
+        cell: ({ row }) => (
+          <form
+            onSubmit={(e) => {
+              e.preventDefault()
+              toast.promise(
+                new Promise((resolve) => setTimeout(resolve, 1000)),
+                {
+                  loading: `${tAction("saving")} ${row.original.header}`,
+                  success: tAction("done"),
+                  error: tAction("error"),
+                }
+              )
+            }}
+          >
+            <Label htmlFor={`${row.original.id}-limit`} className="sr-only">
+              {tTable("limit")}
+            </Label>
+            <Input
+              className="hover:bg-input/30 focus-visible:bg-background dark:hover:bg-input/30 dark:focus-visible:bg-input/30 h-8 w-16 border-transparent bg-transparent shadow-none focus-visible:border dark:bg-transparent"
+              defaultValue={row.original.limit}
+              id={`${row.original.id}-limit`}
+            />
+          </form>
+        ),
+      },
+      {
+        accessorKey: "reviewer",
+        header: tTable("reviewer"),
+        cell: ({ row }) => {
+          const isAssigned = row.original.reviewer !== "Assign reviewer"
+
+          if (isAssigned) {
+            return row.original.reviewer
+          }
+
+          return (
+            <>
+              <Label
+                htmlFor={`${row.original.id}-reviewer`}
+                className="sr-only"
+              >
+                {tTable("reviewer")}
+              </Label>
+              <Select>
+                <SelectTrigger
+                  className="w-38 cursor-pointer **:data-[slot=select-value]:block **:data-[slot=select-value]:truncate"
+                  size="sm"
+                  id={`${row.original.id}-reviewer`}
+                >
+                  <SelectValue placeholder={tTable("assignReviewer")} />
+                </SelectTrigger>
+                <SelectContent align="end">
+                  <SelectItem value="Eddie Lake">Eddie Lake</SelectItem>
+                  <SelectItem value="Jamik Tashpulatov">
+                    Jamik Tashpulatov
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </>
+          )
+        },
+      },
+      {
+        id: "actions",
+        cell: () => <ActionsCell />,
+      },
+    ],
+    [tAction, tTable]
   )
 
   const dataIds = React.useMemo<UniqueIdentifier[]>(
@@ -579,7 +609,7 @@ export function DataTable({
                     colSpan={columns.length}
                     className="h-24 text-center"
                   >
-                    No results.
+                    {tAction("noResults")}
                   </TableCell>
                 </TableRow>
               )}
@@ -589,13 +619,15 @@ export function DataTable({
       </div>
       <div className="flex items-center justify-between px-4">
         <div className="text-muted-foreground hidden flex-1 text-sm lg:flex">
-          {currentTable.getFilteredSelectedRowModel().rows.length} of{" "}
-          {currentTable.getFilteredRowModel().rows.length} row(s) selected.
+          {tTable("rowsSelected", {
+            count: currentTable.getFilteredSelectedRowModel().rows.length,
+            total: currentTable.getFilteredRowModel().rows.length,
+          })}
         </div>
         <div className="flex w-full items-center gap-8 lg:w-fit">
           <div className="hidden items-center gap-2 lg:flex">
             <Label htmlFor="rows-per-page" className="text-sm font-medium">
-              Rows per page
+              {tAction("rowsPerPage")}
             </Label>
             <Select
               value={`${currentTable.getState().pagination.pageSize}`}
@@ -622,8 +654,10 @@ export function DataTable({
             </Select>
           </div>
           <div className="flex w-fit items-center justify-center text-sm font-medium">
-            Page {currentTable.getState().pagination.pageIndex + 1} of{" "}
-            {currentTable.getPageCount()}
+            {tAction("pageOf", {
+              current: currentTable.getState().pagination.pageIndex + 1,
+              total: currentTable.getPageCount(),
+            })}
           </div>
           <div className="ml-auto flex items-center gap-2 lg:ml-0">
             <Button
@@ -632,7 +666,7 @@ export function DataTable({
               onClick={() => currentTable.setPageIndex(0)}
               disabled={!currentTable.getCanPreviousPage()}
             >
-              <span className="sr-only">Go to first page</span>
+              <span className="sr-only">{tAction("firstPage")}</span>
               <ChevronsLeft />
             </Button>
             <Button
@@ -642,7 +676,7 @@ export function DataTable({
               onClick={() => currentTable.previousPage()}
               disabled={!currentTable.getCanPreviousPage()}
             >
-              <span className="sr-only">Go to previous page</span>
+              <span className="sr-only">{tAction("previousPage")}</span>
               <ChevronLeft />
             </Button>
             <Button
@@ -652,7 +686,7 @@ export function DataTable({
               onClick={() => currentTable.nextPage()}
               disabled={!currentTable.getCanNextPage()}
             >
-              <span className="sr-only">Go to next page</span>
+              <span className="sr-only">{tAction("nextPage")}</span>
               <ChevronRight />
             </Button>
             <Button
@@ -664,7 +698,7 @@ export function DataTable({
               }
               disabled={!currentTable.getCanNextPage()}
             >
-              <span className="sr-only">Go to last page</span>
+              <span className="sr-only">{tAction("lastPage")}</span>
               <ChevronsRight />
             </Button>
           </div>
@@ -680,7 +714,7 @@ export function DataTable({
     >
       <div className="flex flex-wrap items-center justify-between gap-3 px-4 lg:px-6">
         <Label htmlFor="view-selector" className="sr-only">
-          View
+          {tAction("view")}
         </Label>
         <Select defaultValue="outline">
           <SelectTrigger
@@ -688,27 +722,33 @@ export function DataTable({
             size="sm"
             id="view-selector"
           >
-            <SelectValue placeholder="Select a view" />
+            <SelectValue placeholder={tAction("selectView")} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="outline">Outline</SelectItem>
-            <SelectItem value="past-performance">Past Performance</SelectItem>
-            <SelectItem value="key-personnel">Key Personnel</SelectItem>
-            <SelectItem value="focus-documents">Focus Documents</SelectItem>
+            <SelectItem value="outline">{tTable("outline")}</SelectItem>
+            <SelectItem value="past-performance">
+              {tTable("pastPerformance")}
+            </SelectItem>
+            <SelectItem value="key-personnel">
+              {tTable("keyPersonnel")}
+            </SelectItem>
+            <SelectItem value="focus-documents">
+              {tTable("focusDocuments")}
+            </SelectItem>
           </SelectContent>
         </Select>
         <TabsList className="**:data-[slot=badge]:bg-muted-foreground/30 hidden **:data-[slot=badge]:size-5 **:data-[slot=badge]:rounded-full **:data-[slot=badge]:px-1 sm:flex">
           <TabsTrigger value="outline" className="cursor-pointer">
-            Outline
+            {tTable("outline")}
           </TabsTrigger>
           <TabsTrigger value="past-performance" className="cursor-pointer">
-            Past Performance <Badge variant="secondary">3</Badge>
+            {tTable("pastPerformance")} <Badge variant="secondary">3</Badge>
           </TabsTrigger>
           <TabsTrigger value="key-personnel" className="cursor-pointer">
-            Key Personnel <Badge variant="secondary">2</Badge>
+            {tTable("keyPersonnel")} <Badge variant="secondary">2</Badge>
           </TabsTrigger>
           <TabsTrigger value="focus-documents" className="cursor-pointer">
-            Focus Documents
+            {tTable("focusDocuments")}
           </TabsTrigger>
         </TabsList>
         <div className="flex items-center gap-2">
@@ -716,8 +756,10 @@ export function DataTable({
             <DropdownMenuTrigger asChild>
               <Button variant="outline" size="sm" className="cursor-pointer">
                 <Columns2 />
-                <span className="hidden lg:inline">Customize Columns</span>
-                <span className="lg:hidden">Columns</span>
+                <span className="hidden lg:inline">
+                  {tAction("customizeColumns")}
+                </span>
+                <span className="lg:hidden">{tAction("columns")}</span>
                 <ChevronDown />
               </Button>
             </DropdownMenuTrigger>
@@ -747,7 +789,7 @@ export function DataTable({
           </DropdownMenu>
           <Button variant="outline" size="sm" className="cursor-pointer">
             <Plus />
-            <span className="hidden lg:inline">Add Section</span>
+            <span className="hidden lg:inline">{tAction("addSection")}</span>
           </Button>
         </div>
       </div>
@@ -798,7 +840,7 @@ export function DataTable({
                       colSpan={columns.length}
                       className="h-24 text-center"
                     >
-                      No results.
+                      {tAction("noResults")}
                     </TableCell>
                   </TableRow>
                 )}
@@ -808,13 +850,15 @@ export function DataTable({
         </div>
         <div className="flex items-center justify-between px-4">
           <div className="text-muted-foreground hidden flex-1 text-sm lg:flex">
-            {table.getFilteredSelectedRowModel().rows.length} of{" "}
-            {table.getFilteredRowModel().rows.length} row(s) selected.
+            {tTable("rowsSelected", {
+              count: table.getFilteredSelectedRowModel().rows.length,
+              total: table.getFilteredRowModel().rows.length,
+            })}
           </div>
           <div className="flex w-full items-center gap-8 lg:w-fit">
             <div className="hidden items-center gap-2 lg:flex">
               <Label htmlFor="rows-per-page" className="text-sm font-medium">
-                Rows per page
+                {tAction("rowsPerPage")}
               </Label>
               <Select
                 value={`${table.getState().pagination.pageSize}`}
@@ -841,8 +885,10 @@ export function DataTable({
               </Select>
             </div>
             <div className="flex w-fit items-center justify-center text-sm font-medium">
-              Page {table.getState().pagination.pageIndex + 1} of{" "}
-              {table.getPageCount()}
+              {tAction("pageOf", {
+                current: table.getState().pagination.pageIndex + 1,
+                total: table.getPageCount(),
+              })}
             </div>
             <div className="ml-auto flex items-center gap-2 lg:ml-0">
               <Button
@@ -851,7 +897,7 @@ export function DataTable({
                 onClick={() => table.setPageIndex(0)}
                 disabled={!table.getCanPreviousPage()}
               >
-                <span className="sr-only">Go to first page</span>
+                <span className="sr-only">{tAction("firstPage")}</span>
                 <ChevronsLeft />
               </Button>
               <Button
@@ -861,7 +907,7 @@ export function DataTable({
                 onClick={() => table.previousPage()}
                 disabled={!table.getCanPreviousPage()}
               >
-                <span className="sr-only">Go to previous page</span>
+                <span className="sr-only">{tAction("previousPage")}</span>
                 <ChevronLeft />
               </Button>
               <Button
@@ -871,7 +917,7 @@ export function DataTable({
                 onClick={() => table.nextPage()}
                 disabled={!table.getCanNextPage()}
               >
-                <span className="sr-only">Go to next page</span>
+                <span className="sr-only">{tAction("nextPage")}</span>
                 <ChevronRight />
               </Button>
               <Button
@@ -881,7 +927,7 @@ export function DataTable({
                 onClick={() => table.setPageIndex(table.getPageCount() - 1)}
                 disabled={!table.getCanNextPage()}
               >
-                <span className="sr-only">Go to last page</span>
+                <span className="sr-only">{tAction("lastPage")}</span>
                 <ChevronsRight />
               </Button>
             </div>
@@ -922,15 +968,6 @@ export function DataTable({
   )
 }
 
-const chartData = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
-]
-
 const chartConfig = {
   desktop: {
     label: "Desktop",
@@ -944,6 +981,25 @@ const chartConfig = {
 
 function TableCellViewer({ item }: { item: z.infer<typeof schema> }) {
   const isMobile = useIsMobile()
+  const tDataTable = useTranslations("DataTable")
+  const tAction = useTranslations("Action")
+  const locale = useLocale()
+
+  const chartData = React.useMemo(() => {
+    const today = new Date()
+    return [0, 1, 2, 3, 4, 5].map((offset) => {
+      const date = new Date(today.getFullYear(), offset, 1)
+      const monthName = new Intl.DateTimeFormat(locale, {
+        month: "long",
+      }).format(date)
+      // Capitalize first letter
+      return {
+        month: monthName.charAt(0).toUpperCase() + monthName.slice(1),
+        desktop: Math.floor(Math.random() * 300) + 50, // simulating dynamic data
+        mobile: Math.floor(Math.random() * 200) + 50,
+      }
+    })
+  }, [locale])
 
   return (
     <Drawer direction={isMobile ? "bottom" : "right"}>
@@ -958,9 +1014,7 @@ function TableCellViewer({ item }: { item: z.infer<typeof schema> }) {
       <DrawerContent>
         <DrawerHeader className="gap-1">
           <DrawerTitle>{item.header}</DrawerTitle>
-          <DrawerDescription>
-            Showing total visitors for the last 6 months
-          </DrawerDescription>
+          <DrawerDescription>{tDataTable("visitorsStats")}</DrawerDescription>
         </DrawerHeader>
         <div className="flex flex-col gap-4 overflow-y-auto px-4 text-sm">
           {!isMobile && (
@@ -1008,13 +1062,11 @@ function TableCellViewer({ item }: { item: z.infer<typeof schema> }) {
               <Separator />
               <div className="grid gap-2">
                 <div className="flex gap-2 leading-none font-medium">
-                  Trending up by 5.2% this month{" "}
+                  {tDataTable("trendingUp", { percent: 5.2 })}{" "}
                   <TrendingUp className="size-4" />
                 </div>
                 <div className="text-muted-foreground">
-                  Showing total visitors for the last 6 months. This is just
-                  some random text to test the layout. It spans multiple lines
-                  and should wrap around.
+                  {tDataTable("description")}
                 </div>
               </div>
               <Separator />
@@ -1022,65 +1074,83 @@ function TableCellViewer({ item }: { item: z.infer<typeof schema> }) {
           )}
           <form className="flex flex-col gap-4">
             <div className="flex flex-col gap-3">
-              <Label htmlFor="header">Header</Label>
+              <Label htmlFor="header">{tDataTable("header")}</Label>
               <Input id="header" defaultValue={item.header} />
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="flex flex-col gap-3">
-                <Label htmlFor="type">Type</Label>
+                <Label htmlFor="type">{tDataTable("sectionType")}</Label>
                 <Select defaultValue={item.type}>
                   <SelectTrigger id="type" className="w-full cursor-pointer">
-                    <SelectValue placeholder="Select a type" />
+                    <SelectValue placeholder={tDataTable("typePlaceholder")} />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="Table of Contents">
-                      Table of Contents
+                      {tDataTable("tableOfContents")}
                     </SelectItem>
                     <SelectItem value="Executive Summary">
-                      Executive Summary
+                      {tDataTable("executiveSummary")}
                     </SelectItem>
                     <SelectItem value="Technical Approach">
-                      Technical Approach
+                      {tDataTable("technicalApproach")}
                     </SelectItem>
-                    <SelectItem value="Design">Design</SelectItem>
-                    <SelectItem value="Capabilities">Capabilities</SelectItem>
+                    <SelectItem value="Design">
+                      {tDataTable("design")}
+                    </SelectItem>
+                    <SelectItem value="Capabilities">
+                      {tDataTable("capabilities")}
+                    </SelectItem>
                     <SelectItem value="Focus Documents">
-                      Focus Documents
+                      {tDataTable("focusDocuments")}
                     </SelectItem>
-                    <SelectItem value="Narrative">Narrative</SelectItem>
-                    <SelectItem value="Cover Page">Cover Page</SelectItem>
+                    <SelectItem value="Narrative">
+                      {tDataTable("narrative")}
+                    </SelectItem>
+                    <SelectItem value="Cover Page">
+                      {tDataTable("coverPage")}
+                    </SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div className="flex flex-col gap-3">
-                <Label htmlFor="status">Status</Label>
+                <Label htmlFor="status">{tDataTable("status")}</Label>
                 <Select defaultValue={item.status}>
                   <SelectTrigger id="status" className="w-full cursor-pointer">
-                    <SelectValue placeholder="Select a status" />
+                    <SelectValue
+                      placeholder={tDataTable("statusPlaceholder")}
+                    />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="Done">Done</SelectItem>
-                    <SelectItem value="In Progress">In Progress</SelectItem>
-                    <SelectItem value="Not Started">Not Started</SelectItem>
+                    <SelectItem value="Done">
+                      {tDataTable("statusDone")}
+                    </SelectItem>
+                    <SelectItem value="In Progress">
+                      {tDataTable("statusInProgress")}
+                    </SelectItem>
+                    <SelectItem value="Not Started">
+                      {tDataTable("statusNotStarted")}
+                    </SelectItem>
                   </SelectContent>
                 </Select>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="flex flex-col gap-3">
-                <Label htmlFor="target">Target</Label>
+                <Label htmlFor="target">{tDataTable("target")}</Label>
                 <Input id="target" defaultValue={item.target} />
               </div>
               <div className="flex flex-col gap-3">
-                <Label htmlFor="limit">Limit</Label>
+                <Label htmlFor="limit">{tDataTable("limit")}</Label>
                 <Input id="limit" defaultValue={item.limit} />
               </div>
             </div>
             <div className="flex flex-col gap-3">
-              <Label htmlFor="reviewer">Reviewer</Label>
+              <Label htmlFor="reviewer">{tDataTable("reviewer")}</Label>
               <Select defaultValue={item.reviewer}>
                 <SelectTrigger id="reviewer" className="w-full cursor-pointer">
-                  <SelectValue placeholder="Select a reviewer" />
+                  <SelectValue
+                    placeholder={tDataTable("reviewerPlaceholder")}
+                  />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="Eddie Lake">Eddie Lake</SelectItem>
@@ -1094,10 +1164,10 @@ function TableCellViewer({ item }: { item: z.infer<typeof schema> }) {
           </form>
         </div>
         <DrawerFooter>
-          <Button className="cursor-pointer">Submit</Button>
+          <Button className="cursor-pointer">{tAction("submit")}</Button>
           <DrawerClose asChild>
             <Button variant="outline" className="cursor-pointer">
-              Done
+              {tAction("done")}
             </Button>
           </DrawerClose>
         </DrawerFooter>

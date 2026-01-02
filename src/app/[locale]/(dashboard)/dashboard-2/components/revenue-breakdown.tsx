@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { useTranslations } from "next-intl"
 import { Label, Pie, PieChart, Sector } from "recharts"
 import type { PieSectorDataItem } from "recharts/types/polar/Pie"
 
@@ -26,65 +27,74 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-const revenueData = [
-  {
-    category: "subscriptions",
-    value: 45,
-    amount: 24500,
-    fill: "var(--color-subscriptions)",
-  },
-  { category: "sales", value: 30, amount: 16300, fill: "var(--color-sales)" },
-  {
-    category: "services",
-    value: 15,
-    amount: 8150,
-    fill: "var(--color-services)",
-  },
-  {
-    category: "partnerships",
-    value: 10,
-    amount: 5430,
-    fill: "var(--color-partnerships)",
-  },
-]
-
-const chartConfig = {
-  revenue: {
-    label: "Revenue",
-  },
-  amount: {
-    label: "Amount",
-  },
-  subscriptions: {
-    label: "Subscriptions",
-    color: "var(--chart-1)",
-  },
-  sales: {
-    label: "One-time Sales",
-    color: "var(--chart-2)",
-  },
-  services: {
-    label: "Services",
-    color: "var(--chart-3)",
-  },
-  partnerships: {
-    label: "Partnerships",
-    color: "var(--chart-4)",
-  },
-}
-
 export function RevenueBreakdown() {
+  const tDashboard = useTranslations("Dashboard")
   const id = "revenue-breakdown"
   const [activeCategory, setActiveCategory] = React.useState("sales")
 
+  const revenueData = React.useMemo(
+    () => [
+      {
+        category: "subscriptions",
+        value: 45,
+        amount: 24500,
+        fill: "var(--color-subscriptions)",
+      },
+      {
+        category: "sales",
+        value: 30,
+        amount: 16300,
+        fill: "var(--color-sales)",
+      },
+      {
+        category: "services",
+        value: 15,
+        amount: 8150,
+        fill: "var(--color-services)",
+      },
+      {
+        category: "partnerships",
+        value: 10,
+        amount: 5430,
+        fill: "var(--color-partnerships)",
+      },
+    ],
+    []
+  )
+
+  const chartConfig = {
+    revenue: {
+      label: tDashboard("revenue"),
+    },
+    amount: {
+      label: tDashboard("amount"),
+    },
+    subscriptions: {
+      label: tDashboard("subscriptions"),
+      color: "var(--chart-1)",
+    },
+    sales: {
+      label: tDashboard("oneTimeSales"),
+      color: "var(--chart-2)",
+    },
+    services: {
+      label: tDashboard("services"),
+      color: "var(--chart-3)",
+    },
+    partnerships: {
+      label: tDashboard("partnerships"),
+      color: "var(--chart-4)",
+    },
+  }
+
   const activeIndex = React.useMemo(
     () => revenueData.findIndex((item) => item.category === activeCategory),
-    [activeCategory]
+    [activeCategory, revenueData]
   )
 
   const categories = React.useMemo(
     () => revenueData.map((item) => item.category),
-    []
+    [revenueData]
   )
 
   return (
@@ -92,16 +102,16 @@ export function RevenueBreakdown() {
       <ChartStyle id={id} config={chartConfig} />
       <CardHeader className="flex flex-col space-y-2 pb-2 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
         <div>
-          <CardTitle>Revenue Breakdown</CardTitle>
-          <CardDescription>Revenue distribution by source</CardDescription>
+          <CardTitle>{tDashboard("revenueBreakdown")}</CardTitle>
+          <CardDescription>{tDashboard("revenueDistribution")}</CardDescription>
         </div>
         <div className="flex items-center space-x-2">
           <Select value={activeCategory} onValueChange={setActiveCategory}>
             <SelectTrigger
               className="w-[175px] cursor-pointer rounded-lg"
-              aria-label="Select a category"
+              aria-label={tDashboard("selectCategory")}
             >
-              <SelectValue placeholder="Select category" />
+              <SelectValue placeholder={tDashboard("selectCategory")} />
             </SelectTrigger>
             <SelectContent align="end" className="rounded-lg">
               {categories.map((key) => {
@@ -132,7 +142,7 @@ export function RevenueBreakdown() {
             </SelectContent>
           </Select>
           <Button variant="outline" className="cursor-pointer">
-            Export
+            {tDashboard("export")}
           </Button>
         </div>
       </CardHeader>
@@ -196,7 +206,7 @@ export function RevenueBreakdown() {
                               y={(viewBox.cy || 0) + 24}
                               className="fill-muted-foreground"
                             >
-                              Revenue
+                              {tDashboard("revenue")}
                             </tspan>
                           </text>
                         )

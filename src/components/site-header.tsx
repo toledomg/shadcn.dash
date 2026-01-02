@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { useTranslations } from "next-intl"
 
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
@@ -9,7 +10,10 @@ import { CommandSearch, SearchTrigger } from "@/components/command-search"
 import { LanguageSwitcher } from "@/components/language-switcher"
 import { ModeToggle } from "@/components/mode-toggle"
 
+// ... imports
+
 export function SiteHeader() {
+  const t = useTranslations("Common")
   const [searchOpen, setSearchOpen] = React.useState(false)
 
   React.useEffect(() => {
@@ -49,7 +53,7 @@ export function SiteHeader() {
                 target="_blank"
                 className="dark:text-foreground"
               >
-                Blocks
+                {t("blocks")}
               </a>
             </Button>
             <Button
@@ -64,7 +68,7 @@ export function SiteHeader() {
                 target="_blank"
                 className="dark:text-foreground"
               >
-                Landing Page
+                {t("landingPage")}
               </a>
             </Button>
             <Button
@@ -79,7 +83,7 @@ export function SiteHeader() {
                 target="_blank"
                 className="dark:text-foreground"
               >
-                GitHub
+                {t("github")}
               </a>
             </Button>
             <LanguageSwitcher />

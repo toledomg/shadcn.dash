@@ -1,6 +1,7 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useTranslations } from "next-intl"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
@@ -34,6 +35,9 @@ export function LoginForm1({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const tAuth = useTranslations("Auth")
+  const tAction = useTranslations("Action")
+
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
@@ -46,10 +50,8 @@ export function LoginForm1({
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader className="text-center">
-          <CardTitle className="text-xl">Welcome back</CardTitle>
-          <CardDescription>
-            Enter your email below to login to your account
-          </CardDescription>
+          <CardTitle className="text-xl">{tAuth("welcomeBack")}</CardTitle>
+          <CardDescription>{tAuth("loginSubtitle")}</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -61,7 +63,7 @@ export function LoginForm1({
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Email</FormLabel>
+                        <FormLabel>{tAuth("emailLabel")}</FormLabel>
                         <FormControl>
                           <Input
                             type="email"
@@ -79,12 +81,12 @@ export function LoginForm1({
                     render={({ field }) => (
                       <FormItem>
                         <div className="flex items-center">
-                          <FormLabel>Password</FormLabel>
+                          <FormLabel>{tAuth("passwordLabel")}</FormLabel>
                           <a
                             href="/auth/forgot-password"
                             className="ml-auto text-sm underline-offset-4 hover:underline"
                           >
-                            Forgot your password?
+                            {tAuth("forgotPassword")}
                           </a>
                         </div>
                         <FormControl>
@@ -95,7 +97,7 @@ export function LoginForm1({
                     )}
                   />
                   <Button type="submit" className="w-full cursor-pointer">
-                    Login
+                    {tAction("login")}
                   </Button>
 
                   <Button
@@ -109,16 +111,16 @@ export function LoginForm1({
                         fill="currentColor"
                       />
                     </svg>
-                    Login with Google
+                    {tAuth("loginWithGoogle")}
                   </Button>
                 </div>
                 <div className="text-center text-sm">
-                  Don&apos;t have an account?{" "}
+                  {tAuth("noAccount")}{" "}
                   <a
                     href="/auth/sign-up"
                     className="underline underline-offset-4"
                   >
-                    Sign up
+                    {tAction("signup")}
                   </a>
                 </div>
               </div>
@@ -127,8 +129,10 @@ export function LoginForm1({
         </CardContent>
       </Card>
       <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
-        By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
-        and <a href="#">Privacy Policy</a>.
+        {tAuth.rich("termsPrivacy", {
+          terms: (children: React.ReactNode) => <a href="#">{children}</a>,
+          privacy: (children: React.ReactNode) => <a href="#">{children}</a>,
+        })}
       </div>
     </div>
   )

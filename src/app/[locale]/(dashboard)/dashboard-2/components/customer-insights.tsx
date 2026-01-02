@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import React, { useState } from "react"
 import {
   ArrowUpIcon,
   MapPin,
@@ -9,6 +9,7 @@ import {
   UserIcon,
   Users,
 } from "lucide-react"
+import { useLocale, useTranslations } from "next-intl"
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts"
 
 import { Button } from "@/components/ui/button"
@@ -33,30 +34,6 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-
-const customerGrowthData = [
-  { month: "Jan", new: 245, returning: 890, churn: 45 },
-  { month: "Feb", new: 312, returning: 934, churn: 52 },
-  { month: "Mar", new: 289, returning: 1023, churn: 38 },
-  { month: "Apr", new: 456, returning: 1156, churn: 61 },
-  { month: "May", new: 523, returning: 1298, churn: 47 },
-  { month: "Jun", new: 634, returning: 1445, churn: 55 },
-]
-
-const chartConfig = {
-  new: {
-    label: "New Customers",
-    color: "var(--chart-1)",
-  },
-  returning: {
-    label: "Returning",
-    color: "var(--chart-2)",
-  },
-  churn: {
-    label: "Churned",
-    color: "var(--chart-3)",
-  },
-}
 
 const demographicsData = [
   {
@@ -135,13 +112,48 @@ const regionsData = [
 ]
 
 export function CustomerInsights() {
+  const tDashboard = useTranslations("Dashboard")
   const [activeTab, setActiveTab] = useState("growth")
+  const locale = useLocale()
+
+  const customerGrowthData = React.useMemo(() => {
+    const today = new Date()
+    return [0, 1, 2, 3, 4, 5].map((offset) => {
+      const date = new Date(today.getFullYear(), offset, 1)
+      const monthName = new Intl.DateTimeFormat(locale, {
+        month: "short",
+      }).format(date)
+      return {
+        month: monthName,
+        new: Math.floor(Math.random() * 500) + 100,
+        returning: Math.floor(Math.random() * 1000) + 500,
+        churn: Math.floor(Math.random() * 100),
+      }
+    })
+  }, [locale])
+
+  const chartConfig = {
+    new: {
+      label: tDashboard("newCustomers"),
+      color: "var(--chart-1)",
+    },
+    returning: {
+      label: tDashboard("returning"),
+      color: "var(--chart-2)",
+    },
+    churn: {
+      label: tDashboard("churned"),
+      color: "var(--chart-3)",
+    },
+  }
 
   return (
     <Card className="h-fit">
       <CardHeader>
-        <CardTitle>Customer Insights</CardTitle>
-        <CardDescription>Growth trends and demographics</CardDescription>
+        <CardTitle>{tDashboard("customerInsights")}</CardTitle>
+        <CardDescription>
+          {tDashboard("growthTrendsDemographics")}
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
@@ -151,21 +163,23 @@ export function CustomerInsights() {
               className="data-[state=active]:bg-background data-[state=active]:text-foreground flex cursor-pointer items-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-all data-[state=active]:shadow-sm"
             >
               <TrendingUp className="h-4 w-4" />
-              <span className="hidden sm:inline">Growth</span>
+              <span className="hidden sm:inline">{tDashboard("growth")}</span>
             </TabsTrigger>
             <TabsTrigger
               value="demographics"
               className="data-[state=active]:bg-background data-[state=active]:text-foreground flex cursor-pointer items-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-all data-[state=active]:shadow-sm"
             >
               <UserIcon className="h-4 w-4" />
-              <span className="hidden sm:inline">Demographics</span>
+              <span className="hidden sm:inline">
+                {tDashboard("demographics")}
+              </span>
             </TabsTrigger>
             <TabsTrigger
               value="regions"
               className="data-[state=active]:bg-background data-[state=active]:text-foreground flex cursor-pointer items-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-all data-[state=active]:shadow-sm"
             >
               <MapPin className="h-4 w-4" />
-              <span className="hidden sm:inline">Regions</span>
+              <span className="hidden sm:inline">{tDashboard("regions")}</span>
             </TabsTrigger>
           </TabsList>
 
@@ -176,7 +190,7 @@ export function CustomerInsights() {
                 {/* Chart Area - 70% */}
                 <div className="col-span-10 xl:col-span-7">
                   <h3 className="text-muted-foreground mb-6 text-sm font-medium">
-                    Customer Growth Trends
+                    {tDashboard("customerGrowthTrends")}
                   </h3>
                   <ChartContainer
                     config={chartConfig}
@@ -281,16 +295,16 @@ export function CustomerInsights() {
                 <TableHeader>
                   <TableRow className="border-b">
                     <TableHead className="px-6 py-5 font-semibold">
-                      Age Group
+                      {tDashboard("ageGroup")}
                     </TableHead>
                     <TableHead className="px-6 py-5 text-right font-semibold">
-                      Customers
+                      {tDashboard("customers")}
                     </TableHead>
                     <TableHead className="px-6 py-5 text-right font-semibold">
-                      Percentage
+                      {tDashboard("percentage")}
                     </TableHead>
                     <TableHead className="px-6 py-5 text-right font-semibold">
-                      Growth
+                      {tDashboard("growth")}
                     </TableHead>
                   </TableRow>
                 </TableHeader>
@@ -321,14 +335,15 @@ export function CustomerInsights() {
             </div>
             <div className="flex items-center justify-end space-x-2 py-6">
               <div className="text-muted-foreground hidden text-sm sm:block">
-                0 of {demographicsData.length} row(s) selected.
+                0 {tDashboard("of")} {demographicsData.length}{" "}
+                {tDashboard("rowsSelected")}
               </div>
               <div className="space-y-2 space-x-2">
                 <Button variant="outline" size="sm" disabled>
-                  Previous
+                  {tDashboard("previous")}
                 </Button>
                 <Button variant="outline" size="sm" disabled>
-                  Next
+                  {tDashboard("next")}
                 </Button>
               </div>
             </div>
@@ -340,16 +355,16 @@ export function CustomerInsights() {
                 <TableHeader>
                   <TableRow className="border-b">
                     <TableHead className="px-6 py-5 font-semibold">
-                      Region
+                      {tDashboard("regions")}
                     </TableHead>
                     <TableHead className="px-6 py-5 text-right font-semibold">
-                      Customers
+                      {tDashboard("customers")}
                     </TableHead>
                     <TableHead className="px-6 py-5 text-right font-semibold">
-                      Revenue
+                      {tDashboard("revenue")}
                     </TableHead>
                     <TableHead className="px-6 py-5 text-right font-semibold">
-                      Growth
+                      {tDashboard("growth")}
                     </TableHead>
                   </TableRow>
                 </TableHeader>

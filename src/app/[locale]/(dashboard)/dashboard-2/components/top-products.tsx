@@ -1,6 +1,5 @@
-"use client"
-
 import { Eye, Star, TrendingUp } from "lucide-react"
+import { useTranslations } from "next-intl"
 
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -67,16 +66,21 @@ const products = [
 ]
 
 export function TopProducts() {
+  const tDashboard = useTranslations("Dashboard")
+  const tAction = useTranslations("Action")
+
   return (
     <Card className="cursor-pointer">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
         <div>
-          <CardTitle>Top Products</CardTitle>
-          <CardDescription>Best performing products this month</CardDescription>
+          <CardTitle>{tDashboard("topProducts")}</CardTitle>
+          <CardDescription>
+            {tDashboard("bestPerformingProducts")}
+          </CardDescription>
         </div>
         <Button variant="outline" size="sm" className="cursor-pointer">
           <Eye className="mr-2 h-4 w-4" />
-          View All
+          {tAction("viewAll")}
         </Button>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -105,7 +109,7 @@ export function TopProducts() {
                   </div>
                   <span className="text-muted-foreground text-xs">•</span>
                   <span className="text-muted-foreground text-xs">
-                    {product.sales} sales
+                    {product.sales} {tDashboard("sales")}
                   </span>
                 </div>
               </div>
@@ -122,7 +126,7 @@ export function TopProducts() {
                 </div>
                 <div className="flex items-center space-x-2">
                   <span className="text-muted-foreground text-xs">
-                    Stock: {product.stock}
+                    {tDashboard("stock")}: {product.stock}
                   </span>
                   <Progress
                     value={

@@ -8,6 +8,7 @@ import {
   TrendingUp,
   Users,
 } from "lucide-react"
+import { useTranslations } from "next-intl"
 
 import { Badge } from "@/components/ui/badge"
 import {
@@ -19,50 +20,52 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 
-const metrics = [
-  {
-    title: "Total Revenue",
-    value: "$54,230",
-    description: "Monthly revenue",
-    change: "+12%",
-    trend: "up",
-    icon: DollarSign,
-    footer: "Trending up this month",
-    subfooter: "Revenue for the last 6 months",
-  },
-  {
-    title: "Active Customers",
-    value: "2,350",
-    description: "Total active users",
-    change: "+5.2%",
-    trend: "up",
-    icon: Users,
-    footer: "Strong user retention",
-    subfooter: "Engagement exceeds targets",
-  },
-  {
-    title: "Total Orders",
-    value: "1,247",
-    description: "Orders this month",
-    change: "-2.1%",
-    trend: "down",
-    icon: ShoppingCart,
-    footer: "Down 2% this period",
-    subfooter: "Order volume needs attention",
-  },
-  {
-    title: "Conversion Rate",
-    value: "3.24%",
-    description: "Average conversion",
-    change: "+8.3%",
-    trend: "up",
-    icon: BarChart3,
-    footer: "Steady performance increase",
-    subfooter: "Meets conversion projections",
-  },
-]
-
 export function MetricsOverview() {
+  const tDashboard = useTranslations("Dashboard")
+
+  const metrics = [
+    {
+      title: tDashboard("totalRevenue"),
+      value: "$54,230",
+      description: tDashboard("monthlyRevenue"),
+      change: "+12%",
+      trend: "up",
+      icon: DollarSign,
+      footer: tDashboard("trendingUp"),
+      subfooter: tDashboard("revenueLast6Months"),
+    },
+    {
+      title: tDashboard("activeCustomers"),
+      value: "2,350",
+      description: tDashboard("totalActiveUsers"),
+      change: "+5.2%",
+      trend: "up",
+      icon: Users,
+      footer: tDashboard("strongRetention"),
+      subfooter: tDashboard("engagementTargets"),
+    },
+    {
+      title: tDashboard("totalOrders"),
+      value: "1,247",
+      description: tDashboard("ordersThisMonth"),
+      change: "-2.1%",
+      trend: "down",
+      icon: ShoppingCart,
+      footer: tDashboard("downPeriod"),
+      subfooter: tDashboard("orderVolume"),
+    },
+    {
+      title: tDashboard("conversionRate"),
+      value: "3.24%",
+      description: tDashboard("avgConversion"),
+      change: "+8.3%",
+      trend: "up",
+      icon: BarChart3,
+      footer: tDashboard("steadyPerformance"),
+      subfooter: tDashboard("meetsProjections"),
+    },
+  ]
+
   return (
     <div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid gap-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs sm:grid-cols-2 @5xl:grid-cols-4">
       {metrics.map((metric) => {

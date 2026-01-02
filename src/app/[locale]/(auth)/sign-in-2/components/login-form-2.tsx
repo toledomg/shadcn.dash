@@ -1,14 +1,21 @@
 "use client"
 
+import { useTranslations } from "next-intl"
+
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
+// ... imports
+
 export function LoginForm2({
   className,
   ...props
 }: React.ComponentProps<"form">) {
+  const tAuth = useTranslations("Auth")
+  const tAction = useTranslations("Action")
+
   return (
     <form
       className={cn("flex flex-col gap-6", className)}
@@ -16,14 +23,14 @@ export function LoginForm2({
       action="/dashboard"
     >
       <div className="flex flex-col items-center gap-2 text-center">
-        <h1 className="text-2xl font-bold">Login to your account</h1>
+        <h1 className="text-2xl font-bold">{tAuth("loginTitle")}</h1>
         <p className="text-muted-foreground text-sm text-balance">
-          Enter your email below to login to your account
+          {tAuth("loginDesc")}
         </p>
       </div>
       <div className="grid gap-6">
         <div className="grid gap-3">
-          <Label htmlFor="email">Email</Label>
+          <Label htmlFor="email">{tAuth("emailLabel")}</Label>
           <Input
             id="email"
             type="email"
@@ -34,12 +41,12 @@ export function LoginForm2({
         </div>
         <div className="grid gap-3">
           <div className="flex items-center">
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password">{tAuth("passwordLabel")}</Label>
             <a
               href="/auth/forgot-password-2"
               className="ml-auto text-sm underline-offset-4 hover:underline"
             >
-              Forgot your password?
+              {tAuth("forgotPassword")}
             </a>
           </div>
           <Input
@@ -50,11 +57,11 @@ export function LoginForm2({
           />
         </div>
         <Button type="submit" className="w-full cursor-pointer">
-          Login
+          {tAction("login")}
         </Button>
         <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
           <span className="bg-background text-muted-foreground relative z-10 px-2">
-            Or continue with
+            {tAuth("orContinueWith")}
           </span>
         </div>
         <Button variant="outline" className="w-full cursor-pointer">
@@ -64,13 +71,13 @@ export function LoginForm2({
               fill="currentColor"
             />
           </svg>
-          Login with GitHub
+          {tAuth("loginWithGithub")}
         </Button>
       </div>
       <div className="text-center text-sm">
-        Don&apos;t have an account?{" "}
+        {tAuth("noAccount")}{" "}
         <a href="/auth/sign-up-2" className="underline underline-offset-4">
-          Sign up
+          {tAction("signup")}
         </a>
       </div>
     </form>

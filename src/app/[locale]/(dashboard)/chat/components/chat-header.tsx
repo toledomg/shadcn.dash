@@ -10,6 +10,8 @@ import {
   Users,
   Video,
 } from "lucide-react"
+// ... imports
+import { useLocale, useTranslations } from "next-intl"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
@@ -43,12 +45,13 @@ export function ChatHeader({
   onToggleMute,
   onToggleInfo,
 }: ChatHeaderProps) {
+  const tChat = useTranslations("Chat")
+  const locale = useLocale()
+
   if (!conversation) {
     return (
       <div className="flex h-full items-center justify-center">
-        <p className="text-muted-foreground">
-          Select a conversation to start chatting
-        </p>
+        <p className="text-muted-foreground">{tChat("selectConversation")}</p>
       </div>
     )
   }
@@ -68,15 +71,20 @@ export function ChatHeader({
       const onlineCount = conversationUsers.filter(
         (user) => user.status === "online"
       ).length
-      return `${conversation.participants.length} members, ${onlineCount} online`
+      return tChat("members", {
+        count: conversation.participants.length,
+        online: onlineCount,
+      })
     } else if (primaryUser) {
       switch (primaryUser.status) {
         case "online":
-          return "Active now"
+          return tChat("activeNow")
         case "away":
-          return "Away"
+          return tChat("away")
         case "offline":
-          return `Last seen ${new Date(primaryUser.lastSeen).toLocaleDateString()}`
+          return tChat("lastSeen", {
+            date: new Date(primaryUser.lastSeen).toLocaleDateString(locale),
+          })
         default:
           return ""
       }
@@ -126,7 +134,7 @@ export function ChatHeader({
             )}
             {conversation.type === "group" && (
               <Badge variant="secondary" className="cursor-pointer text-xs">
-                Group
+                {tChat("group")}
               </Badge>
             )}
           </div>
@@ -145,7 +153,7 @@ export function ChatHeader({
               </Button>
             </TooltipTrigger>
             <TooltipContent>
-              <p>Search in conversation</p>
+              <p>{tChat("searchInConversation")}</p>
             </TooltipContent>
           </Tooltip>
 
@@ -157,7 +165,7 @@ export function ChatHeader({
               </Button>
             </TooltipTrigger>
             <TooltipContent>
-              <p>Voice call</p>
+              <p>{tChat("voiceCall")}</p>
             </TooltipContent>
           </Tooltip>
 
@@ -169,7 +177,7 @@ export function ChatHeader({
               </Button>
             </TooltipTrigger>
             <TooltipContent>
-              <p>Video call</p>
+              <p>{tChat("videoCall")}</p>
             </TooltipContent>
           </Tooltip>
 
@@ -186,7 +194,7 @@ export function ChatHeader({
               </Button>
             </TooltipTrigger>
             <TooltipContent>
-              <p>Conversation info</p>
+              <p>{tChat("conversationInfo")}</p>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
@@ -203,31 +211,31 @@ export function ChatHeader({
               {conversation.isMuted ? (
                 <>
                   <Bell className="mr-2 h-4 w-4" />
-                  Unmute conversation
+                  {tChat("unmuteConversation")}
                 </>
               ) : (
                 <>
                   <BellOff className="mr-2 h-4 w-4" />
-                  Mute conversation
+                  {tChat("muteConversation")}
                 </>
               )}
             </DropdownMenuItem>
             <DropdownMenuItem className="cursor-pointer">
               <Search className="mr-2 h-4 w-4" />
-              Search messages
+              {tChat("searchMessages")}
             </DropdownMenuItem>
             {conversation.type === "group" && (
               <>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem className="cursor-pointer">
                   <Users className="mr-2 h-4 w-4" />
-                  Manage members
+                  {tChat("manageMembers")}
                 </DropdownMenuItem>
               </>
             )}
             <DropdownMenuSeparator />
             <DropdownMenuItem className="text-destructive cursor-pointer">
-              Delete conversation
+              {tChat("deleteConversation")}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

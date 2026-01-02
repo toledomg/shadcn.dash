@@ -1,5 +1,7 @@
 "use client"
 
+import { useTranslations } from "next-intl"
+
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
@@ -12,26 +14,30 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
+// ... imports
+
 export function ForgotPasswordForm1({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const tAuth = useTranslations("Auth")
+  const tAction = useTranslations("Action")
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader className="text-center">
-          <CardTitle className="text-xl">Forgot your password?</CardTitle>
-          <CardDescription>
-            Enter your email address and we&apos;ll send you a link to reset
-            your password
-          </CardDescription>
+          <CardTitle className="text-xl">
+            {tAuth("forgotPasswordTitle")}
+          </CardTitle>
+          <CardDescription>{tAuth("forgotPasswordSubtitle")}</CardDescription>
         </CardHeader>
         <CardContent>
           <form>
             <div className="grid gap-6">
               <div className="grid gap-6">
                 <div className="grid gap-3">
-                  <Label htmlFor="email">Email</Label>
+                  <Label htmlFor="email">{tAuth("emailLabel")}</Label>
                   <Input
                     id="email"
                     type="email"
@@ -40,16 +46,16 @@ export function ForgotPasswordForm1({
                   />
                 </div>
                 <Button type="submit" className="w-full cursor-pointer">
-                  Send Reset Link
+                  {tAction("sendResetLink")}
                 </Button>
               </div>
               <div className="text-center text-sm">
-                Remember your password?{" "}
+                {tAuth("rememberPassword")}{" "}
                 <a
                   href="/auth/sign-in"
                   className="underline underline-offset-4"
                 >
-                  Back to sign in
+                  {tAction("backToSignIn")}
                 </a>
               </div>
             </div>

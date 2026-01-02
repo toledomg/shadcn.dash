@@ -1,6 +1,5 @@
-"use client"
-
 import { Eye, MoreHorizontal } from "lucide-react"
+import { useTranslations } from "next-intl"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
@@ -78,16 +77,19 @@ const transactions = [
 ]
 
 export function RecentTransactions() {
+  const tDashboard = useTranslations("Dashboard")
+  const tAction = useTranslations("Action")
+
   return (
     <Card className="cursor-pointer">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
         <div>
-          <CardTitle>Recent Transactions</CardTitle>
-          <CardDescription>Latest customer transactions</CardDescription>
+          <CardTitle>{tDashboard("recentTransactions")}</CardTitle>
+          <CardDescription>{tDashboard("latestTransactions")}</CardDescription>
         </div>
         <Button variant="outline" size="sm" className="cursor-pointer">
           <Eye className="mr-2 h-4 w-4" />
-          View All
+          {tAction("viewAll")}
         </Button>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -128,7 +130,7 @@ export function RecentTransactions() {
                     }
                     className="cursor-pointer"
                   >
-                    {transaction.status}
+                    {tDashboard(`status.${transaction.status}`)}
                   </Badge>
                   <div className="text-right">
                     <p className="text-sm font-medium">{transaction.amount}</p>
@@ -148,13 +150,13 @@ export function RecentTransactions() {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                       <DropdownMenuItem className="cursor-pointer">
-                        View Details
+                        {tAction("viewDetails")}
                       </DropdownMenuItem>
                       <DropdownMenuItem className="cursor-pointer">
-                        Download Receipt
+                        {tDashboard("downloadReceipt")}
                       </DropdownMenuItem>
                       <DropdownMenuItem className="cursor-pointer">
-                        Contact Customer
+                        {tDashboard("contactCustomer")}
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>

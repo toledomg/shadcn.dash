@@ -1,4 +1,5 @@
 import { Clock, Headphones, Rocket, Shield, Users, Zap } from "lucide-react"
+import { useTranslations } from "next-intl"
 
 import {
   Card,
@@ -30,14 +31,12 @@ interface FeaturesGridProps {
 }
 
 export function FeaturesGrid({ features }: FeaturesGridProps) {
+  const t = useTranslations("Pricing")
   return (
     <Card>
       <CardHeader className="text-center">
-        <CardTitle className="text-2xl">All Plans Include</CardTitle>
-        <CardDescription>
-          Every plan comes with these essential features to help your team
-          succeed
-        </CardDescription>
+        <CardTitle className="text-2xl">{t("allPlansInclude")}</CardTitle>
+        <CardDescription>{t("allPlansIncludeDesc")}</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="mx-auto mt-6 sm:mt-8 lg:mt-12">

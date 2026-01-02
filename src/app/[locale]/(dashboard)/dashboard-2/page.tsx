@@ -1,3 +1,5 @@
+import { useTranslations } from "next-intl"
+
 import { CustomerInsights } from "./components/customer-insights"
 import { MetricsOverview } from "./components/metrics-overview"
 import { QuickActions } from "./components/quick-actions"
@@ -7,6 +9,7 @@ import { SalesChart } from "./components/sales-chart"
 import { TopProducts } from "./components/top-products"
 
 export default function Dashboard2() {
+  const tDashboard = useTranslations("Dashboard")
   return (
     <div className="flex-1 space-y-6 px-6 pt-0">
       {/* Enhanced Header */}
@@ -14,10 +17,10 @@ export default function Dashboard2() {
       <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center md:gap-6">
         <div className="flex flex-col gap-2">
           <h1 className="text-2xl font-bold tracking-tight">
-            Business Dashboard
+            {tDashboard("businessDashboard")}
           </h1>
           <p className="text-muted-foreground">
-            Monitor your business performance and key metrics in real-time
+            {tDashboard("monitorPerformance")}
           </p>
         </div>
         <QuickActions />
