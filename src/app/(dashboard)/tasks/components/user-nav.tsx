@@ -1,10 +1,6 @@
 "use client"
 
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/components/ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -21,7 +17,10 @@ export function UserNav() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="relative h-8 w-8 rounded-full cursor-pointer">
+        <Button
+          variant="ghost"
+          className="relative h-8 w-8 cursor-pointer rounded-full"
+        >
           <Avatar className="h-9 w-9 cursor-pointer">
             <AvatarImage src="/avatars/03.png" alt="@shadcn" />
             <AvatarFallback>SC</AvatarFallback>
@@ -31,8 +30,8 @@ export function UserNav() {
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">shadcn</p>
-            <p className="text-xs leading-none text-muted-foreground">
+            <p className="text-sm leading-none font-medium">shadcn</p>
+            <p className="text-muted-foreground text-xs leading-none">
               m@example.com
             </p>
           </div>
@@ -51,7 +50,9 @@ export function UserNav() {
             Settings
             <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
           </DropdownMenuItem>
-          <DropdownMenuItem className="cursor-pointer">New Team</DropdownMenuItem>
+          <DropdownMenuItem className="cursor-pointer">
+            New Team
+          </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem className="cursor-pointer">

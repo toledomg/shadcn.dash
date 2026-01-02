@@ -1,13 +1,13 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
+import { BookOpen, Github, Mail, MessageCircle } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import {
   Form,
   FormControl,
@@ -16,7 +16,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
-import { Mail, MessageCircle, Github, BookOpen } from 'lucide-react'
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
 
 const contactFormSchema = z.object({
   firstName: z.string().min(2, {
@@ -58,79 +59,106 @@ export function ContactSection() {
   return (
     <section id="contact" className="py-24 sm:py-32">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center mb-16">
-          <Badge variant="outline" className="mb-4">Get In Touch</Badge>
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl mb-4">
+        <div className="mx-auto mb-16 max-w-2xl text-center">
+          <Badge variant="outline" className="mb-4">
+            Get In Touch
+          </Badge>
+          <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
             Need help or have questions?
           </h2>
-          <p className="text-lg text-muted-foreground">
-            Our team is here to help you get the most out of ShadcnStore. Choose the best way to reach out to us.
+          <p className="text-muted-foreground text-lg">
+            Our team is here to help you get the most out of ShadcnStore. Choose
+            the best way to reach out to us.
           </p>
         </div>
 
         <div className="grid gap-8 lg:grid-cols-3">
           {/* Contact Options */}
-          <div className="space-y-6 order-2 lg:order-1">
-            <Card className="hover:shadow-md transition-shadow cursor-pointer">
+          <div className="order-2 space-y-6 lg:order-1">
+            <Card className="cursor-pointer transition-shadow hover:shadow-md">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <MessageCircle className="h-5 w-5 text-primary" />
+                  <MessageCircle className="text-primary h-5 w-5" />
                   Discord Community
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground mb-3">
-                  Join our active community for quick help and discussions with other developers.
+                  Join our active community for quick help and discussions with
+                  other developers.
                 </p>
-                <Button variant="outline" size="sm" className="cursor-pointer" asChild>
-                  <a href="https://discord.com/invite/XEQhPc9a6p" target="_blank" rel="noopener noreferrer">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="cursor-pointer"
+                  asChild
+                >
+                  <a
+                    href="https://discord.com/invite/XEQhPc9a6p"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     Join Discord
                   </a>
                 </Button>
               </CardContent>
             </Card>
 
-            <Card className="hover:shadow-md transition-shadow cursor-pointer">
+            <Card className="cursor-pointer transition-shadow hover:shadow-md">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Github className="h-5 w-5 text-primary" />
+                  <Github className="text-primary h-5 w-5" />
                   GitHub Issues
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground mb-3">
-                  Report bugs, request features, or contribute to our open source repository.
+                  Report bugs, request features, or contribute to our open
+                  source repository.
                 </p>
-                <Button variant="outline" size="sm" className="cursor-pointer" asChild>
-                  <a href="https://github.com/silicondeck/shadcn-dashboard-landing-template/issues" target="_blank" rel="noopener noreferrer">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="cursor-pointer"
+                  asChild
+                >
+                  <a
+                    href="https://github.com/silicondeck/shadcn-dashboard-landing-template/issues"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     View on GitHub
                   </a>
                 </Button>
               </CardContent>
             </Card>
 
-            <Card className="hover:shadow-md transition-shadow cursor-pointer">
+            <Card className="cursor-pointer transition-shadow hover:shadow-md">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <BookOpen className="h-5 w-5 text-primary" />
+                  <BookOpen className="text-primary h-5 w-5" />
                   Documentation
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground mb-3">
-                  Browse our comprehensive guides, tutorials, and component documentation.
+                  Browse our comprehensive guides, tutorials, and component
+                  documentation.
                 </p>
-                <Button variant="outline" size="sm" className="cursor-pointer" asChild>
-                  <a href="#">
-                    View Docs
-                  </a>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="cursor-pointer"
+                  asChild
+                >
+                  <a href="#">View Docs</a>
                 </Button>
               </CardContent>
             </Card>
           </div>
 
           {/* Contact Form */}
-          <div className="lg:col-span-2 order-1 lg:order-2">
+          <div className="order-1 lg:order-2 lg:col-span-2">
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -140,7 +168,10 @@ export function ContactSection() {
               </CardHeader>
               <CardContent>
                 <Form {...form}>
-                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                  <form
+                    onSubmit={form.handleSubmit(onSubmit)}
+                    className="space-y-6"
+                  >
                     <div className="grid gap-4 sm:grid-cols-2">
                       <FormField
                         control={form.control}
@@ -176,7 +207,11 @@ export function ContactSection() {
                         <FormItem>
                           <FormLabel>Email</FormLabel>
                           <FormControl>
-                            <Input type="email" placeholder="john@example.com" {...field} />
+                            <Input
+                              type="email"
+                              placeholder="john@example.com"
+                              {...field}
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -189,7 +224,10 @@ export function ContactSection() {
                         <FormItem>
                           <FormLabel>Subject</FormLabel>
                           <FormControl>
-                            <Input placeholder="Component request, bug report, general inquiry..." {...field} />
+                            <Input
+                              placeholder="Component request, bug report, general inquiry..."
+                              {...field}
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>

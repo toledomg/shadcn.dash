@@ -21,22 +21,6 @@ import {
 } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
 import {
-  ChevronDown,
-  ChevronLeft,
-  ChevronRight,
-  ChevronsLeft,
-  ChevronsRight,
-  CircleCheckBig,
-  EllipsisVertical,
-  GripVertical,
-  Columns2,
-  Loader,
-  Plus,
-  TrendingUp,
-} from "lucide-react"
-import {
-  type ColumnDef,
-  type ColumnFiltersState,
   flexRender,
   getCoreRowModel,
   getFacetedRowModel,
@@ -44,24 +28,39 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
+  useReactTable,
+  type ColumnDef,
+  type ColumnFiltersState,
   type Row,
   type SortingState,
-  useReactTable,
   type VisibilityState,
 } from "@tanstack/react-table"
+import {
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
+  CircleCheckBig,
+  Columns2,
+  EllipsisVertical,
+  GripVertical,
+  Loader,
+  Plus,
+  TrendingUp,
+} from "lucide-react"
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
 import { toast } from "sonner"
 import { z } from "zod"
 
-import { schema } from "../schemas/task-schema"
 import { useIsMobile } from "@/hooks/use-mobile"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
-  type ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
+  type ChartConfig,
 } from "@/components/ui/chart"
 import { Checkbox } from "@/components/ui/checkbox"
 import {
@@ -100,12 +99,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/ui/tabs"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+
+import { schema } from "../schemas/task-schema"
 
 // Create a separate component for the drag handle
 function DragHandle({ id }: { id: number }) {
@@ -119,7 +115,7 @@ function DragHandle({ id }: { id: number }) {
       {...listeners}
       variant="ghost"
       size="icon"
-      className="text-muted-foreground size-7 hover:bg-transparent cursor-move"
+      className="text-muted-foreground size-7 cursor-move hover:bg-transparent"
     >
       <GripVertical className="text-muted-foreground size-3" />
       <span className="sr-only">Drag to reorder</span>
@@ -259,7 +255,7 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
           </Label>
           <Select>
             <SelectTrigger
-              className="w-38 **:data-[slot=select-value]:block **:data-[slot=select-value]:truncate cursor-pointer"
+              className="w-38 cursor-pointer **:data-[slot=select-value]:block **:data-[slot=select-value]:truncate"
               size="sm"
               id={`${row.original.id}-reviewer`}
             >
@@ -339,9 +335,13 @@ export function DataTable({
   focusDocumentsData?: z.infer<typeof schema>[]
 }) {
   const [data, setData] = React.useState(() => initialData)
-  const [pastPerformance, setPastPerformance] = React.useState(() => pastPerformanceData)
+  const [pastPerformance, setPastPerformance] = React.useState(
+    () => pastPerformanceData
+  )
   const [keyPersonnel, setKeyPersonnel] = React.useState(() => keyPersonnelData)
-  const [focusDocuments, setFocusDocuments] = React.useState(() => focusDocumentsData)
+  const [focusDocuments, setFocusDocuments] = React.useState(
+    () => focusDocumentsData
+  )
   const [rowSelection, setRowSelection] = React.useState({})
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({})
@@ -526,14 +526,14 @@ export function DataTable({
   }
 
   // Component for rendering table content
-  const TableContent = ({ 
-    currentTable, 
-    currentDataIds, 
-    handleCurrentDragEnd 
-  }: { 
-    currentTable: ReturnType<typeof useReactTable<z.infer<typeof schema>>>, 
-    currentDataIds: UniqueIdentifier[], 
-    handleCurrentDragEnd: (event: DragEndEvent) => void 
+  const TableContent = ({
+    currentTable,
+    currentDataIds,
+    handleCurrentDragEnd,
+  }: {
+    currentTable: ReturnType<typeof useReactTable<z.infer<typeof schema>>>
+    currentDataIds: UniqueIdentifier[]
+    handleCurrentDragEnd: (event: DragEndEvent) => void
   }) => (
     <>
       <div className="overflow-hidden rounded-lg border">
@@ -603,7 +603,11 @@ export function DataTable({
                 currentTable.setPageSize(Number(value))
               }}
             >
-              <SelectTrigger size="sm" className="w-20 cursor-pointer" id="rows-per-page">
+              <SelectTrigger
+                size="sm"
+                className="w-20 cursor-pointer"
+                id="rows-per-page"
+              >
                 <SelectValue
                   placeholder={currentTable.getState().pagination.pageSize}
                 />
@@ -624,7 +628,7 @@ export function DataTable({
           <div className="ml-auto flex items-center gap-2 lg:ml-0">
             <Button
               variant="outline"
-              className="hidden h-8 w-8 p-0 lg:flex cursor-pointer"
+              className="hidden h-8 w-8 cursor-pointer p-0 lg:flex"
               onClick={() => currentTable.setPageIndex(0)}
               disabled={!currentTable.getCanPreviousPage()}
             >
@@ -653,9 +657,11 @@ export function DataTable({
             </Button>
             <Button
               variant="outline"
-              className="hidden size-8 lg:flex cursor-pointer"
+              className="hidden size-8 cursor-pointer lg:flex"
               size="icon"
-              onClick={() => currentTable.setPageIndex(currentTable.getPageCount() - 1)}
+              onClick={() =>
+                currentTable.setPageIndex(currentTable.getPageCount() - 1)
+              }
               disabled={!currentTable.getCanNextPage()}
             >
               <span className="sr-only">Go to last page</span>
@@ -672,13 +678,13 @@ export function DataTable({
       defaultValue="outline"
       className="w-full flex-col justify-start gap-6"
     >
-      <div className="flex items-center justify-between px-4 lg:px-6 flex-wrap gap-3">
+      <div className="flex flex-wrap items-center justify-between gap-3 px-4 lg:px-6">
         <Label htmlFor="view-selector" className="sr-only">
           View
         </Label>
         <Select defaultValue="outline">
           <SelectTrigger
-            className="flex w-fit sm:hidden cursor-pointer"
+            className="flex w-fit cursor-pointer sm:hidden"
             size="sm"
             id="view-selector"
           >
@@ -692,14 +698,18 @@ export function DataTable({
           </SelectContent>
         </Select>
         <TabsList className="**:data-[slot=badge]:bg-muted-foreground/30 hidden **:data-[slot=badge]:size-5 **:data-[slot=badge]:rounded-full **:data-[slot=badge]:px-1 sm:flex">
-          <TabsTrigger value="outline" className="cursor-pointer">Outline</TabsTrigger>
+          <TabsTrigger value="outline" className="cursor-pointer">
+            Outline
+          </TabsTrigger>
           <TabsTrigger value="past-performance" className="cursor-pointer">
             Past Performance <Badge variant="secondary">3</Badge>
           </TabsTrigger>
           <TabsTrigger value="key-personnel" className="cursor-pointer">
             Key Personnel <Badge variant="secondary">2</Badge>
           </TabsTrigger>
-          <TabsTrigger value="focus-documents" className="cursor-pointer">Focus Documents</TabsTrigger>
+          <TabsTrigger value="focus-documents" className="cursor-pointer">
+            Focus Documents
+          </TabsTrigger>
         </TabsList>
         <div className="flex items-center gap-2">
           <DropdownMenu>
@@ -812,7 +822,11 @@ export function DataTable({
                   table.setPageSize(Number(value))
                 }}
               >
-                <SelectTrigger size="sm" className="w-20 cursor-pointer" id="rows-per-page">
+                <SelectTrigger
+                  size="sm"
+                  className="w-20 cursor-pointer"
+                  id="rows-per-page"
+                >
                   <SelectValue
                     placeholder={table.getState().pagination.pageSize}
                   />
@@ -833,7 +847,7 @@ export function DataTable({
             <div className="ml-auto flex items-center gap-2 lg:ml-0">
               <Button
                 variant="outline"
-                className="hidden h-8 w-8 p-0 lg:flex cursor-pointer"
+                className="hidden h-8 w-8 cursor-pointer p-0 lg:flex"
                 onClick={() => table.setPageIndex(0)}
                 disabled={!table.getCanPreviousPage()}
               >
@@ -862,7 +876,7 @@ export function DataTable({
               </Button>
               <Button
                 variant="outline"
-                className="hidden size-8 lg:flex cursor-pointer"
+                className="hidden size-8 cursor-pointer lg:flex"
                 size="icon"
                 onClick={() => table.setPageIndex(table.getPageCount() - 1)}
                 disabled={!table.getCanNextPage()}
@@ -878,17 +892,17 @@ export function DataTable({
         value="past-performance"
         className="relative flex flex-col gap-4 overflow-auto px-4 lg:px-6"
       >
-        <TableContent 
+        <TableContent
           currentTable={pastPerformanceTable}
           currentDataIds={pastPerformanceIds}
           handleCurrentDragEnd={handlePastPerformanceDragEnd}
         />
       </TabsContent>
-      <TabsContent 
-        value="key-personnel" 
+      <TabsContent
+        value="key-personnel"
         className="relative flex flex-col gap-4 overflow-auto px-4 lg:px-6"
       >
-        <TableContent 
+        <TableContent
           currentTable={keyPersonnelTable}
           currentDataIds={keyPersonnelIds}
           handleCurrentDragEnd={handleKeyPersonnelDragEnd}
@@ -898,7 +912,7 @@ export function DataTable({
         value="focus-documents"
         className="relative flex flex-col gap-4 overflow-auto px-4 lg:px-6"
       >
-        <TableContent 
+        <TableContent
           currentTable={focusDocumentsTable}
           currentDataIds={focusDocumentsIds}
           handleCurrentDragEnd={handleFocusDocumentsDragEnd}
@@ -934,7 +948,10 @@ function TableCellViewer({ item }: { item: z.infer<typeof schema> }) {
   return (
     <Drawer direction={isMobile ? "bottom" : "right"}>
       <DrawerTrigger asChild>
-        <Button variant="link" className="text-foreground w-fit px-0 text-left cursor-pointer">
+        <Button
+          variant="link"
+          className="text-foreground w-fit cursor-pointer px-0 text-left"
+        >
           {item.header}
         </Button>
       </DrawerTrigger>
@@ -1079,7 +1096,9 @@ function TableCellViewer({ item }: { item: z.infer<typeof schema> }) {
         <DrawerFooter>
           <Button className="cursor-pointer">Submit</Button>
           <DrawerClose asChild>
-            <Button variant="outline" className="cursor-pointer">Done</Button>
+            <Button variant="outline" className="cursor-pointer">
+              Done
+            </Button>
           </DrawerClose>
         </DrawerFooter>
       </DrawerContent>

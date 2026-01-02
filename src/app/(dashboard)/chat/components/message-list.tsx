@@ -2,19 +2,20 @@
 
 import { useEffect, useRef } from "react"
 import { format, isToday, isYesterday } from "date-fns"
-import { CheckCheck, MoreHorizontal, Reply, Copy, Trash2 } from "lucide-react"
+import { CheckCheck, Copy, MoreHorizontal, Reply, Trash2 } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
-import { ScrollArea } from "@/components/ui/scroll-area"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
-  DropdownMenuTrigger
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { ScrollArea } from "@/components/ui/scroll-area"
+
 import { type Message, type User } from "../use-chat"
 
 interface MessageListProps {
@@ -23,7 +24,11 @@ interface MessageListProps {
   currentUserId?: string
 }
 
-export function MessageList({ messages, users, currentUserId = "current-user" }: MessageListProps) {
+export function MessageList({
+  messages,
+  users,
+  currentUserId = "current-user",
+}: MessageListProps) {
   const scrollAreaRef = useRef<HTMLDivElement>(null)
   const bottomRef = useRef<HTMLDivElement>(null)
   const previousMessageCountRef = useRef(0)
@@ -32,7 +37,8 @@ export function MessageList({ messages, users, currentUserId = "current-user" }:
 
   // Reset scroll behavior when switching conversations
   useEffect(() => {
-    const currentConversationId = messages.length > 0 ? messages[0]?.id?.split('-')[0] : null
+    const currentConversationId =
+      messages.length > 0 ? messages[0]?.id?.split("-")[0] : null
     if (currentConversationId !== previousConversationRef.current) {
       isInitialLoadRef.current = true
       previousConversationRef.current = currentConversationId
@@ -49,7 +55,10 @@ export function MessageList({ messages, users, currentUserId = "current-user" }:
     }
 
     // Only auto-scroll if new messages were added
-    if (messages.length > previousMessageCountRef.current && bottomRef.current) {
+    if (
+      messages.length > previousMessageCountRef.current &&
+      bottomRef.current
+    ) {
       bottomRef.current.scrollIntoView({ behavior: "smooth" })
     }
 
@@ -66,10 +75,10 @@ export function MessageList({ messages, users, currentUserId = "current-user" }:
         email: "you@example.com",
         lastSeen: new Date().toISOString(),
         role: "Developer",
-        department: "Engineering"
+        department: "Engineering",
       }
     }
-    return users.find(user => user.id === userId)
+    return users.find((user) => user.id === userId)
   }
 
   const formatMessageTime = (timestamp: string) => {
@@ -103,7 +112,9 @@ export function MessageList({ messages, users, currentUserId = "current-user" }:
     if (index === 0) return false
 
     const prevMessage = messages[index - 1]
-    const timeDiff = new Date(message.timestamp).getTime() - new Date(prevMessage.timestamp).getTime()
+    const timeDiff =
+      new Date(message.timestamp).getTime() -
+      new Date(prevMessage.timestamp).getTime()
 
     return prevMessage.senderId === message.senderId && timeDiff < 5 * 60 * 1000 // 5 minutes
   }
@@ -120,7 +131,7 @@ export function MessageList({ messages, users, currentUserId = "current-user" }:
       } else {
         groups.push({
           date: messageDate,
-          messages: [message]
+          messages: [message],
         })
       }
     })
@@ -148,7 +159,7 @@ export function MessageList({ messages, users, currentUserId = "current-user" }:
           <div key={group.date}>
             {/* Date separator */}
             <div className="flex items-center justify-center py-2">
-              <div className="text-xs text-muted-foreground bg-background px-3 py-1 rounded-full border">
+              <div className="text-muted-foreground bg-background rounded-full border px-3 py-1 text-xs">
                 {formatDateHeader(group.date)}
               </div>
             </div>
@@ -160,13 +171,16 @@ export function MessageList({ messages, users, currentUserId = "current-user" }:
                 const isOwnMessage = message.senderId === currentUserId
                 const showAvatar = shouldShowAvatar(message, messageIndex)
                 const showName = shouldShowName(message, messageIndex)
-                const isConsecutive = isConsecutiveMessage(message, messageIndex)
+                const isConsecutive = isConsecutiveMessage(
+                  message,
+                  messageIndex
+                )
 
                 return (
                   <div
                     key={message.id}
                     className={cn(
-                      "flex gap-3 group",
+                      "group flex gap-3",
                       isOwnMessage && "flex-row-reverse",
                       isConsecutive && !isOwnMessage && "ml-12"
                     )}
@@ -178,7 +192,11 @@ export function MessageList({ messages, users, currentUserId = "current-user" }:
                           <Avatar className="h-8 w-8 cursor-pointer">
                             <AvatarImage src={user.avatar} alt={user.name} />
                             <AvatarFallback className="text-xs">
-                              {user.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
+                              {user.name
+                                .split(" ")
+                                .map((n) => n[0])
+                                .join("")
+                                .slice(0, 2)}
                             </AvatarFallback>
                           </Avatar>
                         )}
@@ -186,16 +204,21 @@ export function MessageList({ messages, users, currentUserId = "current-user" }:
                     )}
 
                     {/* Message content */}
-                    <div className={cn("flex-1 max-w-[70%]", isOwnMessage && "flex flex-col items-end")}>
+                    <div
+                      className={cn(
+                        "max-w-[70%] flex-1",
+                        isOwnMessage && "flex flex-col items-end"
+                      )}
+                    >
                       {/* Sender name for group messages */}
                       {showName && user && !isOwnMessage && (
-                        <div className="text-sm font-medium text-foreground mb-1">
+                        <div className="text-foreground mb-1 text-sm font-medium">
                           {user.name}
                         </div>
                       )}
 
                       {/* Message bubble */}
-                      <div className="relative group/message">
+                      <div className="group/message relative">
                         <div
                           className={cn(
                             "rounded-lg px-3 py-2 text-sm break-words",
@@ -209,29 +232,33 @@ export function MessageList({ messages, users, currentUserId = "current-user" }:
 
                           {/* Message reactions */}
                           {message.reactions.length > 0 && (
-                            <div className="flex gap-1 mt-2">
+                            <div className="mt-2 flex gap-1">
                               {message.reactions.map((reaction, idx) => (
                                 <div
                                   key={idx}
                                   className={cn(
-                                    "inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs border cursor-pointer",
-                                    "bg-background/90 backdrop-blur-sm shadow-sm"
+                                    "inline-flex cursor-pointer items-center gap-1 rounded-full border px-2 py-1 text-xs",
+                                    "bg-background/90 shadow-sm backdrop-blur-sm"
                                   )}
                                 >
                                   <span>{reaction.emoji}</span>
-                                  <span className="text-muted-foreground">{reaction.count}</span>
+                                  <span className="text-muted-foreground">
+                                    {reaction.count}
+                                  </span>
                                 </div>
                               ))}
                             </div>
                           )}
 
                           {/* Timestamp and status */}
-                          <div className={cn(
-                            "flex items-center gap-1 mt-1 text-xs",
-                            isOwnMessage
-                              ? "text-primary-foreground/70 justify-end"
-                              : "text-muted-foreground"
-                          )}>
+                          <div
+                            className={cn(
+                              "mt-1 flex items-center gap-1 text-xs",
+                              isOwnMessage
+                                ? "text-primary-foreground/70 justify-end"
+                                : "text-muted-foreground"
+                            )}
+                          >
                             <span>{formatMessageTime(message.timestamp)}</span>
                             {message.isEdited && (
                               <span className="italic">(edited)</span>
@@ -252,25 +279,25 @@ export function MessageList({ messages, users, currentUserId = "current-user" }:
                               <Button
                                 variant="ghost"
                                 size="sm"
-                                className="h-6 w-6 p-0 cursor-pointer"
+                                className="h-6 w-6 cursor-pointer p-0"
                               >
                                 <MoreHorizontal className="h-3 w-3" />
                               </Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end">
                               <DropdownMenuItem className="cursor-pointer">
-                                <Reply className="h-4 w-4 mr-2" />
+                                <Reply className="mr-2 h-4 w-4" />
                                 Reply
                               </DropdownMenuItem>
                               <DropdownMenuItem className="cursor-pointer">
-                                <Copy className="h-4 w-4 mr-2" />
+                                <Copy className="mr-2 h-4 w-4" />
                                 Copy
                               </DropdownMenuItem>
                               {isOwnMessage && (
                                 <>
                                   <DropdownMenuSeparator />
-                                  <DropdownMenuItem className="cursor-pointer text-destructive">
-                                    <Trash2 className="h-4 w-4 mr-2" />
+                                  <DropdownMenuItem className="text-destructive cursor-pointer">
+                                    <Trash2 className="mr-2 h-4 w-4" />
                                     Delete
                                   </DropdownMenuItem>
                                 </>

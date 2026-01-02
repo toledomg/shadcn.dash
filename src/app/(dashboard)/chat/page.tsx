@@ -3,12 +3,11 @@
 import { useEffect, useState } from "react"
 
 import { Chat } from "./components/chat"
-import { type Conversation, type Message, type User } from "./use-chat"
-
 // Import static data
 import conversationsData from "./data/conversations.json"
 import messagesData from "./data/messages.json"
 import usersData from "./data/users.json"
+import { type Conversation, type Message, type User } from "./use-chat"
 
 export default function ChatPage() {
   const [conversations, setConversations] = useState<Conversation[]>([])
@@ -35,7 +34,7 @@ export default function ChatPage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-96">
+      <div className="flex h-96 items-center justify-center">
         <div className="text-muted-foreground">Loading chat...</div>
       </div>
     )
@@ -43,11 +42,7 @@ export default function ChatPage() {
 
   return (
     <div className="px-4 md:px-6">
-      <Chat
-        conversations={conversations}
-        messages={messages}
-        users={users}
-      />
+      <Chat conversations={conversations} messages={messages} users={users} />
     </div>
   )
 }

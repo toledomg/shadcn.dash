@@ -1,7 +1,9 @@
-import { LoginForm2 } from "./components/login-form-2"
-import { Logo } from "@/components/logo"
-import Link from "next/link"
 import Image from "next/image"
+import Link from "next/link"
+
+import { Logo } from "@/components/logo"
+
+import { LoginForm2 } from "./components/login-form-2"
 
 export default function LoginPage() {
   return (

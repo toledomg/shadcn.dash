@@ -1,15 +1,14 @@
 "use client"
 
+import Link from "next/link"
 import {
+  BellDot,
+  CircleUser,
   CreditCard,
   EllipsisVertical,
   LogOut,
-  BellDot,
-  CircleUser,
 } from "lucide-react"
-import Link from "next/link"
 
-import { Logo } from "@/components/logo"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -25,6 +24,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
+import { Logo } from "@/components/logo"
 
 export function NavUser({
   user,
@@ -47,7 +47,7 @@ export function NavUser({
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground cursor-pointer"
             >
               <div className="flex h-8 w-8 items-center justify-center rounded-lg">
-                < Logo size={28} />
+                <Logo size={28} />
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-medium">{user.name}</span>
@@ -67,7 +67,7 @@ export function NavUser({
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <div className="h-8 w-8 rounded-lg">
-                  < Logo size={28} />
+                  <Logo size={28} />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium">{user.name}</span>

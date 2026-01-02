@@ -1,5 +1,5 @@
 import { Calendar } from "./components/calendar"
-import { events, eventDates } from "./data"
+import { eventDates, events } from "./data"
 
 export default function CalendarPage() {
   return (

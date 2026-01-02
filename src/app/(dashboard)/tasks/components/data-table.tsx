@@ -2,10 +2,6 @@
 
 import * as React from "react"
 import {
-  type ColumnDef,
-  type ColumnFiltersState,
-  type SortingState,
-  type VisibilityState,
   flexRender,
   getCoreRowModel,
   getFacetedRowModel,
@@ -14,6 +10,10 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
+  type ColumnDef,
+  type ColumnFiltersState,
+  type SortingState,
+  type VisibilityState,
 } from "@tanstack/react-table"
 
 import {
@@ -25,9 +25,9 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
+import type { Task } from "../data/schema"
 import { DataTablePagination } from "./data-table-pagination"
 import { DataTableToolbar } from "./data-table-toolbar"
-import type { Task } from "../data/schema"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]

@@ -44,7 +44,11 @@ export function DataTableFacetedFilter<TData, TValue>({
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="outline" size="sm" className="h-8 border-dashed cursor-pointer">
+        <Button
+          variant="outline"
+          size="sm"
+          className="h-8 cursor-pointer border-dashed"
+        >
           <PlusCircle />
           {title}
           {selectedValues?.size > 0 && (
@@ -71,7 +75,7 @@ export function DataTableFacetedFilter<TData, TValue>({
                       <Badge
                         variant="secondary"
                         key={option.value}
-                        className="rounded-sm px-1 font-normal cursor-pointer"
+                        className="cursor-pointer rounded-sm px-1 font-normal"
                       >
                         {option.label}
                       </Badge>
@@ -104,7 +108,7 @@ export function DataTableFacetedFilter<TData, TValue>({
                         filterValues.length ? filterValues : undefined
                       )
                     }}
-                    className="cursor-pointer [&_svg:not([class*='text-'])]:text-primary-foreground"
+                    className="[&_svg:not([class*='text-'])]:text-primary-foreground cursor-pointer"
                   >
                     <Checkbox
                       checked={isSelected}
@@ -122,7 +126,7 @@ export function DataTableFacetedFilter<TData, TValue>({
                       className="mr-2"
                     />
                     {option.icon && (
-                      <option.icon className="mr-2 h-4 w-4 text-muted-foreground" />
+                      <option.icon className="text-muted-foreground mr-2 h-4 w-4" />
                     )}
                     <span>{option.label}</span>
                     {facets?.get(option.value) && (
@@ -140,7 +144,7 @@ export function DataTableFacetedFilter<TData, TValue>({
                 <CommandGroup>
                   <CommandItem
                     onSelect={() => column?.setFilterValue(undefined)}
-                    className="justify-center text-center cursor-pointer"
+                    className="cursor-pointer justify-center text-center"
                   >
                     Clear filters
                   </CommandItem>

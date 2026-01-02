@@ -1,63 +1,65 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from "next"
+
+import "./src/env.mjs"
 
 const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ["lucide-react", "@radix-ui/react-icons"],
     turbo: {
       rules: {
-        '*.svg': {
-          loaders: ['@svgr/webpack'],
-          as: '*.js',
+        "*.svg": {
+          loaders: ["@svgr/webpack"],
+          as: "*.js",
         },
       },
     },
   },
-  
+
   // Image optimization
   images: {
-    domains: ['ui.shadcn.com', 'images.unsplash.com'],
-    formats: ['image/webp', 'image/avif'],
+    domains: ["ui.shadcn.com", "images.unsplash.com"],
+    formats: ["image/webp", "image/avif"],
   },
-  
+
   // Webpack configuration
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     // Add custom webpack rules if needed
-    return config;
+    return config
   },
-  
+
   // Headers for better security and performance
   async headers() {
     return [
       {
-        source: '/(.*)',
+        source: "/(.*)",
         headers: [
           {
-            key: 'X-Frame-Options',
-            value: 'DENY',
+            key: "X-Frame-Options",
+            value: "DENY",
           },
           {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff',
+            key: "X-Content-Type-Options",
+            value: "nosniff",
           },
           {
-            key: 'Referrer-Policy',
-            value: 'origin-when-cross-origin',
+            key: "Referrer-Policy",
+            value: "origin-when-cross-origin",
           },
         ],
       },
-    ];
+    ]
   },
-  
+
   // Redirects for better SEO
   async redirects() {
     return [
       {
-        source: '/home',
-        destination: '/dashboard',
+        source: "/home",
+        destination: "/dashboard",
         permanent: true,
       },
-    ];
+    ]
   },
-};
+}
 
-export default nextConfig;
+export default nextConfig

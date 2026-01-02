@@ -1,13 +1,14 @@
 "use client"
 
+import Image from "next/image"
+import Link from "next/link"
+
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Logo } from "@/components/logo"
-import Link from "next/link"
-import Image from "next/image"
 
 export function ForgotPasswordForm3({
   className,
@@ -19,7 +20,7 @@ export function ForgotPasswordForm3({
         <CardContent className="grid p-0 md:grid-cols-2">
           <form className="p-6 md:p-8">
             <div className="flex flex-col gap-6">
-              <div className="flex justify-center mb-2">
+              <div className="mb-2 flex justify-center">
                 <Link href="/" className="flex items-center gap-2 font-medium">
                   <div className="bg-primary text-primary-foreground flex size-8 items-center justify-center rounded-md">
                     <Logo size={24} />
@@ -47,7 +48,10 @@ export function ForgotPasswordForm3({
               </Button>
               <div className="text-center text-sm">
                 Remember your password?{" "}
-                <a href="/auth/sign-in-3" className="underline underline-offset-4">
+                <a
+                  href="/auth/sign-in-3"
+                  className="underline underline-offset-4"
+                >
                   Back to sign in
                 </a>
               </div>

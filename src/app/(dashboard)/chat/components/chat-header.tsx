@@ -1,32 +1,33 @@
 "use client"
 
 import {
-  Phone,
-  Video,
-  Info,
-  Search,
-  MoreVertical,
-  Users,
   Bell,
-  BellOff
+  BellOff,
+  Info,
+  MoreVertical,
+  Phone,
+  Search,
+  Users,
+  Video,
 } from "lucide-react"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
-  DropdownMenuTrigger
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
-  TooltipTrigger
+  TooltipTrigger,
 } from "@/components/ui/tooltip"
+
 import { type Conversation, type User } from "../use-chat"
 
 interface ChatHeaderProps {
@@ -40,21 +41,23 @@ export function ChatHeader({
   conversation,
   users,
   onToggleMute,
-  onToggleInfo
+  onToggleInfo,
 }: ChatHeaderProps) {
   if (!conversation) {
     return (
-      <div className="flex items-center justify-center h-full">
-        <p className="text-muted-foreground">Select a conversation to start chatting</p>
+      <div className="flex h-full items-center justify-center">
+        <p className="text-muted-foreground">
+          Select a conversation to start chatting
+        </p>
       </div>
     )
   }
 
   const getConversationUsers = () => {
     if (conversation.type === "direct") {
-      return users.filter(user => conversation.participants.includes(user.id))
+      return users.filter((user) => conversation.participants.includes(user.id))
     }
-    return users.filter(user => conversation.participants.includes(user.id))
+    return users.filter((user) => conversation.participants.includes(user.id))
   }
 
   const conversationUsers = getConversationUsers()
@@ -62,7 +65,9 @@ export function ChatHeader({
 
   const getStatusText = () => {
     if (conversation.type === "group") {
-      const onlineCount = conversationUsers.filter(user => user.status === "online").length
+      const onlineCount = conversationUsers.filter(
+        (user) => user.status === "online"
+      ).length
       return `${conversation.participants.length} members, ${onlineCount} online`
     } else if (primaryUser) {
       switch (primaryUser.status) {
@@ -95,7 +100,7 @@ export function ChatHeader({
   }
 
   return (
-    <div className="flex items-center justify-between h-full">
+    <div className="flex h-full items-center justify-between">
       {/* Left side - Avatar and info */}
       <div className="flex items-center gap-3">
         <Avatar className="h-10 w-10 cursor-pointer">
@@ -104,26 +109,28 @@ export function ChatHeader({
             {conversation.type === "group" ? (
               <Users className="h-5 w-5" />
             ) : (
-              conversation.name.split(' ').map(n => n[0]).join('').slice(0, 2)
+              conversation.name
+                .split(" ")
+                .map((n) => n[0])
+                .join("")
+                .slice(0, 2)
             )}
           </AvatarFallback>
         </Avatar>
 
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
-            <h2 className="font-semibold truncate">{conversation.name}</h2>
+            <h2 className="truncate font-semibold">{conversation.name}</h2>
             {conversation.isMuted && (
-              <BellOff className="h-4 w-4 text-muted-foreground" />
+              <BellOff className="text-muted-foreground h-4 w-4" />
             )}
             {conversation.type === "group" && (
-              <Badge variant="secondary" className="text-xs cursor-pointer">
+              <Badge variant="secondary" className="cursor-pointer text-xs">
                 Group
               </Badge>
             )}
           </div>
-          <p className={`text-sm ${getStatusColor()}`}>
-            {getStatusText()}
-          </p>
+          <p className={`text-sm ${getStatusColor()}`}>{getStatusText()}</p>
         </div>
       </div>
 
@@ -192,37 +199,34 @@ export function ChatHeader({
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuItem
-              onClick={onToggleMute}
-              className="cursor-pointer"
-            >
+            <DropdownMenuItem onClick={onToggleMute} className="cursor-pointer">
               {conversation.isMuted ? (
                 <>
-                  <Bell className="h-4 w-4 mr-2" />
+                  <Bell className="mr-2 h-4 w-4" />
                   Unmute conversation
                 </>
               ) : (
                 <>
-                  <BellOff className="h-4 w-4 mr-2" />
+                  <BellOff className="mr-2 h-4 w-4" />
                   Mute conversation
                 </>
               )}
             </DropdownMenuItem>
             <DropdownMenuItem className="cursor-pointer">
-              <Search className="h-4 w-4 mr-2" />
+              <Search className="mr-2 h-4 w-4" />
               Search messages
             </DropdownMenuItem>
             {conversation.type === "group" && (
               <>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem className="cursor-pointer">
-                  <Users className="h-4 w-4 mr-2" />
+                  <Users className="mr-2 h-4 w-4" />
                   Manage members
                 </DropdownMenuItem>
               </>
             )}
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="cursor-pointer text-destructive">
+            <DropdownMenuItem className="text-destructive cursor-pointer">
               Delete conversation
             </DropdownMenuItem>
           </DropdownMenuContent>

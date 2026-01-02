@@ -1,6 +1,11 @@
 "use client"
 
 import { useState } from "react"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { Plus } from "lucide-react"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -27,10 +32,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { Plus } from "lucide-react"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
-import { zodResolver } from "@hookform/resolvers/zod"
 
 const userFormSchema = z.object({
   name: z.string().min(2, {
@@ -130,9 +131,12 @@ export function UserFormDialog({ onAddUser }: UserFormDialogProps) {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Role</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
                       <FormControl>
-                        <SelectTrigger className="cursor-pointer w-full">
+                        <SelectTrigger className="w-full cursor-pointer">
                           <SelectValue placeholder="Select role" />
                         </SelectTrigger>
                       </FormControl>
@@ -154,15 +158,20 @@ export function UserFormDialog({ onAddUser }: UserFormDialogProps) {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Plan</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
                       <FormControl>
-                        <SelectTrigger className="cursor-pointer w-full">
+                        <SelectTrigger className="w-full cursor-pointer">
                           <SelectValue placeholder="Select plan" />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
                         <SelectItem value="Basic">Basic</SelectItem>
-                        <SelectItem value="Professional">Professional</SelectItem>
+                        <SelectItem value="Professional">
+                          Professional
+                        </SelectItem>
                         <SelectItem value="Enterprise">Enterprise</SelectItem>
                       </SelectContent>
                     </Select>
@@ -178,9 +187,12 @@ export function UserFormDialog({ onAddUser }: UserFormDialogProps) {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Billing</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
                       <FormControl>
-                        <SelectTrigger className="cursor-pointer w-full">
+                        <SelectTrigger className="w-full cursor-pointer">
                           <SelectValue placeholder="Select billing" />
                         </SelectTrigger>
                       </FormControl>
@@ -200,9 +212,12 @@ export function UserFormDialog({ onAddUser }: UserFormDialogProps) {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Status</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
                       <FormControl>
-                        <SelectTrigger className="cursor-pointer w-full">
+                        <SelectTrigger className="w-full cursor-pointer">
                           <SelectValue placeholder="Select status" />
                         </SelectTrigger>
                       </FormControl>

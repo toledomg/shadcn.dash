@@ -2,26 +2,26 @@
 
 import { useState } from "react"
 import {
-  type ColumnDef,
-  type ColumnFiltersState,
-  type SortingState,
-  type VisibilityState,
-  type Row,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
+  type ColumnDef,
+  type ColumnFiltersState,
+  type Row,
+  type SortingState,
+  type VisibilityState,
 } from "@tanstack/react-table"
 import {
   ChevronDown,
+  Download,
   EllipsisVertical,
   Eye,
   Pencil,
-  Trash2,
-  Download,
   Search,
+  Trash2,
 } from "lucide-react"
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
@@ -53,6 +53,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+
 import { UserFormDialog } from "./user-form-dialog"
 
 interface User {
@@ -84,7 +85,12 @@ interface DataTableProps {
   onAddUser: (userData: UserFormValues) => void
 }
 
-export function DataTable({ users, onDeleteUser, onEditUser, onAddUser }: DataTableProps) {
+export function DataTable({
+  users,
+  onDeleteUser,
+  onEditUser,
+  onAddUser,
+}: DataTableProps) {
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
@@ -137,7 +143,9 @@ export function DataTable({ users, onDeleteUser, onEditUser, onAddUser }: DataTa
               table.getIsAllPageRowsSelected() ||
               (table.getIsSomePageRowsSelected() && "indeterminate")
             }
-            onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+            onCheckedChange={(value) =>
+              table.toggleAllPageRowsSelected(!!value)
+            }
             aria-label="Select all"
           />
         </div>
@@ -169,7 +177,9 @@ export function DataTable({ users, onDeleteUser, onEditUser, onAddUser }: DataTa
             </Avatar>
             <div className="flex flex-col">
               <span className="font-medium">{user.name}</span>
-              <span className="text-sm text-muted-foreground">{user.email}</span>
+              <span className="text-muted-foreground text-sm">
+                {user.email}
+              </span>
             </div>
           </div>
         )
@@ -225,7 +235,11 @@ export function DataTable({ users, onDeleteUser, onEditUser, onAddUser }: DataTa
         const user = row.original
         return (
           <div className="flex items-center gap-2">
-            <Button variant="ghost" size="icon" className="h-8 w-8 cursor-pointer">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8 cursor-pointer"
+            >
               <Eye className="size-4" />
               <span className="sr-only">View user</span>
             </Button>
@@ -240,7 +254,11 @@ export function DataTable({ users, onDeleteUser, onEditUser, onAddUser }: DataTa
             </Button>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" className="h-8 w-8 cursor-pointer">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-8 w-8 cursor-pointer"
+                >
                   <EllipsisVertical className="size-4" />
                   <span className="sr-only">More actions</span>
                 </Button>
@@ -301,8 +319,8 @@ export function DataTable({ users, onDeleteUser, onEditUser, onAddUser }: DataTa
     <div className="w-full space-y-4">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex flex-1 items-center space-x-2">
-          <div className="relative flex-1 max-w-sm">
-            <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+          <div className="relative max-w-sm flex-1">
+            <Search className="text-muted-foreground absolute top-1/2 left-3 size-4 -translate-y-1/2" />
             <Input
               placeholder="Search users..."
               value={globalFilter ?? ""}
@@ -328,10 +346,12 @@ export function DataTable({ users, onDeleteUser, onEditUser, onAddUser }: DataTa
           <Select
             value={roleFilter || ""}
             onValueChange={(value) =>
-              table.getColumn("role")?.setFilterValue(value === "all" ? "" : value)
+              table
+                .getColumn("role")
+                ?.setFilterValue(value === "all" ? "" : value)
             }
           >
-            <SelectTrigger className="cursor-pointer w-full" id="role-filter">
+            <SelectTrigger className="w-full cursor-pointer" id="role-filter">
               <SelectValue placeholder="Select Role" />
             </SelectTrigger>
             <SelectContent>
@@ -351,10 +371,12 @@ export function DataTable({ users, onDeleteUser, onEditUser, onAddUser }: DataTa
           <Select
             value={planFilter || ""}
             onValueChange={(value) =>
-              table.getColumn("plan")?.setFilterValue(value === "all" ? "" : value)
+              table
+                .getColumn("plan")
+                ?.setFilterValue(value === "all" ? "" : value)
             }
           >
-            <SelectTrigger className="cursor-pointer w-full" id="plan-filter">
+            <SelectTrigger className="w-full cursor-pointer" id="plan-filter">
               <SelectValue placeholder="Select Plan" />
             </SelectTrigger>
             <SelectContent>
@@ -372,10 +394,12 @@ export function DataTable({ users, onDeleteUser, onEditUser, onAddUser }: DataTa
           <Select
             value={statusFilter || ""}
             onValueChange={(value) =>
-              table.getColumn("status")?.setFilterValue(value === "all" ? "" : value)
+              table
+                .getColumn("status")
+                ?.setFilterValue(value === "all" ? "" : value)
             }
           >
-            <SelectTrigger className="cursor-pointer w-full" id="status-filter">
+            <SelectTrigger className="w-full cursor-pointer" id="status-filter">
               <SelectValue placeholder="Select Status" />
             </SelectTrigger>
             <SelectContent>
@@ -388,13 +412,12 @@ export function DataTable({ users, onDeleteUser, onEditUser, onAddUser }: DataTa
           </Select>
         </div>
         <div className="space-y-2">
-
           <Label htmlFor="column-visibility" className="text-sm font-medium">
             Column Visibility
           </Label>
           <DropdownMenu>
             <DropdownMenuTrigger asChild id="column-visibility">
-              <Button variant="outline" className="cursor-pointer w-full">
+              <Button variant="outline" className="w-full cursor-pointer">
                 Columns <ChevronDown className="ml-2 size-4" />
               </Button>
             </DropdownMenuTrigger>
@@ -473,7 +496,6 @@ export function DataTable({ users, onDeleteUser, onEditUser, onAddUser }: DataTa
       </div>
 
       <div className="flex items-center justify-between space-x-2 py-4">
-
         <div className="flex items-center space-x-2">
           <Label htmlFor="page-size" className="text-sm font-medium">
             Show
@@ -496,12 +518,12 @@ export function DataTable({ users, onDeleteUser, onEditUser, onAddUser }: DataTa
             </SelectContent>
           </Select>
         </div>
-        <div className="flex-1 text-sm text-muted-foreground hidden sm:block">
+        <div className="text-muted-foreground hidden flex-1 text-sm sm:block">
           {table.getFilteredSelectedRowModel().rows.length} of{" "}
           {table.getFilteredRowModel().rows.length} row(s) selected.
         </div>
         <div className="flex items-center space-x-6 lg:space-x-8">
-          <div className="flex items-center space-x-2 hidden sm:block">
+          <div className="flex hidden items-center space-x-2 sm:block">
             <p className="text-sm font-medium">Page</p>
             <strong className="text-sm">
               {table.getState().pagination.pageIndex + 1} of{" "}

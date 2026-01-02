@@ -2,8 +2,10 @@
 
 import * as React from "react"
 import { X } from "lucide-react"
+
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+
 import { Logo } from "./logo"
 
 export function SidebarNotification() {
@@ -12,8 +14,8 @@ export function SidebarNotification() {
   if (!isVisible) return null
 
   return (
-    <Card className="mb-3 py-0 border-neutral-200 bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-800">
-      <CardContent className="p-4 relative">
+    <Card className="mb-3 border-neutral-200 bg-neutral-50 py-0 dark:border-neutral-700 dark:bg-neutral-800">
+      <CardContent className="relative p-4">
         <Button
           variant="ghost"
           size="sm"
@@ -23,15 +25,15 @@ export function SidebarNotification() {
           <X className="h-3 w-3" />
           <span className="sr-only">Close notification</span>
         </Button>
-        
+
         <div className="pr-6">
-          <h3 className="flex items-center gap-3 font-semibold text-neutral-900 dark:text-neutral-100 mb-2 mt-1">
+          <h3 className="mt-1 mb-2 flex items-center gap-3 font-semibold text-neutral-900 dark:text-neutral-100">
             <Logo size={42} className="-mt-1" />
             <div>
               Welcome to{" "}
-              <a 
-                href="https://shadcnstore.com" 
-                target="_blank" 
+              <a
+                href="https://shadcnstore.com"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary hover:underline"
               >
@@ -39,11 +41,11 @@ export function SidebarNotification() {
               </a>
             </div>
           </h3>
-          <p className="text-sm text-muted-foreground dark:text-neutral-400 leading-relaxed">
+          <p className="text-muted-foreground text-sm leading-relaxed dark:text-neutral-400">
             Explore our premium Shadcn UI{" "}
-            <a 
-              href="https://shadcnstore.com/blocks" 
-              target="_blank" 
+            <a
+              href="https://shadcnstore.com/blocks"
+              target="_blank"
               rel="noopener noreferrer"
               className="text-primary underline"
             >

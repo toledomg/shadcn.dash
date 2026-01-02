@@ -1,27 +1,23 @@
 "use client"
 
 import * as React from "react"
+import Link from "next/link"
 import {
-  LayoutPanelLeft,
-  LayoutDashboard,
-  Mail,
-  CheckSquare,
-  MessageCircle,
-  Calendar,
-  Shield,
   AlertTriangle,
-  Settings,
-  HelpCircle,
+  Calendar,
+  CheckSquare,
   CreditCard,
+  HelpCircle,
+  LayoutDashboard,
+  LayoutPanelLeft,
   LayoutTemplate,
+  Mail,
+  MessageCircle,
+  Settings,
+  Shield,
   Users,
 } from "lucide-react"
-import Link from "next/link"
-import { Logo } from "@/components/logo"
-import { SidebarNotification } from "@/components/sidebar-notification"
 
-import { NavMain } from "@/components/nav-main"
-import { NavUser } from "@/components/nav-user"
 import {
   Sidebar,
   SidebarContent,
@@ -31,6 +27,10 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import { Logo } from "@/components/logo"
+import { NavMain } from "@/components/nav-main"
+import { NavUser } from "@/components/nav-user"
+import { SidebarNotification } from "@/components/sidebar-notification"
 
 const data = {
   user: {
@@ -133,7 +133,7 @@ const data = {
             {
               title: "Forgot Password 3",
               url: "/forgot-password-3",
-            }
+            },
           ],
         },
         {
@@ -217,7 +217,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
               <Link href="/dashboard">
-                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+                <div className="bg-primary text-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
                   <Logo size={24} className="text-current" />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">

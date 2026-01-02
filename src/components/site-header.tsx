@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { SidebarTrigger } from "@/components/ui/sidebar"
@@ -31,11 +32,16 @@ export function SiteHeader() {
             orientation="vertical"
             className="mx-2 data-[orientation=vertical]:h-4"
           />
-          <div className="flex-1 max-w-sm">
+          <div className="max-w-sm flex-1">
             <SearchTrigger onClick={() => setSearchOpen(true)} />
           </div>
           <div className="ml-auto flex items-center gap-2">
-            <Button variant="ghost" asChild size="sm" className="hidden sm:flex">
+            <Button
+              variant="ghost"
+              asChild
+              size="sm"
+              className="hidden sm:flex"
+            >
               <a
                 href="https://shadcnstore.com/blocks"
                 rel="noopener noreferrer"
@@ -45,7 +51,12 @@ export function SiteHeader() {
                 Blocks
               </a>
             </Button>
-            <Button variant="ghost" asChild size="sm" className="hidden sm:flex">
+            <Button
+              variant="ghost"
+              asChild
+              size="sm"
+              className="hidden sm:flex"
+            >
               <a
                 href="/landing"
                 rel="noopener noreferrer"
@@ -55,7 +66,12 @@ export function SiteHeader() {
                 Landing Page
               </a>
             </Button>
-            <Button variant="ghost" asChild size="sm" className="hidden sm:flex">
+            <Button
+              variant="ghost"
+              asChild
+              size="sm"
+              className="hidden sm:flex"
+            >
               <a
                 href="https://github.com/silicondeck/shadcn-dashboard-landing-template"
                 rel="noopener noreferrer"

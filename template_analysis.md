@@ -141,12 +141,10 @@ O componente `NavMain` renderiza listas de links e submenus.
 ## 6. Utilitários e Hooks Importantes
 
 - **`cn(...)` (`src/lib/utils.ts`):**
-
   - **Função:** Combina classes CSS condicionalmente e resolve conflitos do Tailwind.
   - **Uso:** `className={cn("bg-red-500", isActive && "bg-blue-500", className)}`. **Sempre use `cn` ao invés de template strings puras para classes.**
 
 - **`useSidebarConfig` (`src/hooks/use-sidebar-config.ts`):**
-
   - Acessa configurações de layout da sidebar (lado, variante, colapsável).
 
 - **`dynamic-imports.ts` (`src/components/dynamic-imports.ts`):**
@@ -157,22 +155,18 @@ O componente `NavMain` renderiza listas de links e submenus.
 ## 7. Diretrizes para Desenvolvimento (Best Practices)
 
 1.  **Criação de Páginas:**
-
     - Novas funcionalidades devem ir dentro de `src/app/(dashboard)/[feature-name]/page.tsx` para herdar o layout do painel.
     - Páginas públicas (Login, Landing) vão em `(auth)` ou na raiz.
 
 2.  **Estilização:**
-
     - Não crie arquivos CSS separados. Use classes utilitárias do Tailwind.
     - Para cores, use as variáveis (`bg-primary`, `text-muted-foreground`) para garantir compatibilidade automática com Dark Mode.
 
 3.  **Componentes:**
-
     - Reutilize componentes de `src/components/ui`. Evite criar um botão "do zero" se já existe `Button`.
     - Se precisar modificar um componente UI base, faça com cautela pois isso afeta todo o sistema.
 
 4.  **Ícones:**
-
     - Use `lucide-react`. Ex: `import { Home } from "lucide-react"`.
 
 5.  **Gerenciamento de Estado:**

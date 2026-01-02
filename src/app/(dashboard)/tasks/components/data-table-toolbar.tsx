@@ -5,12 +5,12 @@ import { X } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { DataTableViewOptions } from "./data-table-view-options"
-import { AddTaskModal } from "./add-task-modal"
 
 import { priorities, statuses } from "../data/data"
-import { DataTableFacetedFilter } from "./data-table-faceted-filter"
 import type { Task } from "../data/schema"
+import { AddTaskModal } from "./add-task-modal"
+import { DataTableFacetedFilter } from "./data-table-faceted-filter"
+import { DataTableViewOptions } from "./data-table-view-options"
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
@@ -32,7 +32,7 @@ export function DataTableToolbar<TData>({
           onChange={(event) =>
             table.getColumn("title")?.setFilterValue(event.target.value)
           }
-          className="h-8 w-[150px] lg:w-[250px] cursor-text"
+          className="h-8 w-[150px] cursor-text lg:w-[250px]"
         />
         {table.getColumn("status") && (
           <DataTableFacetedFilter
@@ -52,7 +52,7 @@ export function DataTableToolbar<TData>({
           <Button
             variant="ghost"
             onClick={() => table.resetColumnFilters()}
-            className="h-8 px-2 lg:px-3 cursor-pointer"
+            className="h-8 cursor-pointer px-2 lg:px-3"
           >
             Reset
             <X />

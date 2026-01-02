@@ -26,7 +26,7 @@ export function DataTablePagination<TData>({
 }: DataTablePaginationProps<TData>) {
   return (
     <div className="flex items-center justify-between px-2">
-      <div className="flex-1 text-sm text-muted-foreground">
+      <div className="text-muted-foreground flex-1 text-sm">
         {table.getFilteredSelectedRowModel().rows.length} of{" "}
         {table.getFilteredRowModel().rows.length} row(s) selected.
       </div>
@@ -44,7 +44,11 @@ export function DataTablePagination<TData>({
             </SelectTrigger>
             <SelectContent side="top">
               {[10, 20, 30, 40, 50].map((pageSize) => (
-                <SelectItem key={pageSize} value={`${pageSize}`} className="cursor-pointer">
+                <SelectItem
+                  key={pageSize}
+                  value={`${pageSize}`}
+                  className="cursor-pointer"
+                >
                   {pageSize}
                 </SelectItem>
               ))}
@@ -58,7 +62,7 @@ export function DataTablePagination<TData>({
         <div className="flex items-center space-x-2">
           <Button
             variant="outline"
-            className="hidden h-8 w-8 p-0 lg:flex cursor-pointer disabled:cursor-not-allowed"
+            className="hidden h-8 w-8 cursor-pointer p-0 disabled:cursor-not-allowed lg:flex"
             onClick={() => table.setPageIndex(0)}
             disabled={!table.getCanPreviousPage()}
           >
@@ -67,7 +71,7 @@ export function DataTablePagination<TData>({
           </Button>
           <Button
             variant="outline"
-            className="h-8 w-8 p-0 cursor-pointer disabled:cursor-not-allowed"
+            className="h-8 w-8 cursor-pointer p-0 disabled:cursor-not-allowed"
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
           >
@@ -76,7 +80,7 @@ export function DataTablePagination<TData>({
           </Button>
           <Button
             variant="outline"
-            className="h-8 w-8 p-0 cursor-pointer disabled:cursor-not-allowed"
+            className="h-8 w-8 cursor-pointer p-0 disabled:cursor-not-allowed"
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
           >
@@ -85,7 +89,7 @@ export function DataTablePagination<TData>({
           </Button>
           <Button
             variant="outline"
-            className="hidden h-8 w-8 p-0 lg:flex cursor-pointer disabled:cursor-not-allowed"
+            className="hidden h-8 w-8 cursor-pointer p-0 disabled:cursor-not-allowed lg:flex"
             onClick={() => table.setPageIndex(table.getPageCount() - 1)}
             disabled={!table.getCanNextPage()}
           >

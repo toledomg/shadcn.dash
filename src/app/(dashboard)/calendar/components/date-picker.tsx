@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+
 import { Calendar } from "@/components/ui/calendar"
 
 interface DatePickerProps {
@@ -9,7 +10,11 @@ interface DatePickerProps {
   events?: Array<{ date: Date; count: number }>
 }
 
-export function DatePicker({ selectedDate, onDateSelect, events = [] }: DatePickerProps) {
+export function DatePicker({
+  selectedDate,
+  onDateSelect,
+  events = [],
+}: DatePickerProps) {
   const [date, setDate] = useState<Date | undefined>(selectedDate || new Date())
 
   const handleDateSelect = (selectedDate: Date | undefined) => {
@@ -20,15 +25,18 @@ export function DatePicker({ selectedDate, onDateSelect, events = [] }: DatePick
   }
 
   // Create a map of dates with events for styling
-  const eventDates = events.reduce((acc, event) => {
-    const dateKey = event.date.toDateString()
-    acc[dateKey] = event.count
-    return acc
-  }, {} as Record<string, number>)
+  const eventDates = events.reduce(
+    (acc, event) => {
+      const dateKey = event.date.toDateString()
+      acc[dateKey] = event.count
+      return acc
+    },
+    {} as Record<string, number>
+  )
 
   return (
     <div className="flex justify-center">
-      <Calendar 
+      <Calendar
         mode="single"
         selected={date}
         onSelect={handleDateSelect}
@@ -37,10 +45,11 @@ export function DatePicker({ selectedDate, onDateSelect, events = [] }: DatePick
           hasEvents: (date) => {
             const eventCount = eventDates[date.toDateString()]
             return Boolean(eventCount && eventCount > 0)
-          }
+          },
         }}
         modifiersClassNames={{
-          hasEvents: "relative after:absolute after:bottom-1 after:right-1 after:w-1.5 after:h-1.5 after:bg-primary after:rounded-full"
+          hasEvents:
+            "relative after:absolute after:bottom-1 after:right-1 after:w-1.5 after:h-1.5 after:bg-primary after:rounded-full",
         }}
       />
     </div>

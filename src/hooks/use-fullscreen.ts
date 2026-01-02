@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useEffect, useState } from "react"
 
 export function useFullscreen() {
   const [isFullscreen, setIsFullscreen] = useState(false)
@@ -11,7 +11,7 @@ export function useFullscreen() {
     }
 
     document.addEventListener("fullscreenchange", handleFullscreenChange)
-    
+
     // Initial check
     setIsFullscreen(!!document.fullscreenElement)
 

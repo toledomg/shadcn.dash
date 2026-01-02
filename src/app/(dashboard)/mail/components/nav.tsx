@@ -5,16 +5,20 @@ import { type LucideIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
 import { buttonVariants } from "@/components/ui/button"
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 
 interface NavProps {
-  isCollapsed: boolean;
+  isCollapsed: boolean
   links: {
-    title: string;
-    label?: string;
-    icon: LucideIcon;
-    variant: "default" | "ghost";
-  }[];
+    title: string
+    label?: string
+    icon: LucideIcon
+    variant: "default" | "ghost"
+  }[]
 }
 
 export function Nav({ links, isCollapsed }: NavProps) {
@@ -43,9 +47,9 @@ export function Nav({ links, isCollapsed }: NavProps) {
               <TooltipContent side="right" className="flex items-center gap-4">
                 {link.title}
                 {link.label && (
-                              <Badge className="ml-auto flex size-5 shrink-0 items-center justify-center rounded-full cursor-pointer">
-              {link.label}
-            </Badge>
+                  <Badge className="ml-auto flex size-5 shrink-0 cursor-pointer items-center justify-center rounded-full">
+                    {link.label}
+                  </Badge>
                 )}
               </TooltipContent>
             </Tooltip>
@@ -56,7 +60,7 @@ export function Nav({ links, isCollapsed }: NavProps) {
                 buttonVariants({ variant: link.variant, size: "sm" }),
                 link.variant === "default" &&
                   "group dark:bg-muted dark:text-foreground dark:hover:bg-muted dark:hover:text-foreground",
-                "justify-start cursor-pointer"
+                "cursor-pointer justify-start"
               )}
             >
               <link.icon className="mr-2 size-4" />
@@ -77,5 +81,5 @@ export function Nav({ links, isCollapsed }: NavProps) {
         )}
       </nav>
     </div>
-  );
+  )
 }

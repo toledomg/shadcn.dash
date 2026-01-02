@@ -9,6 +9,8 @@ O projeto utiliza uma combinação de ferramentas de ponta:
 - **Framework Core:** [Next.js 15](https://nextjs.org/) (App Router) & [React 19](https://react.dev/)
 - **Linguagem:** [TypeScript](https://www.typescriptlang.org/)
 - **Estilização:** [Tailwind CSS v4](https://tailwindcss.com/) (com `@theme` inline e variáveis CSS nativas)
+- **Code Quality:** Prettier (Tailwind Class Sorting + Import Sorting)
+- **Segurança:** Validação de variáveis de ambiente com [T3 Env](https://env.t3.gg/) & Zod
 - **Componentes UI:** [shadcn/ui](https://ui.shadcn.com/) (Radix UI + Tailwind)
 - **Gerenciamento de Estado:** [Zustand](https://github.com/pmndrs/zustand) (estados globais) & Context API
 - **Formulários:** React Hook Form + Zod (validação)

@@ -2,9 +2,9 @@
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
+import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Checkbox } from "@/components/ui/checkbox"
 
 export function SignupForm2({
   className,
@@ -45,11 +45,17 @@ export function SignupForm2({
           <Checkbox id="terms" required />
           <Label htmlFor="terms" className="text-sm">
             I agree to the{" "}
-            <a href="#" className="underline underline-offset-4 hover:text-primary">
+            <a
+              href="#"
+              className="hover:text-primary underline underline-offset-4"
+            >
               Terms of Service
             </a>{" "}
             and{" "}
-            <a href="#" className="underline underline-offset-4 hover:text-primary">
+            <a
+              href="#"
+              className="hover:text-primary underline underline-offset-4"
+            >
               Privacy Policy
             </a>
           </Label>

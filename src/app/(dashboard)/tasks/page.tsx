@@ -33,12 +33,12 @@ export default function TaskPage() {
   }, [])
 
   const handleAddTask = (newTask: Task) => {
-    setTasks(prev => [newTask, ...prev])
+    setTasks((prev) => [newTask, ...prev])
   }
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-96">
+      <div className="flex h-96 items-center justify-center">
         <div className="text-muted-foreground">Loading tasks...</div>
       </div>
     )
@@ -48,18 +48,18 @@ export default function TaskPage() {
     <>
       {/* Mobile view placeholder - shows message instead of images */}
       <div className="md:hidden">
-        <div className="flex items-center justify-center h-96 border rounded-lg bg-muted/20">
-          <div className="text-center p-8">
-            <h3 className="text-lg font-semibold mb-2">Tasks Dashboard</h3>
+        <div className="bg-muted/20 flex h-96 items-center justify-center rounded-lg border">
+          <div className="p-8 text-center">
+            <h3 className="mb-2 text-lg font-semibold">Tasks Dashboard</h3>
             <p className="text-muted-foreground">
               Please use a larger screen to view the full tasks interface.
             </p>
           </div>
         </div>
       </div>
-      
+
       {/* Desktop view */}
-      <div className="hidden h-full flex-1 flex-col px-4 md:px-6 md:flex">
+      <div className="hidden h-full flex-1 flex-col px-4 md:flex md:px-6">
         <DataTable data={tasks} columns={columns} onAddTask={handleAddTask} />
       </div>
     </>

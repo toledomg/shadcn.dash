@@ -3,9 +3,10 @@
 import * as React from "react"
 import { Moon, Sun } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
-import { useTheme } from "@/hooks/use-theme"
 import { useCircularTransition } from "@/hooks/use-circular-transition"
+import { useTheme } from "@/hooks/use-theme"
+import { Button } from "@/components/ui/button"
+
 import "./theme-customizer/circular-transition.css"
 
 interface ModeToggleProps {
@@ -26,14 +27,20 @@ export function ModeToggle({ variant = "outline" }: ModeToggleProps) {
       } else if (theme === "light") {
         setIsDarkMode(false)
       } else {
-        setIsDarkMode(typeof window !== "undefined" && window.matchMedia("(prefers-color-scheme: dark)").matches)
+        setIsDarkMode(
+          typeof window !== "undefined" &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches
+        )
       }
     }
 
     updateMode()
 
     // Listen for system theme changes
-    const mediaQuery = typeof window !== "undefined" ? window.matchMedia("(prefers-color-scheme: dark)") : null
+    const mediaQuery =
+      typeof window !== "undefined"
+        ? window.matchMedia("(prefers-color-scheme: dark)")
+        : null
     if (mediaQuery) {
       mediaQuery.addEventListener("change", updateMode)
     }
@@ -54,13 +61,13 @@ export function ModeToggle({ variant = "outline" }: ModeToggleProps) {
       variant={variant}
       size="icon"
       onClick={handleToggle}
-      className="cursor-pointer mode-toggle-button relative overflow-hidden"
+      className="mode-toggle-button relative cursor-pointer overflow-hidden"
     >
       {/* Show the icon for the mode you can switch TO */}
       {isDarkMode ? (
-        <Sun className="h-[1.2rem] w-[1.2rem] transition-transform duration-300 rotate-0 scale-100" />
+        <Sun className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-transform duration-300" />
       ) : (
-        <Moon className="h-[1.2rem] w-[1.2rem] transition-transform duration-300 rotate-0 scale-100" />
+        <Moon className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-transform duration-300" />
       )}
       <span className="sr-only">
         Switch to {isDarkMode ? "light" : "dark"} mode

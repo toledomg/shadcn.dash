@@ -1,30 +1,30 @@
 "use client"
 
-import { useState, useRef } from "react"
+import { useRef, useState } from "react"
 import {
-  Send,
-  Paperclip,
-  Smile,
-  Image as ImageIcon,
   FileText,
+  Image as ImageIcon,
   Mic,
-  MoreHorizontal
+  MoreHorizontal,
+  Paperclip,
+  Send,
+  Smile,
 } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { Textarea } from "@/components/ui/textarea"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { Textarea } from "@/components/ui/textarea"
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
-  TooltipTrigger
+  TooltipTrigger,
 } from "@/components/ui/tooltip"
 
 interface MessageInputProps {
@@ -36,7 +36,7 @@ interface MessageInputProps {
 export function MessageInput({
   onSendMessage,
   disabled = false,
-  placeholder = "Type a message..."
+  placeholder = "Type a message...",
 }: MessageInputProps) {
   const [message, setMessage] = useState("")
   const [isTyping, setIsTyping] = useState(false)
@@ -114,14 +114,14 @@ export function MessageInput({
                 onClick={() => handleFileUpload("image")}
                 className="cursor-pointer"
               >
-                <ImageIcon className="h-4 w-4 mr-2" />
+                <ImageIcon className="mr-2 h-4 w-4" />
                 Photo or video
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => handleFileUpload("file")}
                 className="cursor-pointer"
               >
-                <FileText className="h-4 w-4 mr-2" />
+                <FileText className="mr-2 h-4 w-4" />
                 Document
               </DropdownMenuItem>
             </DropdownMenuContent>
@@ -129,7 +129,7 @@ export function MessageInput({
         </TooltipProvider>
 
         {/* Message input */}
-        <div className="flex-1 relative">
+        <div className="relative flex-1">
           <Textarea
             ref={textareaRef}
             placeholder={placeholder}
@@ -138,7 +138,7 @@ export function MessageInput({
             onKeyDown={handleKeyPress}
             disabled={disabled}
             className={cn(
-              "min-h-[40px] max-h-[120px] resize-none cursor-text disabled:cursor-not-allowed",
+              "max-h-[120px] min-h-[40px] cursor-text resize-none disabled:cursor-not-allowed",
               "pr-20" // Space for emoji and more buttons
             )}
             rows={1}
@@ -153,7 +153,7 @@ export function MessageInput({
                     variant="ghost"
                     size="sm"
                     disabled={disabled}
-                    className="h-6 w-6 p-0 cursor-pointer disabled:cursor-not-allowed"
+                    className="h-6 w-6 cursor-pointer p-0 disabled:cursor-not-allowed"
                   >
                     <Smile className="h-4 w-4" />
                   </Button>
@@ -171,7 +171,7 @@ export function MessageInput({
                     variant="ghost"
                     size="sm"
                     disabled={disabled}
-                    className="h-6 w-6 p-0 cursor-pointer disabled:cursor-not-allowed"
+                    className="h-6 w-6 cursor-pointer p-0 disabled:cursor-not-allowed"
                   >
                     <MoreHorizontal className="h-4 w-4" />
                   </Button>
@@ -216,7 +216,7 @@ export function MessageInput({
 
       {/* Typing indicator */}
       {isTyping && (
-        <div className="text-xs text-muted-foreground mt-2">
+        <div className="text-muted-foreground mt-2 text-xs">
           You are typing...
         </div>
       )}

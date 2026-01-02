@@ -3,16 +3,49 @@
 import * as React from "react"
 import { Label, Pie, PieChart, Sector } from "recharts"
 import type { PieSectorDataItem } from "recharts/types/polar/Pie"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { ChartContainer, ChartStyle, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+
 import { Button } from "@/components/ui/button"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import {
+  ChartContainer,
+  ChartStyle,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
 const revenueData = [
-  { category: "subscriptions", value: 45, amount: 24500, fill: "var(--color-subscriptions)" },
+  {
+    category: "subscriptions",
+    value: 45,
+    amount: 24500,
+    fill: "var(--color-subscriptions)",
+  },
   { category: "sales", value: 30, amount: 16300, fill: "var(--color-sales)" },
-  { category: "services", value: 15, amount: 8150, fill: "var(--color-services)" },
-  { category: "partnerships", value: 10, amount: 5430, fill: "var(--color-partnerships)" },
+  {
+    category: "services",
+    value: 15,
+    amount: 8150,
+    fill: "var(--color-services)",
+  },
+  {
+    category: "partnerships",
+    value: 10,
+    amount: 5430,
+    fill: "var(--color-partnerships)",
+  },
 ]
 
 const chartConfig = {
@@ -27,7 +60,7 @@ const chartConfig = {
     color: "var(--chart-1)",
   },
   sales: {
-    label: "One-time Sales", 
+    label: "One-time Sales",
     color: "var(--chart-2)",
   },
   services: {
@@ -48,13 +81,16 @@ export function RevenueBreakdown() {
     () => revenueData.findIndex((item) => item.category === activeCategory),
     [activeCategory]
   )
-  
-  const categories = React.useMemo(() => revenueData.map((item) => item.category), [])
+
+  const categories = React.useMemo(
+    () => revenueData.map((item) => item.category),
+    []
+  )
 
   return (
-    <Card data-chart={id} className="flex flex-col cursor-pointer">
+    <Card data-chart={id} className="flex cursor-pointer flex-col">
       <ChartStyle id={id} config={chartConfig} />
-      <CardHeader className="flex flex-col space-y-2 sm:flex-row sm:items-center sm:justify-between sm:space-y-0 pb-2">
+      <CardHeader className="flex flex-col space-y-2 pb-2 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
         <div>
           <CardTitle>Revenue Breakdown</CardTitle>
           <CardDescription>Revenue distribution by source</CardDescription>
@@ -62,7 +98,7 @@ export function RevenueBreakdown() {
         <div className="flex items-center space-x-2">
           <Select value={activeCategory} onValueChange={setActiveCategory}>
             <SelectTrigger
-              className="w-[175px] rounded-lg cursor-pointer"
+              className="w-[175px] cursor-pointer rounded-lg"
               aria-label="Select a category"
             >
               <SelectValue placeholder="Select category" />
@@ -79,11 +115,11 @@ export function RevenueBreakdown() {
                   <SelectItem
                     key={key}
                     value={key}
-                    className="rounded-md [&_span]:flex cursor-pointer"
+                    className="cursor-pointer rounded-md [&_span]:flex"
                   >
                     <div className="flex items-center gap-2">
                       <span
-                        className="flex h-3 w-3 shrink-0 "
+                        className="flex h-3 w-3 shrink-0"
                         style={{
                           backgroundColor: `var(--color-${key})`,
                         }}
@@ -101,7 +137,7 @@ export function RevenueBreakdown() {
         </div>
       </CardHeader>
       <CardContent className="flex flex-1 justify-center">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full">
+        <div className="grid w-full grid-cols-1 gap-6 lg:grid-cols-2">
           <div className="flex justify-center">
             <ChartContainer
               id={id}
@@ -149,7 +185,11 @@ export function RevenueBreakdown() {
                               y={viewBox.cy}
                               className="fill-foreground text-3xl font-bold"
                             >
-                              ${(revenueData[activeIndex].amount / 1000).toFixed(0)}K
+                              $
+                              {(revenueData[activeIndex].amount / 1000).toFixed(
+                                0
+                              )}
+                              K
                             </tspan>
                             <tspan
                               x={viewBox.cx}
@@ -167,17 +207,18 @@ export function RevenueBreakdown() {
               </PieChart>
             </ChartContainer>
           </div>
-          
+
           <div className="flex flex-col justify-center space-y-4">
             {revenueData.map((item, index) => {
-              const config = chartConfig[item.category as keyof typeof chartConfig]
+              const config =
+                chartConfig[item.category as keyof typeof chartConfig]
               const isActive = index === activeIndex
-              
+
               return (
-                <div 
+                <div
                   key={item.category}
-                  className={`flex items-center justify-between p-3 rounded-lg transition-colors cursor-pointer ${
-                    isActive ? 'bg-muted' : 'hover:bg-muted/50'
+                  className={`flex cursor-pointer items-center justify-between rounded-lg p-3 transition-colors ${
+                    isActive ? "bg-muted" : "hover:bg-muted/50"
                   }`}
                   onClick={() => setActiveCategory(item.category)}
                 >
@@ -191,8 +232,12 @@ export function RevenueBreakdown() {
                     <span className="font-medium">{config?.label}</span>
                   </div>
                   <div className="text-right">
-                    <div className="font-bold">${(item.amount / 1000).toFixed(1)}K</div>
-                    <div className="text-sm text-muted-foreground">{item.value}%</div>
+                    <div className="font-bold">
+                      ${(item.amount / 1000).toFixed(1)}K
+                    </div>
+                    <div className="text-muted-foreground text-sm">
+                      {item.value}%
+                    </div>
                   </div>
                 </div>
               )
