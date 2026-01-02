@@ -2,6 +2,98 @@
 
 Este projeto é um dashboard moderno e robusto construído com a stack mais recente do ecossistema React. Ele serve como um template inicial de alta qualidade, focado em performance, acessibilidade e experiência de desenvolvimento.
 
+## 🌟 Por Que Usar Este Template?
+
+### 🆓 Completamente Gratuito & Open Source
+
+- **Licença MIT** - Use em projetos pessoais e comerciais
+- **Sem restrições** - Modifique, distribua e venda
+- **Comunidade ativa** - Contribuições são bem-vindas
+
+### 🏢 Pronto para Produção
+
+- **Código de qualidade** - Limpo, manutenível e escalável
+- **Design profissional** - Interface moderna que impressiona
+- **Templates completos** - Dashboard + Landing page incluídos
+
+### 🌍 Internacionalização Completa
+
+- **Suporte multilíngue** - Português (BR) e Inglês nativamente
+- **next-intl integrado** - Sistema robusto de tradução
+- **Fácil expansão** - Adicione novos idiomas facilmente
+
+### 🎨 Temas Avançados
+
+- **Dark/Light mode** - Alternância suave entre temas
+- **Customização ao vivo** - Veja mudanças em tempo real
+- **Múltiplos layouts** - Variantes de sidebar e opções colapsáveis
+
+### ⚡ Amigável ao Desenvolvedor
+
+- **Stack moderna** - Next.js 15, React 19, TypeScript, Tailwind CSS v4
+- **Type safety** - Cobertura completa de TypeScript
+- **Bem documentado** - Código claro e comentado
+- **DX excelente** - Desenvolvimento rápido com Turbopack
+
+## 📋 Funcionalidades e Páginas Incluídas
+
+### 🖥️ Páginas de Dashboard
+
+- **Dashboard Overview** - Visão geral com cards analíticos e gráficos
+- **Dashboard v2** - Dashboard alternativo com métricas diferentes
+
+### 📱 Demonstrações de Aplicativos
+
+- **📧 Mail** - Interface completa de email (Inbox, Leitura, Composição)
+- **✅ Tasks** - Gerenciamento de tarefas com drag & drop
+- **💬 Chat** - Interface de chat em tempo real
+- **📅 Calendar** - Agendamento e gerenciamento de eventos
+- **👥 Users** - Gerenciamento de usuários com tabelas avançadas
+
+### 🔐 Autenticação
+
+- **Login** - 3 variantes de página de login com layouts diferentes
+- **Cadastro** - 3 variantes de página de registro com designs variados
+- **Recuperação de Senha** - 3 variantes de página de recuperação de senha
+
+### ⚙️ Configurações & Perfil
+
+- **Configurações de Usuário** - Gerencie informações pessoais e preferências
+- **Conta** - Gerenciamento de perfil
+- **Planos & Cobrança** - Páginas de assinatura e pagamento
+- **Aparência** - Preferências de tema e exibição
+- **Notificações** - Preferências de notificação
+- **Conexões** - Integrações de redes sociais
+
+### ❌ Páginas de Erro
+
+- **404** - Página não encontrada
+- **401** - Acesso não autorizado
+- **403** - Proibido
+- **500** - Erro interno do servidor
+- **Em Manutenção** - Página de modo de manutenção
+
+### 🌐 Template de Landing Page
+
+- **Hero Section** - Headlines atraentes e CTAs
+- **Sobre** - Introdução da empresa/produto com elementos interativos
+- **Recursos** - Destaques de produto/serviço com ícones
+- **Estatísticas** - Exibição de métricas e conquistas principais
+- **Carrossel de Logos** - Showcase de logos de parceiros/clientes
+- **Equipe** - Perfis e informações dos membros da equipe
+- **Depoimentos** - Avaliações de clientes e prova social
+- **Blog** - Últimas postagens e artigos do blog
+- **Preços** - Tabelas de preços e planos
+- **FAQ** - Perguntas frequentes com respostas expansíveis
+- **Contato** - Formulários de contato e informações
+- **CTA Section** - Componentes de call-to-action
+- **Navegação & Footer** - Componentes completos de navegação e rodapé
+
+### 📄 Páginas Adicionais
+
+- **FAQ** - Perguntas frequentes
+- **Preços** - Páginas detalhadas de preços
+
 ## 🚀 Tecnologias e Stack
 
 O projeto utiliza uma combinação de ferramentas de ponta:
